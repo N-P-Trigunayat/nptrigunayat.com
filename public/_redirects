@@ -1,0 +1,25 @@
+/               /pages/index.html  200
+/about          /pages/about.html  200
+/contact        /pages/contact.html  200
+/portfolio      /pages/portfolio.html  200
+/pricing        /pages/pricing.html  200
+/services       /pages/services.html  200
+/testimonials   /pages/testimonials.html  200
+
+/case-studies/aromcraft     /Case-Studies/AromaCraft.html  200
+/case-studies/dancevibe     /Case-Studies/DanceVibe.html  200
+/case-studies/fitzone       /Case-Studies/FitZone.html  200
+/case-studies/glowskin      /Case-Studies/GlowSkin.html  200
+/case-studies/pawhaven      /Case-Studies/PawHaven.html  200
+/case-studies/sharmas       /Case-Studies/Sharmas.html  200
+
+/portfolio-pages/analytics  /Portfolio-Pages/Analytics.html  200
+/portfolio-pages/connecthub /Portfolio-Pages/ConnectHub.html  200
+/portfolio-pages/fitpro     /Portfolio-Pages/FitPro.html  200
+/portfolio-pages/inventory  /Portfolio-Pages/inventory-system/Inventory.html  200
+/portfolio-pages/shopup     /Portfolio-Pages/ShopUp.html  200
+/portfolio-pages/techvision /Portfolio-Pages/TechVision/TechVision.html  200
+
+/images/*                   /Images/:splat  200
+
+/*                          /pages/:splat.html  200

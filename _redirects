@@ -25,4 +25,4 @@
 
 /images/*                   /Images/:splat  200
 
-/*                          /public/pages/:splat.html  200
+

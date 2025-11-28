@@ -1,15 +1,6 @@
-<<<<<<< HEAD
 name = "nptrigunayat-router"
 type = "javascript"
 main = "src/index.js"
 
 [env.production]
 name = "nptrigunayat-router-prod"
-=======
-name = "nptrigunayat-router"
-type = "javascript"
-main = "src/index.js"
-
-[env.production]
-name = "nptrigunayat-router-prod"
->>>>>>> 41fe2cd (Add .gitignore and remove node_modules)

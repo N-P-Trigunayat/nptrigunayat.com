@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 # Static assets served normally
 /Images/* /Images/:splat 200
 /sources/* /sources/:splat 200
 
 # Everything else handled by the Worker
+=======
+# Static assets served normally
+/Images/* /Images/:splat 200
+/sources/* /sources/:splat 200
+
+# Everything else handled by the Worker
+>>>>>>> 41fe2cd (Add .gitignore and remove node_modules)

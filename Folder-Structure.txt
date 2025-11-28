@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 nptrigunayat.com/
 ├── Folder-Structure.txt
 ├── Images/
@@ -40,3 +41,47 @@ nptrigunayat.com/
     └── sources/
         ├── app.js
         └── style.css
+=======
+nptrigunayat.com/
+├── Folder-Structure.txt
+├── Images/
+│   ├── Analytics.png
+│   ├── ConnectHub.png
+│   ├── FitPro.png
+│   ├── Inventory.png
+│   ├── Logo.png
+│   ├── ShopHub.png
+│   └── TechVision.png
+└── public/
+    ├── _redirects
+    ├── Case-Studies/
+    │   ├── AromaCraft.html
+    │   ├── DanceVibe.html
+    │   ├── FitZone.html
+    │   ├── GlowSkin.html
+    │   ├── PawHaven.html
+    │   └── Sharmas.html
+    ├── pages/
+    │   ├── about.html
+    │   ├── contact.html
+    │   ├── index.html
+    │   ├── portfolio.html
+    │   ├── pricing.html
+    │   ├── services.html
+    │   └── testimonials.html
+    ├── Portfolio-Pages/
+    │   ├── Analytics.html
+    │   ├── ConnectHub.html
+    │   ├── FitPro.html
+    │   ├── inventory-system/
+    │   │   ├── app.js
+    │   │   └── Inventory.html
+    │   ├── ShopUp.html
+    │   └── TechVision/
+    │       ├── app.js
+    │       ├── style.css
+    │       └── TechVision.html
+    └── sources/
+        ├── app.js
+        └── style.css
+>>>>>>> 41fe2cd (Add .gitignore and remove node_modules)

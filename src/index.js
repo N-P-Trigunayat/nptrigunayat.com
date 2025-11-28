@@ -28,21 +28,19 @@ export default {
       '/portfolio-pages/fitpro': '/public/Portfolio-Pages/FitPro.html',
       '/portfolio-pages/inventory': '/public/Portfolio-Pages/inventory-system/Inventory.html',
       '/portfolio-pages/shopup': '/public/Portfolio-Pages/ShopUp.html',
-      '/portfolio-pages/techvision': '/public/Portfolio-Pages/TechVision/TechVision.html',
+      '/portfolio-pages/techvision': '/public/Portfolio-Pages/TechVision/TechVision.html'
     };
 
     const filePath = urlMap[pathname];
 
     if (filePath) {
       try {
-        // Fetch from Pages
         const response = await fetch(new URL(filePath, request.url).toString());
         
         if (!response.ok) {
           return new Response('Not found', { status: 404 });
         }
 
-        // If it's HTML, inject <base> tag
         const contentType = response.headers.get('content-type') || '';
         if (contentType.includes('text/html')) {
           const text = await response.text();
@@ -52,7 +50,7 @@ export default {
           );
           return new Response(modified, {
             status: 200,
-            headers: { 'content-type': 'text/html; charset=utf-8' },
+            headers: { 'content-type': 'text/html; charset=utf-8' }
           });
         }
 
@@ -63,5 +61,6 @@ export default {
       }
     }
 
-    // For unmapped routes, return 404
-    return new Response('
+    return new Response('Not found', { status: 404 });
+  }
+};

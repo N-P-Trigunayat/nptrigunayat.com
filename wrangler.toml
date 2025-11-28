@@ -1,7 +1,0 @@
-name = "nptrigunayat-com"
-type = "javascript"
-main = "src/index.js"
-compatibility_date = "2025-11-28"
-
-[env.production]
-name = "nptrigunayat-router-prod"

@@ -1,0 +1,5 @@
+# Static assets served normally
+/Images/* /Images/:splat 200
+/sources/* /sources/:splat 200
+
+# Everything else handled by the Worker

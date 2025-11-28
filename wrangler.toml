@@ -1,0 +1,6 @@
+name = "nptrigunayat-router"
+type = "javascript"
+main = "src/index.js"
+
+[env.production]
+name = "nptrigunayat-router-prod"

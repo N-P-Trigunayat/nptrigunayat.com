@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitPro - Complete Gym Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="../../Images/Logo.png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Smooth Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        /* Card Hover Effects */
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Button Ripple Effect */
+        .btn-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-ripple:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: white;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
+        }
+
+        .toast.success { background: #10b981; }
+        .toast.error { background: #ef4444; }
+        .toast.info { background: #3b82f6; }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Stats Counter Animation */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        /* Dark Mode Support */
+        .dark-mode {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+        }
+
+        .dark-mode .bg-white {
+            background: #1f2937 !important;
+            color: white;
+        }
+
+        /* Skeleton Loader */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Responsive Grid */
+        .grid-auto-fit {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Footer Hover Effect */
+        .footer-brand:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="min-h-screen"></div>
+
+    <script>
+        // ============================================
+        // STATE MANAGEMENT
+        // ============================================
+        const AppState = {
+            currentUser: null,
+            currentPage: 'home',
+            darkMode: false,
+            members: [],
+            trainers: [],
+            classes: [],
+            memberships: [],
+            bookings: []
+        };
+
+        // ============================================
+        // DEMO DATA
+        // ============================================
+        const DEMO_DATA = {
+            trainers: [
+                {
+                    id: 1,
+                    name: 'Rajesh Kumar',
+                    specialization: ['Strength Training', 'Powerlifting'],
+                    experience: 8,
+                    bio: 'Certified strength coach with expertise in building muscle and power. Former national powerlifting champion.',
+                    image: 'https://randomuser.me/api/portraits/men/1.jpg',
+                    clientsTrained: 150,
+                    certifications: ['NSCA-CPT', 'USA Powerlifting Level 2']
+                },
+                {
+                    id: 2,
+                    name: 'Priya Sharma',
+                    specialization: ['Yoga', 'Flexibility', 'Mindfulness'],
+                    experience: 6,
+                    bio: 'Certified yoga instructor specializing in Hatha and Vinyasa yoga. Helping clients find balance and inner peace.',
+                    image: 'https://randomuser.me/api/portraits/women/2.jpg',
+                    clientsTrained: 200,
+                    certifications: ['RYT-500', 'Meditation Teacher']
+                },
+                {
+                    id: 3,
+                    name: 'Amit Patel',
+                    specialization: ['HIIT', 'Weight Loss', 'Cardio'],
+                    experience: 5,
+                    bio: 'High-intensity interval training specialist. Transformed over 100 clients with custom fat-loss programs.',
+                    image: 'https://randomuser.me/api/portraits/men/3.jpg',
+                    clientsTrained: 120,
+                    certifications: ['ACE-CPT', 'Nutrition Coach']
+                },
+                {
+                    id: 4,
+                    name: 'Sneha Reddy',
+                    specialization: ['CrossFit', 'Functional Training'],
+                    experience: 7,
+                    bio: 'CrossFit Level 3 trainer focused on functional movements and athletic performance.',
+                    image: 'https://randomuser.me/api/portraits/women/4.jpg',
+                    clientsTrained: 180,
+                    certifications: ['CrossFit L3', 'Olympic Weightlifting']
+                },
+                {
+                    id: 5,
+                    name: 'Vikram Singh',
+                    specialization: ['Bodybuilding', 'Nutrition'],
+                    experience: 10,
+                    bio: 'Professional bodybuilder and nutrition expert. Specializes in muscle hypertrophy and competition prep.',
+                    image: 'https://randomuser.me/api/portraits/men/5.jpg',
+                    clientsTrained: 220,
+                    certifications: ['IFBB Pro Card', 'Sports Nutritionist']
+                }
+            ],
+            classes: [
+                { id: 1, name: 'Morning Yoga', type: 'Yoga', trainer: 'Priya Sharma', time: '06:00', day: 'Monday', maxCapacity: 20, enrolled: 15 },
+                { id: 2, name: 'Strength & Power', type: 'Strength', trainer: 'Rajesh Kumar', time: '07:00', day: 'Monday', maxCapacity: 15, enrolled: 12 },
+                { id: 3, name: 'HIIT Blast', type: 'HIIT', trainer: 'Amit Patel', time: '18:00', day: 'Monday', maxCapacity: 25, enrolled: 20 },
+                { id: 4, name: 'CrossFit WOD', type: 'CrossFit', trainer: 'Sneha Reddy', time: '19:00', day: 'Monday', maxCapacity: 20, enrolled: 18 },
+                { id: 5, name: 'Evening Yoga Flow', type: 'Yoga', trainer: 'Priya Sharma', time: '06:00', day: 'Tuesday', maxCapacity: 20, enrolled: 16 },
+                { id: 6, name: 'Powerlifting', type: 'Strength', trainer: 'Rajesh Kumar', time: '07:30', day: 'Tuesday', maxCapacity: 12, enrolled: 10 },
+                { id: 7, name: 'Cardio Burn', type: 'Cardio', trainer: 'Amit Patel', time: '18:30', day: 'Tuesday', maxCapacity: 30, enrolled: 25 },
+                { id: 8, name: 'Bodybuilding Basics', type: 'Bodybuilding', trainer: 'Vikram Singh', time: '20:00', day: 'Tuesday', maxCapacity: 15, enrolled: 13 },
+                { id: 9, name: 'Sunrise Yoga', type: 'Yoga', trainer: 'Priya Sharma', time: '06:00', day: 'Wednesday', maxCapacity: 20, enrolled: 17 },
+                { id: 10, name: 'Functional Fitness', type: 'CrossFit', trainer: 'Sneha Reddy', time: '17:00', day: 'Wednesday', maxCapacity: 20, enrolled: 15 }
+            ],
+            memberships: [
+                {
+                    id: 1,
+                    name: 'Monthly Basic',
+                    price: 2499,
+                    duration: '1 Month',
+                    features: ['Access to gym equipment', 'Locker facility', 'Free fitness assessment', 'Mobile app access']
+                },
+                {
+                    id: 2,
+                    name: 'Quarterly Pro',
+                    price: 6999,
+                    duration: '3 Months',
+                    features: ['All Basic features', 'Group classes included', '1 personal training session/month', 'Nutrition guidance', 'Priority booking'],
+                    popular: true
+                },
+                {
+                    id: 3,
+                    name: 'Annual Elite',
+                    price: 24999,
+                    duration: '12 Months',
+                    features: ['All Pro features', 'Unlimited personal training', 'Free supplements worth ₹5000', 'Guest passes (2/month)', 'Locker with laundry service', 'Diet chart by nutritionist']
+                },
+                {
+                    id: 4,
+                    name: 'VIP Platinum',
+                    price: 49999,
+                    duration: '12 Months',
+                    features: ['All Elite features', 'Dedicated personal trainer', 'Spa & steam access', 'Customized meal plans', 'Home workout plans', '24/7 gym access', 'Exclusive VIP lounge']
+                }
+            ],
+            members: [
+                { id: 1, name: 'Arjun Verma', email: 'arjun@example.com', phone: '9876543210', plan: 'Quarterly Pro', status: 'Active', joinDate: '2024-09-15', expiryDate: '2024-12-15' },
+                { id: 2, name: 'Kavya Iyer', email: 'kavya@example.com', phone: '9876543211', plan: 'Annual Elite', status: 'Active', joinDate: '2024-01-10', expiryDate: '2025-01-10' },
+                { id: 3, name: 'Rohit Malhotra', email: 'rohit@example.com', phone: '9876543212', plan: 'Monthly Basic', status: 'Expired', joinDate: '2024-10-01', expiryDate: '2024-11-01' },
+                { id: 4, name: 'Ananya Das', email: 'ananya@example.com', phone: '9876543213', plan: 'VIP Platinum', status: 'Active', joinDate: '2024-05-20', expiryDate: '2025-05-20' },
+                { id: 5, name: 'Siddharth Rao', email: 'sid@example.com', phone: '9876543214', plan: 'Quarterly Pro', status: 'Active', joinDate: '2024-10-15', expiryDate: '2025-01-15' }
+            ]
+        };
+
+        // Demo credentials
+        const DEMO_USERS = {
+            admin: { email: 'admin@fitpro.com', password: 'admin123', role: 'admin', name: 'Admin User' },
+            member: { email: 'member@fitpro.com', password: 'member123', role: 'member', name: 'Demo Member', memberId: 1 },
+            trainer: { email: 'trainer@fitpro.com', password: 'trainer123', role: 'trainer', name: 'Demo Trainer' }
+        };
+
+        // WhatsApp Configuration (Demo)
+        const WHATSAPP_CONFIG = {
+            businessNumber: '919876543210', // Demo number
+            getUrl: (message) => `https://wa.me/${WHATSAPP_CONFIG.businessNumber}?text=${encodeURIComponent(message)}`
+        };
+
+        // Initialize data
+        AppState.trainers = [...DEMO_DATA.trainers];
+        AppState.classes = [...DEMO_DATA.classes];
+        AppState.memberships = [...DEMO_DATA.memberships];
+        AppState.members = [...DEMO_DATA.members];
+
+        // ============================================
+        // UTILITY FUNCTIONS
+        // ============================================
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} mr-2"></i>${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function formatCurrency(amount) {
+            return `₹${amount.toLocaleString('en-IN')}`;
+        }
+
+        function navigateTo(page) {
+            AppState.currentPage = page;
+            render();
+        }
+
+        function logout() {
+            AppState.currentUser = null;
+            navigateTo('home');
+            showToast('Logged out successfully', 'info');
+        }
+
+        function openWhatsApp(message) {
+            window.open(WHATSAPP_CONFIG.getUrl(message), '_blank');
+        }
+
+        // ============================================
+        // COMPONENTS
+        // ============================================
+
+        // Navigation Component
+        function Navbar() {
+            const { currentUser } = AppState;
+            return `
+                <nav class="bg-white shadow-lg sticky top-0 z-50 fade-in">
+                    <div class="container mx-auto px-4 py-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center space-x-2 cursor-pointer" onclick="navigateTo('home')">
+                                <i class="fas fa-dumbbell text-3xl text-purple-600"></i>
+                                <span class="text-2xl font-bold gradient-text">FitPro</span>
+                            </div>
+                            
+                            <div class="hidden md:flex space-x-6 items-center">
+                                ${!currentUser ? `
+                                    <a onclick="navigateTo('home')" class="cursor-pointer hover:text-purple-600 transition">Home</a>
+                                    <a onclick="navigateTo('memberships')" class="cursor-pointer hover:text-purple-600 transition">Memberships</a>
+                                    <a onclick="navigateTo('classes')" class="cursor-pointer hover:text-purple-600 transition">Classes</a>
+                                    <a onclick="navigateTo('trainers')" class="cursor-pointer hover:text-purple-600 transition">Trainers</a>
+                                    <a onclick="navigateTo('contact')" class="cursor-pointer hover:text-purple-600 transition">Contact</a>
+                                    <button onclick="navigateTo('login')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition btn-ripple">Login</button>
+                                ` : `
+                                    <span class="text-gray-700">Welcome, ${currentUser.name}</span>
+                                    <button onclick="navigateTo('${currentUser.role}-dashboard')" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition btn-ripple">Dashboard</button>
+                                    <button onclick="logout()" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition btn-ripple">Logout</button>
+                                `}
+                            </div>
+
+                            <button class="md:hidden text-2xl" onclick="toggleMobileMenu()">
+                                <i class="fas fa-bars"></i>
+                            </button>
+                        </div>
+                    </div>
+                </nav>
+            `;
+        }
+
+        // Footer Component
+        function Footer() {
+            return `
+                <footer class="bg-gray-900 text-white py-8 mt-16">
+                    <div class="container mx-auto px-4">
+                        <div class="grid md:grid-cols-4 gap-8 mb-8">
+                            <div>
+                                <div class="flex items-center space-x-2 mb-4">
+                                    <i class="fas fa-dumbbell text-2xl text-purple-500"></i>
+                                    <span class="text-xl font-bold">FitPro</span>
+                                </div>
+                                <p class="text-gray-400">Your journey to fitness excellence starts here.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-4">Quick Links</h4>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li><a onclick="navigateTo('memberships')" class="cursor-pointer hover:text-white transition">Memberships</a></li>
+                                    <li><a onclick="navigateTo('classes')" class="cursor-pointer hover:text-white transition">Classes</a></li>
+                                    <li><a onclick="navigateTo('trainers')" class="cursor-pointer hover:text-white transition">Trainers</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-4">Contact</h4>
+                                <ul class="space-y-2 text-gray-400">
+                                    <li><i class="fas fa-phone mr-2"></i>+91 98765 43210</li>
+                                    <li><i class="fas fa-envelope mr-2"></i>info@fitpro.com</li>
+                                    <li><i class="fas fa-map-marker-alt mr-2"></i>Mumbai, India</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold mb-4">Follow Us</h4>
+                                <div class="flex space-x-4">
+                                    <a href="#" class="text-2xl hover:text-purple-500 transition"><i class="fab fa-facebook"></i></a>
+                                    <a href="#" class="text-2xl hover:text-purple-500 transition"><i class="fab fa-instagram"></i></a>
+                                    <a href="#" class="text-2xl hover:text-purple-500 transition"><i class="fab fa-twitter"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-800 pt-8 text-center">
+                            <p class="text-gray-400 footer-brand">Built with ❤️ in India · Powered by N. P. TRIGUNAYAT SYSTEMS</p>
+                        </div>
+                    </div>
+                </footer>
+            `;
+        }
+
+        // Home Page
+        function HomePage() {
+            return `
+                <div class="fade-in">
+                    <!-- Hero Section -->
+                    <section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-20">
+                        <div class="container mx-auto px-4 text-center">
+                            <h1 class="text-5xl md:text-6xl font-bold mb-6">Transform Your Body, Transform Your Life</h1>
+                            <p class="text-xl mb-8 text-purple-100">Join FitPro and achieve your fitness goals with expert trainers and world-class facilities</p>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <button onclick="navigateTo('memberships')" class="bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition btn-ripple">Join Now</button>
+                                <button onclick="navigateTo('classes')" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-purple-600 transition btn-ripple">View Classes</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Stats Section -->
+                    <section class="py-16 bg-white">
+                        <div class="container mx-auto px-4">
+                            <div class="grid md:grid-cols-4 gap-8 text-center">
+                                <div class="card-hover">
+                                    <div class="stat-number gradient-text">500+</div>
+                                    <p class="text-gray-600 text-lg">Active Members</p>
+                                </div>
+                                <div class="card-hover">
+                                    <div class="stat-number gradient-text">5</div>
+                                    <p class="text-gray-600 text-lg">Expert Trainers</p>
+                                </div>
+                                <div class="card-hover">
+                                    <div class="stat-number gradient-text">50+</div>
+                                    <p class="text-gray-600 text-lg">Weekly Classes</p>
+                                </div>
+                                <div class="card-hover">
+                                    <div class="stat-number gradient-text">98%</div>
+                                    <p class="text-gray-600 text-lg">Success Rate</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Features Section -->
+                    <section class="py-16 bg-gray-50">
+                        <div class="container mx-auto px-4">
+                            <h2 class="text-4xl font-bold text-center mb-12 gradient-text">Why Choose FitPro?</h2>
+                            <div class="grid md:grid-cols-3 gap-8">
+                                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                                    <i class="fas fa-users text-5xl text-purple-600 mb-4"></i>
+                                    <h3 class="text-2xl font-semibold mb-4">Expert Trainers</h3>
+                                    <p class="text-gray-600">Work with certified professionals who are dedicated to your success</p>
+                                </div>
+                                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                                    <i class="fas fa-calendar-check text-5xl text-purple-600 mb-4"></i>
+                                    <h3 class="text-2xl font-semibold mb-4">Flexible Scheduling</h3>
+                                    <p class="text-gray-600">Book classes that fit your schedule with our easy booking system</p>
+                                </div>
+                                <div class="bg-white p-8 rounded-xl shadow-lg card-hover">
+                                    <i class="fab fa-whatsapp text-5xl text-green-600 mb-4"></i>
+                                    <h3 class="text-2xl font-semibold mb-4">WhatsApp Support</h3>
+                                    <p class="text-gray-600">Quick assistance and booking confirmations via WhatsApp</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Memberships Page
+        function MembershipsPage() {
+            return `
+                <div class="fade-in">
+                    <section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+                        <div class="container mx-auto px-4 text-center">
+                            <h1 class="text-5xl font-bold mb-4">Choose Your Plan</h1>
+                            <p class="text-xl text-purple-100">Select the membership that fits your fitness journey</p>
+                        </div>
+                    </section>
+
+                    <section class="py-16 bg-gray-50">
+                        <div class="container mx-auto px-4">
+                            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                                ${AppState.memberships.map(plan => `
+                                    <div class="bg-white rounded-xl shadow-xl overflow-hidden card-hover ${plan.popular ? 'ring-4 ring-purple-500' : ''}">
+                                        ${plan.popular ? '<div class="bg-purple-600 text-white text-center py-2 font-semibold">MOST POPULAR</div>' : ''}
+                                        <div class="p-8">
+                                            <h3 class="text-2xl font-bold mb-2">${plan.name}</h3>
+                                            <div class="text-4xl font-bold mb-4 gradient-text">${formatCurrency(plan.price)}</div>
+                                            <p class="text-gray-600 mb-6">${plan.duration}</p>
+                                            <ul class="space-y-3 mb-8">
+                                                ${plan.features.map(feature => `
+                                                    <li class="flex items-start">
+                                                        <i class="fas fa-check text-green-500 mr-2 mt-1"></i>
+                                                        <span class="text-gray-700">${feature}</span>
+                                                    </li>
+                                                `).join('')}
+                                            </ul>
+                                            <button onclick="joinViaWhatsApp('${plan.name}', ${plan.price})" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition btn-ripple flex items-center justify-center">
+                                                <i class="fab fa-whatsapp mr-2"></i> Join via WhatsApp
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Classes Page
+        function ClassesPage() {
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const selectedDay = AppState.selectedDay || 'Monday';
+
+            return `
+                <div class="fade-in">
+                    <section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+                        <div class="container mx-auto px-4 text-center">
+                            <h1 class="text-5xl font-bold mb-4">Our Classes</h1>
+                            <p class="text-xl text-purple-100">Find the perfect class for your fitness goals</p>
+                        </div>
+                    </section>
+
+                    <section class="py-16 bg-gray-50">
+                        <div class="container mx-auto px-4">
+                            <!-- Day Filter -->
+                            <div class="mb-8 flex flex-wrap gap-2 justify-center">
+                                ${days.map(day => `
+                                    <button onclick="filterByDay('${day}')" class="px-6 py-2 rounded-lg font-semibold transition btn-ripple ${selectedDay === day ? 'bg-purple-600 text-white' : 'bg-white text-gray-700 hover:bg-purple-100'}">
+                                        ${day}
+                                    </button>
+                                `).join('')}
+                            </div>
+
+                            <!-- Classes Grid -->
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${AppState.classes.filter(c => c.day === selectedDay).map(cls => {
+                                    const spotsLeft = cls.maxCapacity - cls.enrolled;
+                                    const percentFull = (cls.enrolled / cls.maxCapacity) * 100;
+                                    return `
+                                        <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover">
+                                            <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white p-6">
+                                                <h3 class="text-2xl font-bold mb-2">${cls.name}</h3>
+                                                <p class="text-purple-100">${cls.type}</p>
+                                            </div>
+                                            <div class="p-6">
+                                                <div class="space-y-3 mb-6">
+                                                    <div class="flex items-center text-gray-700">
+                                                        <i class="fas fa-clock mr-3 text-purple-600"></i>
+                                                        <span>${cls.time}</span>
+                                                    </div>
+                                                    <div class="flex items-center text-gray-700">
+                                                        <i class="fas fa-user mr-3 text-purple-600"></i>
+                                                        <span>${cls.trainer}</span>
+                                                    </div>
+                                                    <div class="flex items-center text-gray-700">
+                                                        <i class="fas fa-users mr-3 text-purple-600"></i>
+                                                        <span>${spotsLeft} spots left (${cls.enrolled}/${cls.maxCapacity})</span>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <div class="bg-gray-200 rounded-full h-2">
+                                                        <div class="bg-purple-600 h-2 rounded-full" style="width: ${percentFull}%"></div>
+                                                    </div>
+                                                </div>
+                                                <button onclick="bookClassWhatsApp('${cls.name}', '${selectedDay}', '${cls.time}')" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition btn-ripple flex items-center justify-center">
+                                                    <i class="fab fa-whatsapp mr-2"></i> Book via WhatsApp
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Trainers Page
+        function TrainersPage() {
+            return `
+                <div class="fade-in">
+                    <section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+                        <div class="container mx-auto px-4 text-center">
+                            <h1 class="text-5xl font-bold mb-4">Our Expert Trainers</h1>
+                            <p class="text-xl text-purple-100">Meet the professionals who will guide your fitness journey</p>
+                        </div>
+                    </section>
+
+                    <section class="py-16 bg-gray-50">
+                        <div class="container mx-auto px-4">
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                ${AppState.trainers.map(trainer => `
+                                    <div class="bg-white rounded-xl shadow-xl overflow-hidden card-hover cursor-pointer" onclick="viewTrainerDetail(${trainer.id})">
+                                        <img src="${trainer.image}" alt="${trainer.name}" class="w-full h-64 object-cover">
+                                        <div class="p-6">
+                                            <h3 class="text-2xl font-bold mb-2">${trainer.name}</h3>
+                                            <p class="text-purple-600 font-semibold mb-4">${trainer.specialization.join(', ')}</p>
+                                            <div class="space-y-2 mb-4 text-gray-700">
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-medal mr-2 text-yellow-500"></i>
+                                                    <span>${trainer.experience} years experience</span>
+                                                </div>
+                                                <div class="flex items-center">
+                                                    <i class="fas fa-user-check mr-2 text-green-500"></i>
+                                                    <span>${trainer.clientsTrained}+ clients trained</span>
+                                                </div>
+                                            </div>
+                                            <p class="text-gray-600 mb-4 line-clamp-2">${trainer.bio}</p>
+                                            <button onclick="event.stopPropagation(); bookTrainerWhatsApp('${trainer.name}')" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition btn-ripple flex items-center justify-center">
+                                                <i class="fab fa-whatsapp mr-2"></i> Book Session
+                                            </button>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Contact Page
+        function ContactPage() {
+            return `
+                <div class="fade-in">
+                    <section class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-16">
+                        <div class="container mx-auto px-4 text-center">
+                            <h1 class="text-5xl font-bold mb-4">Get In Touch</h1>
+                            <p class="text-xl text-purple-100">We're here to help you start your fitness journey</p>
+                        </div>
+                    </section>
+
+                    <section class="py-16 bg-gray-50">
+                        <div class="container mx-auto px-4">
+                            <div class="grid md:grid-cols-2 gap-12">
+                                <!-- Contact Form -->
+                                <div class="bg-white p-8 rounded-xl shadow-lg">
+                                    <h2 class="text-3xl font-bold mb-6">Send Us a Message</h2>
+                                    <form onsubmit="handleContactForm(event)">
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-semibold mb-2">Name</label>
+                                            <input type="text" id="contactName" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-semibold mb-2">Email</label>
+                                            <input type="email" id="contactEmail" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        </div>
+                                        <div class="mb-4">
+                                            <label class="block text-gray-700 font-semibold mb-2">Phone</label>
+                                            <input type="tel" id="contactPhone" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        </div>
+                                        <div class="mb-6">
+                                            <label class="block text-gray-700 font-semibold mb-2">Message</label>
+                                            <textarea id="contactMessage" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600"></textarea>
+                                        </div>
+                                        <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition btn-ripple">Send Message</button>
+                                    </form>
+                                </div>
+
+                                <!-- Contact Info -->
+                                <div>
+                                    <div class="bg-white p-8 rounded-xl shadow-lg mb-6">
+                                        <h2 class="text-3xl font-bold mb-6">Contact Information</h2>
+                                        <div class="space-y-4">
+                                            <div class="flex items-start">
+                                                <i class="fas fa-map-marker-alt text-purple-600 text-2xl mr-4 mt-1"></i>
+                                                <div>
+                                                    <h4 class="font-semibold">Address</h4>
+                                                    <p class="text-gray-600">123 Fitness Street, Andheri West<br>Mumbai, Maharashtra 400053</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start">
+                                                <i class="fas fa-phone text-purple-600 text-2xl mr-4 mt-1"></i>
+                                                <div>
+                                                    <h4 class="font-semibold">Phone</h4>
+                                                    <p class="text-gray-600">+91 98765 43210</p>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-start">
+                                                <i class="fas fa-envelope text-purple-600 text-2xl mr-4 mt-1"></i>
+                                                <div>
+                                                    <h4 class="font-semibold">Email</h4>
+                                                    <p class="text-gray-600">info@fitpro.com</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <button onclick="contactWhatsApp()" class="w-full bg-green-500 text-white py-4 rounded-lg font-semibold hover:bg-green-600 transition btn-ripple flex items-center justify-center text-lg">
+                                        <i class="fab fa-whatsapp mr-2 text-2xl"></i> Chat on WhatsApp
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            `;
+        }
+
+        // Login Page
+        function LoginPage() {
+            return `
+                <div class="min-h-screen flex items-center justify-center py-12 px-4 fade-in" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-md">
+                        <div class="text-center mb-8">
+                            <i class="fas fa-dumbbell text-5xl text-purple-600 mb-4"></i>
+                            <h2 class="text-3xl font-bold gradient-text">Welcome Back</h2>
+                            <p class="text-gray-600 mt-2">Login to access your account</p>
+                        </div>
+
+                        <form onsubmit="handleLogin(event)">
+                            <div class="mb-4">
+                                <label class="block text-gray-700 font-semibold mb-2">Email</label>
+                                <input type="email" id="loginEmail" value="admin@fitpro.com" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                            </div>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 font-semibold mb-2">Password</label>
+                                <input type="password" id="loginPassword" value="admin123" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                            </div>
+                            <button type="submit" class="w-full bg-purple-600 text-white py-3 rounded-lg font-semibold hover:bg-purple-700 transition btn-ripple mb-4">Login</button>
+                        </form>
+
+                        <div class="border-t pt-4">
+                            <p class="text-sm text-gray-600 mb-2">Demo Credentials:</p>
+                            <div class="text-xs text-gray-500 space-y-1">
+                                <p><strong>Admin:</strong> admin@fitpro.com / admin123</p>
+                                <p><strong>Member:</strong> member@fitpro.com / member123</p>
+                                <p><strong>Trainer:</strong> trainer@fitpro.com / trainer123</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Admin Dashboard
+        function AdminDashboard() {
+            const activeMembers = AppState.members.filter(m => m.status === 'Active').length;
+            const totalClasses = AppState.classes.length;
+            const totalTrainers = AppState.trainers.length;
+            const adminTab = AppState.adminTab || 'overview';
+
+            return `
+                <div class="min-h-screen bg-gray-100 fade-in">
+                    <div class="bg-white shadow">
+                        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                            <h1 class="text-2xl font-bold gradient-text">Admin Dashboard</h1>
+                            <div class="flex gap-3">
+                                <button onclick="navigateTo('home')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+                                    <i class="fas fa-home mr-2"></i>Home
+                                </button>
+                                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Navigation -->
+                    <div class="bg-white shadow-sm">
+                        <div class="container mx-auto px-4">
+                            <div class="flex space-x-1 overflow-x-auto">
+                                <button onclick="setAdminTab('overview')" class="px-6 py-3 font-semibold transition ${adminTab === 'overview' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-chart-line mr-2"></i>Overview
+                                </button>
+                                <button onclick="setAdminTab('members')" class="px-6 py-3 font-semibold transition ${adminTab === 'members' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-users mr-2"></i>Members
+                                </button>
+                                <button onclick="setAdminTab('classes')" class="px-6 py-3 font-semibold transition ${adminTab === 'classes' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-calendar mr-2"></i>Classes
+                                </button>
+                                <button onclick="setAdminTab('trainers')" class="px-6 py-3 font-semibold transition ${adminTab === 'trainers' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-dumbbell mr-2"></i>Trainers
+                                </button>
+                                <button onclick="setAdminTab('revenue')" class="px-6 py-3 font-semibold transition ${adminTab === 'revenue' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-rupee-sign mr-2"></i>Revenue
+                                </button>
+                                <button onclick="setAdminTab('attendance')" class="px-6 py-3 font-semibold transition ${adminTab === 'attendance' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-clipboard-check mr-2"></i>Attendance
+                                </button>
+                                <button onclick="setAdminTab('reports')" class="px-6 py-3 font-semibold transition ${adminTab === 'reports' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-file-alt mr-2"></i>Reports
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container mx-auto px-4 py-8">
+                        ${adminTab === 'overview' ? AdminOverviewTab(activeMembers, totalClasses, totalTrainers) : ''}
+                        ${adminTab === 'members' ? AdminMembersTab() : ''}
+                        ${adminTab === 'classes' ? AdminClassesTab() : ''}
+                        ${adminTab === 'trainers' ? AdminTrainersTab() : ''}
+                        ${adminTab === 'revenue' ? AdminRevenueTab() : ''}
+                        ${adminTab === 'attendance' ? AdminAttendanceTab() : ''}
+                        ${adminTab === 'reports' ? AdminReportsTab() : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Admin Overview Tab
+        function AdminOverviewTab(activeMembers, totalClasses, totalTrainers) {
+            const totalRevenue = AppState.members.reduce((sum, m) => {
+                const plan = AppState.memberships.find(p => p.name === m.plan);
+                return sum + (plan ? plan.price : 0);
+            }, 0);
+
+            return `
+                        <!-- Stats Overview -->
+                        <div class="grid md:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Total Members</p>
+                                        <p class="text-3xl font-bold text-purple-600">${AppState.members.length}</p>
+                                    </div>
+                                    <i class="fas fa-users text-4xl text-purple-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Active Members</p>
+                                        <p class="text-3xl font-bold text-green-600">${activeMembers}</p>
+                                    </div>
+                                    <i class="fas fa-user-check text-4xl text-green-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Total Classes</p>
+                                        <p class="text-3xl font-bold text-blue-600">${totalClasses}</p>
+                                    </div>
+                                    <i class="fas fa-calendar text-4xl text-blue-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Trainers</p>
+                                        <p class="text-3xl font-bold text-orange-600">${totalTrainers}</p>
+                                    </div>
+                                    <i class="fas fa-dumbbell text-4xl text-orange-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Total Revenue</p>
+                                        <p class="text-3xl font-bold text-indigo-600">${formatCurrency(totalRevenue)}</p>
+                                    </div>
+                                    <i class="fas fa-rupee-sign text-4xl text-indigo-600"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="setAdminTab('members')">
+                                <i class="fas fa-user-plus text-3xl mb-3"></i>
+                                <h3 class="text-xl font-bold">Add New Member</h3>
+                                <p class="text-purple-100 text-sm mt-2">Register new gym members</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="setAdminTab('classes')">
+                                <i class="fas fa-calendar-plus text-3xl mb-3"></i>
+                                <h3 class="text-xl font-bold">Schedule Class</h3>
+                                <p class="text-blue-100 text-sm mt-2">Add new fitness classes</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="setAdminTab('reports')">
+                                <i class="fas fa-chart-bar text-3xl mb-3"></i>
+                                <h3 class="text-xl font-bold">View Reports</h3>
+                                <p class="text-green-100 text-sm mt-2">Analytics and insights</p>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Recent Activity</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 bg-green-50 rounded-lg">
+                                    <i class="fas fa-user-check text-green-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">New Member Joined</p>
+                                        <p class="text-sm text-gray-600">Arjun Verma joined Quarterly Pro - 2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-calendar text-blue-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">Class Fully Booked</p>
+                                        <p class="text-sm text-gray-600">HIIT Blast (Monday 6PM) - 4 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-orange-50 rounded-lg">
+                                    <i class="fas fa-exclamation-triangle text-orange-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">Membership Expiring Soon</p>
+                                        <p class="text-sm text-gray-600">3 memberships expiring in next 7 days</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-purple-50 rounded-lg">
+                                    <i class="fas fa-rupee-sign text-purple-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">Payment Received</p>
+                                        <p class="text-sm text-gray-600">Ananya Das renewed VIP Platinum - 1 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Upcoming Classes Today -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Today's Classes</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                ${AppState.classes.slice(0, 4).map(cls => `
+                                    <div class="border-l-4 border-purple-600 bg-gray-50 p-4 rounded">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-bold text-lg">${cls.name}</h3>
+                                            <span class="text-sm bg-purple-100 text-purple-700 px-2 py-1 rounded">${cls.time}</span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-1"><i class="fas fa-user mr-2"></i>${cls.trainer}</p>
+                                        <p class="text-gray-600 text-sm"><i class="fas fa-users mr-2"></i>${cls.enrolled}/${cls.maxCapacity} enrolled</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Admin Members Tab
+        function AdminMembersTab() {
+            const filterStatus = AppState.memberFilter || 'all';
+            const filteredMembers = filterStatus === 'all' 
+                ? AppState.members 
+                : AppState.members.filter(m => m.status.toLowerCase() === filterStatus);
+
+            return `
+                        <!-- Members Management -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
+                                <h2 class="text-2xl font-bold">Members Management</h2>
+                                <div class="flex gap-3">
+                                    <select onchange="filterMembers(this.value)" class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600">
+                                        <option value="all" ${filterStatus === 'all' ? 'selected' : ''}>All Members</option>
+                                        <option value="active" ${filterStatus === 'active' ? 'selected' : ''}>Active</option>
+                                        <option value="expired" ${filterStatus === 'expired' ? 'selected' : ''}>Expired</option>
+                                    </select>
+                                <button onclick="showAddMemberModal()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition btn-ripple">
+                                    <i class="fas fa-plus mr-2"></i> Add Member
+                                </button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Name</th>
+                                            <th class="px-4 py-3 text-left">Email</th>
+                                            <th class="px-4 py-3 text-left">Plan</th>
+                                            <th class="px-4 py-3 text-left">Status</th>
+                                            <th class="px-4 py-3 text-left">Expiry</th>
+                                            <th class="px-4 py-3 text-left">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${AppState.members.map(member => `
+                                            <tr class="border-b hover:bg-gray-50">
+                                                <td class="px-4 py-3">${member.name}</td>
+                                                <td class="px-4 py-3">${member.email}</td>
+                                                <td class="px-4 py-3">${member.plan}</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="px-3 py-1 rounded-full text-sm font-semibold ${member.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                                        ${member.status}
+                                                    </span>
+                                                </td>
+                                                <td class="px-4 py-3">${member.expiryDate}</td>
+                                                <td class="px-4 py-3">
+                                                    <button onclick="editMember(${member.id})" class="text-blue-600 hover:text-blue-800 mr-3">
+                                                        <i class="fas fa-edit"></i>
+                                                    </button>
+                                                    <button onclick="deleteMember(${member.id})" class="text-red-600 hover:text-red-800">
+                                                        <i class="fas fa-trash"></i>                                    </button>
+                                </td>
+                            </tr>
+                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Membership Statistics -->
+                        <div class="grid md:grid-cols-4 gap-6">
+                            ${AppState.memberships.map(plan => {
+                                const count = AppState.members.filter(m => m.plan === plan.name).length;
+                                return `
+                                    <div class="bg-white rounded-lg shadow p-6">
+                                        <h3 class="font-semibold text-gray-700 mb-2">${plan.name}</h3>
+                                        <p class="text-3xl font-bold text-purple-600">${count}</p>
+                                        <p class="text-sm text-gray-500 mt-1">members</p>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+            `;
+        }
+
+        // Admin Classes Tab
+        function AdminClassesTab() {
+            return `
+                        <!-- Classes Management -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Classes Management</h2>
+                                <button onclick="showAddClassModal()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition btn-ripple">
+                                    <i class="fas fa-plus mr-2"></i> Add Class
+                                </button>
+                            </div>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                ${AppState.classes.slice(0, 6).map(cls => `
+                                    <div class="border rounded-lg p-4 hover:shadow-lg transition">
+                                        <h3 class="font-bold text-lg mb-2">${cls.name}</h3>
+                                        <p class="text-gray-600 text-sm mb-1"><i class="fas fa-user mr-1"></i> ${cls.trainer}</p>
+                                        <p class="text-gray-600 text-sm mb-1"><i class="fas fa-clock mr-1"></i> ${cls.day} ${cls.time}</p>
+                                        <p class="text-gray-600 text-sm"><i class="fas fa-users mr-1"></i> ${cls.enrolled}/${cls.maxCapacity} enrolled</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Class Schedule by Day -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Weekly Schedule Overview</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Day</th>
+                                            <th class="px-4 py-3 text-left">Total Classes</th>
+                                            <th class="px-4 py-3 text-left">Total Capacity</th>
+                                            <th class="px-4 py-3 text-left">Enrolled</th>
+                                            <th class="px-4 py-3 text-left">Occupancy</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map(day => {
+                                            const dayClasses = AppState.classes.filter(c => c.day === day);
+                                            const totalCapacity = dayClasses.reduce((sum, c) => sum + c.maxCapacity, 0);
+                                            const totalEnrolled = dayClasses.reduce((sum, c) => sum + c.enrolled, 0);
+                                            const occupancy = totalCapacity > 0 ? Math.round((totalEnrolled / totalCapacity) * 100) : 0;
+                                            return `
+                                                <tr class="border-b hover:bg-gray-50">
+                                                    <td class="px-4 py-3 font-semibold">${day}</td>
+                                                    <td class="px-4 py-3">${dayClasses.length}</td>
+                                                    <td class="px-4 py-3">${totalCapacity}</td>
+                                                    <td class="px-4 py-3">${totalEnrolled}</td>
+                                                    <td class="px-4 py-3">
+                                                        <div class="flex items-center">
+                                                            <div class="w-24 bg-gray-200 rounded-full h-2 mr-2">
+                                                                <div class="bg-purple-600 h-2 rounded-full" style="width: ${occupancy}%"></div>
+                                                            </div>
+                                                            <span class="text-sm font-semibold">${occupancy}%</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Admin Trainers Tab
+        function AdminTrainersTab() {
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <div class="flex justify-between items-center mb-6">
+                                <h2 class="text-2xl font-bold">Trainer Management</h2>
+                                <button onclick="showAddTrainerModal()" class="bg-purple-600 text-white px-6 py-2 rounded-lg hover:bg-purple-700 transition btn-ripple">
+                                    <i class="fas fa-plus mr-2"></i> Add Trainer
+                                </button>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                ${AppState.trainers.map(trainer => {
+                                    const trainerClasses = AppState.classes.filter(c => c.trainer === trainer.name);
+                                    return `
+                                        <div class="border rounded-lg p-6 hover:shadow-lg transition">
+                                            <div class="flex items-start gap-4">
+                                                <img src="${trainer.image}" alt="${trainer.name}" class="w-20 h-20 rounded-full object-cover">
+                                                <div class="flex-1">
+                                                    <h3 class="text-xl font-bold mb-1">${trainer.name}</h3>
+                                                    <p class="text-purple-600 text-sm font-semibold mb-2">${trainer.specialization.join(', ')}</p>
+                                                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-600 mb-3">
+                                                        <div><i class="fas fa-medal text-yellow-500 mr-1"></i>${trainer.experience} years</div>
+                                                        <div><i class="fas fa-users text-green-500 mr-1"></i>${trainer.clientsTrained}+ clients</div>
+                                                        <div><i class="fas fa-calendar text-blue-500 mr-1"></i>${trainerClasses.length} classes/week</div>
+                                                        <div><i class="fas fa-certificate text-purple-500 mr-1"></i>${trainer.certifications.length} certs</div>
+                                                    </div>
+                                                    <div class="flex gap-2">
+                                                        <button onclick="viewTrainerDetail(${trainer.id})" class="text-blue-600 hover:text-blue-800 text-sm font-semibold">
+                                                            <i class="fas fa-eye mr-1"></i>View
+                                                        </button>
+                                                        <button onclick="editTrainer(${trainer.id})" class="text-green-600 hover:text-green-800 text-sm font-semibold">
+                                                            <i class="fas fa-edit mr-1"></i>Edit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Trainer Performance -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Trainer Performance</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Trainer</th>
+                                            <th class="px-4 py-3 text-left">Specialization</th>
+                                            <th class="px-4 py-3 text-left">Classes/Week</th>
+                                            <th class="px-4 py-3 text-left">Avg Attendance</th>
+                                            <th class="px-4 py-3 text-left">Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${AppState.trainers.map(trainer => {
+                                            const trainerClasses = AppState.classes.filter(c => c.trainer === trainer.name);
+                                            const avgAttendance = trainerClasses.length > 0 
+                                                ? Math.round(trainerClasses.reduce((sum, c) => sum + (c.enrolled / c.maxCapacity * 100), 0) / trainerClasses.length)
+                                                : 0;
+                                            const rating = (4.2 + Math.random() * 0.8).toFixed(1);
+                                            return `
+                                                <tr class="border-b hover:bg-gray-50">
+                                                    <td class="px-4 py-3 font-semibold">${trainer.name}</td>
+                                                    <td class="px-4 py-3">${trainer.specialization[0]}</td>
+                                                    <td class="px-4 py-3">${trainerClasses.length}</td>
+                                                    <td class="px-4 py-3">${avgAttendance}%</td>
+                                                    <td class="px-4 py-3">
+                                                        <span class="flex items-center">
+                                                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                                                            ${rating}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Admin Revenue Tab
+        function AdminRevenueTab() {
+            const revenueByPlan = AppState.memberships.map(plan => {
+                const members = AppState.members.filter(m => m.plan === plan.name);
+                return {
+                    plan: plan.name,
+                    count: members.length,
+                    revenue: members.length * plan.price
+                };
+            });
+            const totalRevenue = revenueByPlan.reduce((sum, r) => sum + r.revenue, 0);
+
+            return `
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg">
+                                <p class="text-green-100 mb-2">Total Revenue</p>
+                                <p class="text-4xl font-bold">${formatCurrency(totalRevenue)}</p>
+                                <p class="text-green-100 text-sm mt-2"><i class="fas fa-arrow-up mr-1"></i>12% from last month</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
+                                <p class="text-blue-100 mb-2">This Month</p>
+                                <p class="text-4xl font-bold">${formatCurrency(Math.round(totalRevenue * 0.15))}</p>
+                                <p class="text-blue-100 text-sm mt-2">From ${AppState.members.filter(m => m.status === 'Active').length} active members</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg">
+                                <p class="text-purple-100 mb-2">Avg per Member</p>
+                                <p class="text-4xl font-bold">${formatCurrency(Math.round(totalRevenue / AppState.members.length))}</p>
+                                <p class="text-purple-100 text-sm mt-2">Lifetime value</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Revenue by Membership Plan</h2>
+                            <div class="space-y-4">
+                                ${revenueByPlan.map(item => {
+                                    const percentage = (item.revenue / totalRevenue * 100).toFixed(1);
+                                    return `
+                                        <div>
+                                            <div class="flex justify-between mb-2">
+                                                <span class="font-semibold">${item.plan}</span>
+                                                <span class="text-gray-600">${formatCurrency(item.revenue)} (${item.count} members)</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                                <div class="bg-gradient-to-r from-purple-600 to-indigo-600 h-3 rounded-full" style="width: ${percentage}%"></div>
+                                            </div>
+                                            <p class="text-sm text-gray-500 mt-1">${percentage}% of total revenue</p>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Recent Payments</h2>
+                                <div class="space-y-3">
+                                    ${AppState.members.slice(0, 5).map(member => {
+                                        const plan = AppState.memberships.find(p => p.name === member.plan);
+                                        return `
+                                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                                <div>
+                                                    <p class="font-semibold">${member.name}</p>
+                                                    <p class="text-sm text-gray-600">${member.plan}</p>
+                                                </div>
+                                                <div class="text-right">
+                                                    <p class="font-bold text-green-600">${formatCurrency(plan?.price || 0)}</p>
+                                                    <p class="text-xs text-gray-500">${member.joinDate}</p>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Pending Renewals</h2>
+                                <div class="space-y-3">
+                                    ${AppState.members.filter(m => m.status === 'Expired' || m.status === 'Active').slice(0, 5).map(member => {
+                                        return `
+                                            <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                                                <div>
+                                                    <p class="font-semibold">${member.name}</p>
+                                                    <p class="text-sm text-gray-600">${member.plan}</p>
+                                                </div>
+                                                <div class="text-right">
+                                                    <span class="px-3 py-1 rounded-full text-xs font-semibold ${member.status === 'Expired' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}">
+                                                        ${member.status === 'Expired' ? 'Expired' : 'Due Soon'}
+                                                    </span>
+                                                    <p class="text-xs text-gray-500 mt-1">${member.expiryDate}</p>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Admin Attendance Tab
+        function AdminAttendanceTab() {
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Daily Attendance</h2>
+                            <div class="grid md:grid-cols-7 gap-3">
+                                ${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day, i) => {
+                                    const attendance = 45 + Math.floor(Math.random() * 40);
+                                    return `
+                                        <div class="text-center p-4 rounded-lg ${i === new Date().getDay() - 1 ? 'bg-purple-100 border-2 border-purple-600' : 'bg-gray-50'}">
+                                            <p class="text-sm font-semibold text-gray-600 mb-2">${day}</p>
+                                            <p class="text-3xl font-bold text-purple-600">${attendance}</p>
+                                            <p class="text-xs text-gray-500 mt-1">members</p>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Class Attendance</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Class Name</th>
+                                            <th class="px-4 py-3 text-left">Day</th>
+                                            <th class="px-4 py-3 text-left">Time</th>
+                                            <th class="px-4 py-3 text-left">Trainer</th>
+                                            <th class="px-4 py-3 text-left">Enrolled</th>
+                                            <th class="px-4 py-3 text-left">Capacity</th>
+                                            <th class="px-4 py-3 text-left">Attendance %</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${AppState.classes.map(cls => {
+                                            const attendanceRate = Math.round((cls.enrolled / cls.maxCapacity) * 100);
+                                            return `
+                                                <tr class="border-b hover:bg-gray-50">
+                                                    <td class="px-4 py-3 font-semibold">${cls.name}</td>
+                                                    <td class="px-4 py-3">${cls.day}</td>
+                                                    <td class="px-4 py-3">${cls.time}</td>
+                                                    <td class="px-4 py-3">${cls.trainer}</td>
+                                                    <td class="px-4 py-3">${cls.enrolled}</td>
+                                                    <td class="px-4 py-3">${cls.maxCapacity}</td>
+                                                    <td class="px-4 py-3">
+                                                        <div class="flex items-center">
+                                                            <div class="w-20 bg-gray-200 rounded-full h-2 mr-2">
+                                                                <div class="h-2 rounded-full ${attendanceRate >= 80 ? 'bg-green-600' : attendanceRate >= 50 ? 'bg-yellow-600' : 'bg-red-600'}" style="width: ${attendanceRate}%"></div>
+                                                            </div>
+                                                            <span class="text-sm font-semibold">${attendanceRate}%</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Peak Hours</h2>
+                                <div class="space-y-3">
+                                    ${['06:00 - 08:00', '08:00 - 10:00', '17:00 - 19:00', '19:00 - 21:00'].map((time, i) => {
+                                        const members = [45, 32, 78, 65][i];
+                                        const percentage = Math.round((members / 100) * 100);
+                                        return `
+                                            <div>
+                                                <div class="flex justify-between mb-2">
+                                                    <span class="font-semibold">${time}</span>
+                                                    <span class="text-gray-600">${members} members</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-purple-600 h-2 rounded-full" style="width: ${percentage}%"></div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Monthly Trends</h2>
+                                <div class="space-y-3">
+                                    ${['January', 'February', 'March', 'April'].map(month => {
+                                        const avgAttendance = 60 + Math.floor(Math.random() * 25);
+                                        return `
+                                            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                                <span class="font-semibold">${month}</span>
+                                                <div class="text-right">
+                                                    <p class="text-2xl font-bold text-purple-600">${avgAttendance}%</p>
+                                                    <p class="text-xs text-gray-500">Avg attendance</p>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Admin Reports Tab
+        function AdminReportsTab() {
+            return `
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-white rounded-xl shadow-lg p-6 card-hover cursor-pointer" onclick="generateReport('members')">
+                                <i class="fas fa-users text-4xl text-purple-600 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Member Report</h3>
+                                <p class="text-gray-600">Complete member analytics and demographics</p>
+                                <button class="mt-4 text-purple-600 font-semibold hover:text-purple-700">
+                                    Generate Report <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 card-hover cursor-pointer" onclick="generateReport('revenue')">
+                                <i class="fas fa-rupee-sign text-4xl text-green-600 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Revenue Report</h3>
+                                <p class="text-gray-600">Financial overview and payment history</p>
+                                <button class="mt-4 text-green-600 font-semibold hover:text-green-700">
+                                    Generate Report <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                            <div class="bg-white rounded-xl shadow-lg p-6 card-hover cursor-pointer" onclick="generateReport('classes')">
+                                <i class="fas fa-calendar text-4xl text-blue-600 mb-4"></i>
+                                <h3 class="text-xl font-bold mb-2">Class Report</h3>
+                                <p class="text-gray-600">Class performance and attendance rates</p>
+                                <button class="mt-4 text-blue-600 font-semibold hover:text-blue-700">
+                                    Generate Report <i class="fas fa-arrow-right ml-1"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Export Options</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <button onclick="exportData('pdf')" class="flex items-center justify-center p-4 border-2 border-gray-300 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition">
+                                    <i class="fas fa-file-pdf text-3xl text-red-600 mr-3"></i>
+                                    <div class="text-left">
+                                        <p class="font-bold">Export as PDF</p>
+                                        <p class="text-sm text-gray-600">Printable format</p>
+                                    </div>
+                                </button>
+                                <button onclick="exportData('excel')" class="flex items-center justify-center p-4 border-2 border-gray-300 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition">
+                                    <i class="fas fa-file-excel text-3xl text-green-600 mr-3"></i>
+                                    <div class="text-left">
+                                        <p class="font-bold">Export as Excel</p>
+                                        <p class="text-sm text-gray-600">Spreadsheet format</p>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Key Performance Indicators</h2>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                    <p class="text-gray-600 mb-2">Member Retention</p>
+                                    <p class="text-4xl font-bold text-purple-600">92%</p>
+                                </div>
+                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                    <p class="text-gray-600 mb-2">Revenue Growth</p>
+                                    <p class="text-4xl font-bold text-green-600">+18%</p>
+                                </div>
+                                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                    <p class="text-gray-600 mb-2">Class Occupancy</p>
+                                    <p class="text-4xl font-bold text-blue-600">78%</p>
+                                </div>
+                                <div class="text-center p-4 bg-orange-50 rounded-lg">
+                                    <p class="text-gray-600 mb-2">Member Satisfaction</p>
+                                    <p class="text-4xl font-bold text-orange-600">4.7/5</p>
+                                </div>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Trainer Dashboard
+        function TrainerDashboard() {
+            const trainer = AppState.trainers[0]; // Demo: Rajesh Kumar
+            const trainerTab = AppState.trainerTab || 'overview';
+            const trainerClasses = AppState.classes.filter(c => c.trainer === trainer.name);
+
+            return `
+                <div class="min-h-screen bg-gray-100 fade-in">
+                    <div class="bg-white shadow">
+                        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                            <h1 class="text-2xl font-bold gradient-text">Trainer Dashboard</h1>
+                            <div class="flex gap-3">
+                                <button onclick="navigateTo('home')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+                                    <i class="fas fa-home mr-2"></i>Home
+                                </button>
+                                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Navigation -->
+                    <div class="bg-white shadow-sm">
+                        <div class="container mx-auto px-4">
+                            <div class="flex space-x-1 overflow-x-auto">
+                                <button onclick="setTrainerTab('overview')" class="px-6 py-3 font-semibold transition ${trainerTab === 'overview' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-chart-line mr-2"></i>Overview
+                                </button>
+                                <button onclick="setTrainerTab('classes')" class="px-6 py-3 font-semibold transition ${trainerTab === 'classes' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-calendar mr-2"></i>My Classes
+                                </button>
+                                <button onclick="setTrainerTab('students')" class="px-6 py-3 font-semibold transition ${trainerTab === 'students' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-users mr-2"></i>Students
+                                </button>
+                                <button onclick="setTrainerTab('schedule')" class="px-6 py-3 font-semibold transition ${trainerTab === 'schedule' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-clock mr-2"></i>Schedule
+                                </button>
+                                <button onclick="setTrainerTab('performance')" class="px-6 py-3 font-semibold transition ${trainerTab === 'performance' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-star mr-2"></i>Performance
+                                </button>
+                                <button onclick="setTrainerTab('earnings')" class="px-6 py-3 font-semibold transition ${trainerTab === 'earnings' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-rupee-sign mr-2"></i>Earnings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container mx-auto px-4 py-8">
+                        ${trainerTab === 'overview' ? TrainerOverviewTab(trainer, trainerClasses) : ''}
+                        ${trainerTab === 'classes' ? TrainerClassesTab(trainer, trainerClasses) : ''}
+                        ${trainerTab === 'students' ? TrainerStudentsTab(trainer) : ''}
+                        ${trainerTab === 'schedule' ? TrainerScheduleTab(trainer, trainerClasses) : ''}
+                        ${trainerTab === 'performance' ? TrainerPerformanceTab(trainer) : ''}
+                        ${trainerTab === 'earnings' ? TrainerEarningsTab(trainer) : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Trainer Overview Tab
+        function TrainerOverviewTab(trainer, trainerClasses) {
+            const totalStudents = trainerClasses.reduce((sum, c) => sum + c.enrolled, 0);
+            const avgRating = 4.8;
+            const totalSessions = 156;
+
+            return `
+                        <!-- Stats Overview -->
+                        <div class="grid md:grid-cols-4 gap-6 mb-8">
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Total Students</p>
+                                        <p class="text-3xl font-bold text-purple-600">${totalStudents}</p>
+                                    </div>
+                                    <i class="fas fa-users text-4xl text-purple-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Classes This Week</p>
+                                        <p class="text-3xl font-bold text-blue-600">${trainerClasses.length}</p>
+                                    </div>
+                                    <i class="fas fa-calendar-check text-4xl text-blue-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Average Rating</p>
+                                        <p class="text-3xl font-bold text-yellow-600">${avgRating}</p>
+                                    </div>
+                                    <i class="fas fa-star text-4xl text-yellow-600"></i>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-lg card-hover">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <p class="text-gray-600 mb-1">Total Sessions</p>
+                                        <p class="text-3xl font-bold text-green-600">${totalSessions}</p>
+                                    </div>
+                                    <i class="fas fa-dumbbell text-4xl text-green-600"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Actions -->
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="setTrainerTab('classes')">
+                                <i class="fas fa-clipboard-check text-3xl mb-3"></i>
+                                <h3 class="text-xl font-bold">Mark Attendance</h3>
+                                <p class="text-purple-100 text-sm mt-2">Track class attendance</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="setTrainerTab('students')">
+                                <i class="fas fa-user-plus text-3xl mb-3"></i>
+                                <h3 class="text-xl font-bold">View Students</h3>
+                                <p class="text-blue-100 text-sm mt-2">Manage student progress</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg card-hover cursor-pointer" onclick="setTrainerTab('performance')">
+                                <i class="fas fa-chart-bar text-3xl mb-3"></i>
+                                <h3 class="text-xl font-bold">View Performance</h3>
+                                <p class="text-green-100 text-sm mt-2">Check ratings & feedback</p>
+                            </div>
+                        </div>
+
+                        <!-- Today's Classes -->
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Today's Classes</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                ${trainerClasses.map(cls => `
+                                    <div class="border-l-4 border-purple-600 bg-gray-50 p-4 rounded">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="font-bold text-lg">${cls.name}</h3>
+                                            <span class="text-sm bg-purple-100 text-purple-700 px-2 py-1 rounded">${cls.time}</span>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-1"><i class="fas fa-calendar mr-2"></i>${cls.day}</p>
+                                        <p class="text-gray-600 text-sm mb-3"><i class="fas fa-users mr-2"></i>${cls.enrolled}/${cls.maxCapacity} enrolled</p>
+                                        <button onclick="markAttendance('${cls.name}')" class="text-purple-600 hover:text-purple-700 font-semibold text-sm">
+                                            <i class="fas fa-check-circle mr-1"></i>Mark Attendance
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Recent Activity</h2>
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 bg-green-50 rounded-lg">
+                                    <i class="fas fa-user-check text-green-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">New Student Joined</p>
+                                        <p class="text-sm text-gray-600">Arjun enrolled in Strength & Power - 2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-blue-50 rounded-lg">
+                                    <i class="fas fa-star text-blue-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">New 5-Star Review</p>
+                                        <p class="text-sm text-gray-600">"Excellent trainer!" from Kavya - 5 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 bg-purple-50 rounded-lg">
+                                    <i class="fas fa-trophy text-purple-600 text-2xl mr-4"></i>
+                                    <div>
+                                        <p class="font-semibold">Class Milestone</p>
+                                        <p class="text-sm text-gray-600">100% attendance in Monday's class - 1 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Trainer Classes Tab
+        function TrainerClassesTab(trainer, trainerClasses) {
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">My Classes</h2>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${trainerClasses.map(cls => {
+                                    const attendanceRate = Math.round((cls.enrolled / cls.maxCapacity) * 100);
+                                    return `
+                                        <div class="border rounded-xl p-6 hover:shadow-lg transition">
+                                            <div class="flex justify-between items-start mb-4">
+                                                <h3 class="font-bold text-xl">${cls.name}</h3>
+                                                <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-semibold">${cls.day}</span>
+                                            </div>
+                                            <div class="space-y-2 mb-4">
+                                                <p class="text-gray-600"><i class="fas fa-clock mr-2 text-purple-600"></i>${cls.time}</p>
+                                                <p class="text-gray-600"><i class="fas fa-users mr-2 text-purple-600"></i>${cls.enrolled}/${cls.maxCapacity} enrolled</p>
+                                            </div>
+                                            <div class="mb-4">
+                                                <p class="text-sm text-gray-600 mb-2">Capacity</p>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-purple-600 h-2 rounded-full" style="width: ${attendanceRate}%"></div>
+                                                </div>
+                                                <p class="text-xs text-gray-500 mt-1">${attendanceRate}% full</p>
+                                            </div>
+                                            <div class="flex gap-2">
+                                                <button onclick="markAttendance('${cls.name}')" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition text-sm">
+                                                    <i class="fas fa-check mr-1"></i>Attendance
+                                                </button>
+                                                <button onclick="addClassNote('${cls.name}')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition text-sm">
+                                                    <i class="fas fa-notes-medical mr-1"></i>Notes
+                                                </button>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+
+                        <!-- Class Statistics -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Class Performance</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Class Name</th>
+                                            <th class="px-4 py-3 text-left">Day</th>
+                                            <th class="px-4 py-3 text-left">Time</th>
+                                            <th class="px-4 py-3 text-left">Enrolled</th>
+                                            <th class="px-4 py-3 text-left">Avg Attendance</th>
+                                            <th class="px-4 py-3 text-left">Rating</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${trainerClasses.map(cls => {
+                                            const avgAttendance = 85 + Math.floor(Math.random() * 15);
+                                            const rating = (4.5 + Math.random() * 0.5).toFixed(1);
+                                            return `
+                                                <tr class="border-b hover:bg-gray-50">
+                                                    <td class="px-4 py-3 font-semibold">${cls.name}</td>
+                                                    <td class="px-4 py-3">${cls.day}</td>
+                                                    <td class="px-4 py-3">${cls.time}</td>
+                                                    <td class="px-4 py-3">${cls.enrolled}/${cls.maxCapacity}</td>
+                                                    <td class="px-4 py-3">${avgAttendance}%</td>
+                                                    <td class="px-4 py-3">
+                                                        <span class="flex items-center">
+                                                            <i class="fas fa-star text-yellow-500 mr-1"></i>
+                                                            ${rating}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Trainer Students Tab
+        function TrainerStudentsTab(trainer) {
+            const students = [
+                {id: 1, name: 'Arjun Verma', plan: 'Quarterly Pro', classesAttended: 18, progress: 'Excellent', phone: '9876543210'},
+                {id: 2, name: 'Kavya Iyer', plan: 'Annual Elite', classesAttended: 24, progress: 'Outstanding', phone: '9876543211'},
+                {id: 3, name: 'Rohit Malhotra', plan: 'Monthly Basic', classesAttended: 8, progress: 'Good', phone: '9876543212'},
+                {id: 4, name: 'Siddharth Rao', plan: 'Quarterly Pro', classesAttended: 15, progress: 'Very Good', phone: '9876543214'},
+                {id: 5, name: 'Priya Singh', plan: 'Annual Elite', classesAttended: 22, progress: 'Excellent', phone: '9876543215'}
+            ];
+
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">My Students</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Name</th>
+                                            <th class="px-4 py-3 text-left">Plan</th>
+                                            <th class="px-4 py-3 text-left">Classes Attended</th>
+                                            <th class="px-4 py-3 text-left">Progress</th>
+                                            <th class="px-4 py-3 text-left">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${students.map(student => `
+                                            <tr class="border-b hover:bg-gray-50">
+                                                <td class="px-4 py-3 font-semibold">${student.name}</td>
+                                                <td class="px-4 py-3">${student.plan}</td>
+                                                <td class="px-4 py-3">${student.classesAttended}</td>
+                                                <td class="px-4 py-3">
+                                                    <span class="px-3 py-1 rounded-full text-sm font-semibold ${
+                                                        student.progress === 'Outstanding' || student.progress === 'Excellent' ? 'bg-green-100 text-green-700' :
+                                                        student.progress === 'Very Good' ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700'
+                                                    }">
+                                                        ${student.progress}
+                                                    </span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <button onclick="contactStudentWhatsApp('${student.name}', '${student.phone}')" class="text-green-600 hover:text-green-700 mr-3">
+                                                        <i class="fab fa-whatsapp text-lg"></i>
+                                                    </button>
+                                                    <button onclick="viewStudentProgress(${student.id})" class="text-blue-600 hover:text-blue-700">
+                                                        <i class="fas fa-chart-line"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Student Progress Summary -->
+                        <div class="grid md:grid-cols-4 gap-6">
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <h3 class="font-semibold text-gray-700 mb-2">Outstanding</h3>
+                                <p class="text-3xl font-bold text-green-600">${students.filter(s => s.progress === 'Outstanding').length}</p>
+                            </div>
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <h3 class="font-semibold text-gray-700 mb-2">Excellent</h3>
+                                <p class="text-3xl font-bold text-blue-600">${students.filter(s => s.progress === 'Excellent').length}</p>
+                            </div>
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <h3 class="font-semibold text-gray-700 mb-2">Very Good</h3>
+                                <p class="text-3xl font-bold text-purple-600">${students.filter(s => s.progress === 'Very Good').length}</p>
+                            </div>
+                            <div class="bg-white rounded-lg shadow p-6">
+                                <h3 class="font-semibold text-gray-700 mb-2">Good</h3>
+                                <p class="text-3xl font-bold text-yellow-600">${students.filter(s => s.progress === 'Good').length}</p>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Trainer Schedule Tab
+        function TrainerScheduleTab(trainer, trainerClasses) {
+            const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Weekly Schedule</h2>
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class="bg-gray-50">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left">Day</th>
+                                            <th class="px-4 py-3 text-left">Classes</th>
+                                            <th class="px-4 py-3 text-left">Total Students</th>
+                                            <th class="px-4 py-3 text-left">Hours</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${days.map(day => {
+                                            const dayClasses = trainerClasses.filter(c => c.day === day);
+                                            const totalStudents = dayClasses.reduce((sum, c) => sum + c.enrolled, 0);
+                                            const hours = dayClasses.length * 1; // 1 hour per class
+                                            return `
+                                                <tr class="border-b hover:bg-gray-50">
+                                                    <td class="px-4 py-3 font-semibold">${day}</td>
+                                                    <td class="px-4 py-3">${dayClasses.length} classes</td>
+                                                    <td class="px-4 py-3">${totalStudents} students</td>
+                                                    <td class="px-4 py-3">${hours} hours</td>
+                                                </tr>
+                                            `;
+                                        }).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Teaching Hours Analysis -->
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Teaching Hours</h2>
+                                <div class="space-y-4">
+                                    <div class="flex justify-between items-center p-4 bg-purple-50 rounded-lg">
+                                        <span class="font-semibold">Total Hours/Week</span>
+                                        <span class="text-2xl font-bold text-purple-600">${trainerClasses.length}</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 bg-blue-50 rounded-lg">
+                                        <span class="font-semibold">Peak Day</span>
+                                        <span class="text-2xl font-bold text-blue-600">Monday</span>
+                                    </div>
+                                    <div class="flex justify-between items-center p-4 bg-green-50 rounded-lg">
+                                        <span class="font-semibold">Students/Week</span>
+                                        <span class="text-2xl font-bold text-green-600">${trainerClasses.reduce((sum, c) => sum + c.enrolled, 0)}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Peak Hours</h2>
+                                <div class="space-y-3">
+                                    ${['Morning (6AM-10AM)', 'Afternoon (12PM-4PM)', 'Evening (5PM-9PM)'].map((slot, i) => {
+                                        const classes = [2, 0, 0][i];
+                                        const percentage = (classes / trainerClasses.length) * 100;
+                                        return `
+                                            <div>
+                                                <div class="flex justify-between mb-2">
+                                                    <span class="font-semibold">${slot}</span>
+                                                    <span class="text-gray-600">${classes} classes</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-purple-600 h-2 rounded-full" style="width: ${percentage}%"></div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Trainer Performance Tab
+        function TrainerPerformanceTab(trainer) {
+            const rating = 4.8;
+            const reviews = [
+                {student: 'Arjun Verma', rating: 5, comment: 'Best trainer I\'ve ever had! Very knowledgeable and motivating.', date: '2024-11-20'},
+                {student: 'Kavya Iyer', rating: 5, comment: 'Excellent form corrections and great workout plans.', date: '2024-11-18'},
+                {student: 'Siddharth Rao', rating: 4, comment: 'Good trainer, very professional and punctual.', date: '2024-11-15'},
+                {student: 'Priya Singh', rating: 5, comment: 'Amazing results in just 2 months! Highly recommended.', date: '2024-11-12'}
+            ];
+
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Overall Rating</h2>
+                            <div class="flex items-center justify-center mb-8">
+                                <div class="text-center">
+                                    <p class="text-6xl font-bold text-purple-600 mb-2">${rating}</p>
+                                    <div class="flex justify-center mb-2">
+                                        ${Array(5).fill(0).map((_, i) => `
+                                            <i class="fas fa-star text-yellow-500 text-2xl mx-1"></i>
+                                        `).join('')}
+                                    </div>
+                                    <p class="text-gray-600">Based on ${reviews.length} reviews</p>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-6">
+                                <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                    <p class="text-3xl font-bold text-purple-600">95%</p>
+                                    <p class="text-gray-600 mt-2">Student Retention</p>
+                                </div>
+                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                    <p class="text-3xl font-bold text-green-600">88%</p>
+                                    <p class="text-gray-600 mt-2">Avg Class Attendance</p>
+                                </div>
+                                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                    <p class="text-3xl font-bold text-blue-600">92%</p>
+                                    <p class="text-gray-600 mt-2">Goal Achievement Rate</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student Reviews -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Student Reviews</h2>
+                            <div class="space-y-4">
+                                ${reviews.map(review => `
+                                    <div class="border rounded-lg p-6 hover:shadow-md transition">
+                                        <div class="flex justify-between items-start mb-3">
+                                            <div>
+                                                <p class="font-bold text-lg">${review.student}</p>
+                                                <div class="flex mt-1">
+                                                    ${Array(5).fill(0).map((_, i) => `
+                                                        <i class="fas fa-star ${i < review.rating ? 'text-yellow-500' : 'text-gray-300'} mr-1"></i>
+                                                    `).join('')}
+                                                </div>
+                                            </div>
+                                            <span class="text-sm text-gray-500">${review.date}</span>
+                                        </div>
+                                        <p class="text-gray-700">${review.comment}</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Trainer Earnings Tab
+        function TrainerEarningsTab(trainer) {
+            const monthlyEarnings = 45000;
+            const sessions = [
+                {student: 'Arjun Verma', date: '2024-11-22', type: 'Personal Training', amount: 1500},
+                {student: 'Kavya Iyer', date: '2024-11-21', type: 'Personal Training', amount: 1500},
+                {student: 'Priya Singh', date: '2024-11-20', type: 'Nutrition Consultation', amount: 1000},
+                {student: 'Siddharth Rao', date: '2024-11-19', type: 'Personal Training', amount: 1500}
+            ];
+
+            return `
+                        <div class="grid md:grid-cols-3 gap-6 mb-8">
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg">
+                                <p class="text-green-100 mb-2">Monthly Earnings</p>
+                                <p class="text-4xl font-bold">${formatCurrency(monthlyEarnings)}</p>
+                                <p class="text-green-100 text-sm mt-2"><i class="fas fa-arrow-up mr-1"></i>15% from last month</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
+                                <p class="text-blue-100 mb-2">Total Sessions</p>
+                                <p class="text-4xl font-bold">156</p>
+                                <p class="text-blue-100 text-sm mt-2">This month: 24</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg">
+                                <p class="text-purple-100 mb-2">Avg per Session</p>
+                                <p class="text-4xl font-bold">${formatCurrency(1400)}</p>
+                                <p class="text-purple-100 text-sm mt-2">Personal training rate</p>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Recent Sessions</h2>
+                                <div class="space-y-3">
+                                    ${sessions.map(session => `
+                                        <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                                            <div>
+                                                <p class="font-semibold">${session.student}</p>
+                                                <p class="text-sm text-gray-600">${session.type}</p>
+                                                <p class="text-xs text-gray-500">${session.date}</p>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="font-bold text-green-600">${formatCurrency(session.amount)}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-xl shadow-lg p-6">
+                                <h2 class="text-2xl font-bold mb-6">Earnings Breakdown</h2>
+                                <div class="space-y-4">
+                                    ${[
+                                        {type: 'Personal Training', amount: 36000, sessions: 24},
+                                        {type: 'Group Classes', amount: 6000, sessions: 12},
+                                        {type: 'Nutrition Consulting', amount: 3000, sessions: 3}
+                                    ].map(item => {
+                                        const percentage = Math.round((item.amount / monthlyEarnings) * 100);
+                                        return `
+                                            <div>
+                                                <div class="flex justify-between mb-2">
+                                                    <span class="font-semibold">${item.type}</span>
+                                                    <span class="text-gray-600">${formatCurrency(item.amount)} (${item.sessions} sessions)</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 h-2 rounded-full" style="width: ${percentage}%"></div>
+                                                </div>
+                                                <p class="text-sm text-gray-500 mt-1">${percentage}% of total</p>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Member Dashboard
+        function MemberDashboard() {
+            const member = AppState.members.find(m => m.id === AppState.currentUser.memberId) || AppState.members[0];
+            const memberTab = AppState.memberTab || 'profile';
+
+            return `
+                <div class="min-h-screen bg-gray-100 fade-in">
+                    <div class="bg-white shadow">
+                        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                            <h1 class="text-2xl font-bold gradient-text">Member Dashboard</h1>
+                            <div class="flex gap-3">
+                                <button onclick="navigateTo('home')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition">
+                                    <i class="fas fa-home mr-2"></i>Home
+                                </button>
+                                <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Navigation -->
+                    <div class="bg-white shadow-sm">
+                        <div class="container mx-auto px-4">
+                            <div class="flex space-x-1 overflow-x-auto">
+                                <button onclick="setMemberTab('profile')" class="px-6 py-3 font-semibold transition ${memberTab === 'profile' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-user mr-2"></i>Profile
+                                </button>
+                                <button onclick="setMemberTab('classes')" class="px-6 py-3 font-semibold transition ${memberTab === 'classes' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-calendar mr-2"></i>My Classes
+                                </button>
+                                <button onclick="setMemberTab('attendance')" class="px-6 py-3 font-semibold transition ${memberTab === 'attendance' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-clipboard-check mr-2"></i>Attendance
+                                </button>
+                                <button onclick="setMemberTab('progress')" class="px-6 py-3 font-semibold transition ${memberTab === 'progress' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-chart-line mr-2"></i>Progress
+                                </button>
+                                <button onclick="setMemberTab('trainers')" class="px-6 py-3 font-semibold transition ${memberTab === 'trainers' ? 'text-purple-600 border-b-2 border-purple-600' : 'text-gray-600 hover:text-purple-600'}">
+                                    <i class="fas fa-dumbbell mr-2"></i>Trainers
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container mx-auto px-4 py-8">
+                        ${memberTab === 'profile' ? MemberProfileTab(member) : ''}
+                        ${memberTab === 'classes' ? MemberClassesTab(member) : ''}
+                        ${memberTab === 'attendance' ? MemberAttendanceTab(member) : ''}
+                        ${memberTab === 'progress' ? MemberProgressTab(member) : ''}
+                        ${memberTab === 'trainers' ? MemberTrainersTab(member) : ''}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Member Profile Tab
+        function MemberProfileTab(member) {
+            const daysLeft = Math.floor((new Date(member.expiryDate) - new Date()) / (1000 * 60 * 60 * 24));
+            
+            return `
+                        <!-- Profile Card -->
+                        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h2 class="text-3xl font-bold mb-2">${member.name}</h2>
+                                    <p class="text-gray-600 mb-4"><i class="fas fa-envelope mr-2"></i>${member.email}</p>
+                                    <p class="text-gray-600 mb-4"><i class="fas fa-phone mr-2"></i>${member.phone}</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm text-gray-600 mb-1">Membership Status</p>
+                                    <span class="px-4 py-2 rounded-full text-sm font-semibold ${member.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}">
+                                        ${member.status}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="grid md:grid-cols-3 gap-6 mt-6">
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm mb-1">Current Plan</p>
+                                    <p class="text-xl font-bold text-purple-600">${member.plan}</p>
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm mb-1">Join Date</p>
+                                    <p class="text-xl font-bold text-blue-600">${member.joinDate}</p>
+                                </div>
+                                <div class="bg-orange-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm mb-1">Expiry Date</p>
+                                    <p class="text-xl font-bold text-orange-600">${member.expiryDate}</p>
+                                </div>
+                            </div>
+
+                            ${daysLeft <= 7 && daysLeft > 0 ? `
+                                <div class="mt-6 bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+                                    <div class="flex items-center">
+                                        <i class="fas fa-exclamation-triangle text-orange-500 text-2xl mr-3"></i>
+                                        <div>
+                                            <p class="font-bold text-orange-700">Membership Expiring Soon!</p>
+                                            <p class="text-orange-600">Your membership expires in ${daysLeft} days. Renew now to continue enjoying all benefits.</p>
+                                        </div>
+                                    </div>
+                                    <button onclick="navigateTo('memberships')" class="mt-3 bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition">
+                                        Renew Membership
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- Membership Benefits -->
+                        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Your Membership Benefits</h2>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                ${AppState.memberships.find(p => p.name === member.plan)?.features.map(feature => `
+                                    <div class="flex items-start p-3 bg-purple-50 rounded-lg">
+                                        <i class="fas fa-check-circle text-purple-600 mt-1 mr-3"></i>
+                                        <span class="text-gray-700">${feature}</span>
+                                    </div>
+                                `).join('') || ''}
+                            </div>
+                        </div>
+
+                        <!-- Quick Stats -->
+                        <div class="grid md:grid-cols-3 gap-6">
+                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-xl shadow-lg">
+                                <i class="fas fa-calendar-check text-3xl mb-3"></i>
+                                <p class="text-purple-100 mb-1">Classes Attended</p>
+                                <p class="text-4xl font-bold">${12 + Math.floor(Math.random() * 15)}</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-xl shadow-lg">
+                                <i class="fas fa-fire text-3xl mb-3"></i>
+                                <p class="text-blue-100 mb-1">Calories Burned</p>
+                                <p class="text-4xl font-bold">${2500 + Math.floor(Math.random() * 1500)}</p>
+                            </div>
+                            <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-xl shadow-lg">
+                                <i class="fas fa-trophy text-3xl mb-3"></i>
+                                <p class="text-green-100 mb-1">Days Active</p>
+                                <p class="text-4xl font-bold">${45 + Math.floor(Math.random() * 30)}</p>
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Member Classes Tab
+        function MemberClassesTab(member) {
+            return `
+                        <!-- Available Classes -->
+                        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Available Classes</h2>
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                ${AppState.classes.slice(0, 6).map(cls => `
+                                    <div class="border rounded-lg p-4 hover:shadow-lg transition">
+                                        <h3 class="font-bold text-lg mb-2">${cls.name}</h3>
+                                        <p class="text-gray-600 text-sm mb-1"><i class="fas fa-user mr-1"></i> ${cls.trainer}</p>
+                                        <p class="text-gray-600 text-sm mb-1"><i class="fas fa-calendar mr-1"></i> ${cls.day}</p>
+                                        <p class="text-gray-600 text-sm mb-3"><i class="fas fa-clock mr-1"></i> ${cls.time}</p>
+                                        <button onclick="bookClassWhatsApp('${cls.name}', '${cls.day}', '${cls.time}')" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition text-sm">
+                                            <i class="fab fa-whatsapp mr-1"></i> Book Now
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <!-- My Bookings -->
+                        <div class="bg-white rounded-xl shadow-lg p-8">
+                            <h2 class="text-2xl font-bold mb-6">My Upcoming Bookings</h2>
+                            <div class="space-y-3">
+                                ${AppState.classes.slice(0, 3).map(cls => `
+                                    <div class="flex justify-between items-center p-4 bg-purple-50 rounded-lg border-l-4 border-purple-600">
+                                        <div>
+                                            <h3 class="font-bold text-lg">${cls.name}</h3>
+                                            <p class="text-gray-600 text-sm"><i class="fas fa-calendar mr-2"></i>${cls.day} at ${cls.time}</p>
+                                            <p class="text-gray-600 text-sm"><i class="fas fa-user mr-2"></i>${cls.trainer}</p>
+                                        </div>
+                                        <button onclick="cancelBooking('${cls.name}')" class="text-red-600 hover:text-red-700 font-semibold">
+                                            <i class="fas fa-times-circle mr-1"></i>Cancel
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Member Attendance Tab
+        function MemberAttendanceTab(member) {
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Monthly Attendance</h2>
+                            <div class="grid grid-cols-7 gap-2">
+                                ${Array.from({length: 30}, (_, i) => {
+                                    const attended = Math.random() > 0.4;
+                                    return `
+                                        <div class="text-center p-3 rounded-lg ${attended ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-400'}">
+                                            <p class="text-xs font-semibold">${i + 1}</p>
+                                            <i class="fas fa-${attended ? 'check' : 'times'} text-xl mt-1"></i>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                            <div class="mt-6 flex justify-around text-center">
+                                <div>
+                                    <p class="text-3xl font-bold text-green-600">${18 + Math.floor(Math.random() * 5)}</p>
+                                    <p class="text-gray-600">Days Present</p>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-bold text-red-600">${8 + Math.floor(Math.random() * 4)}</p>
+                                    <p class="text-gray-600">Days Missed</p>
+                                </div>
+                                <div>
+                                    <p class="text-3xl font-bold text-purple-600">${65 + Math.floor(Math.random() * 20)}%</p>
+                                    <p class="text-gray-600">Attendance Rate</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-8">
+                            <h2 class="text-2xl font-bold mb-6">Class-wise Attendance</h2>
+                            <div class="space-y-4">
+                                ${['Morning Yoga', 'HIIT Blast', 'Strength & Power', 'CrossFit WOD'].map(className => {
+                                    const attended = 6 + Math.floor(Math.random() * 6);
+                                    const total = 12;
+                                    const percentage = Math.round((attended / total) * 100);
+                                    return `
+                                        <div>
+                                            <div class="flex justify-between mb-2">
+                                                <span class="font-semibold">${className}</span>
+                                                <span class="text-gray-600">${attended}/${total} sessions</span>
+                                            </div>
+                                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                                <div class="bg-purple-600 h-3 rounded-full" style="width: ${percentage}%"></div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Member Progress Tab
+        function MemberProgressTab(member) {
+            return `
+                        <div class="grid md:grid-cols-2 gap-6 mb-8">
+                            <div class="bg-white rounded-xl shadow-lg p-8">
+                                <h2 class="text-2xl font-bold mb-6">Fitness Goals</h2>
+                                <div class="space-y-4">
+                                    ${[
+                                        {goal: 'Weight Loss', target: 10, current: 6.5, unit: 'kg'},
+                                        {goal: 'Muscle Gain', target: 5, current: 3.2, unit: 'kg'},
+                                        {goal: 'Cardio Endurance', target: 100, current: 75, unit: '%'}
+                                    ].map(item => {
+                                        const percentage = Math.round((item.current / item.target) * 100);
+                                        return `
+                                            <div>
+                                                <div class="flex justify-between mb-2">
+                                                    <span class="font-semibold">${item.goal}</span>
+                                                    <span class="text-gray-600">${item.current}/${item.target} ${item.unit}</span>
+                                                </div>
+                                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                                    <div class="bg-gradient-to-r from-purple-600 to-blue-600 h-3 rounded-full" style="width: ${percentage}%"></div>
+                                                </div>
+                                                <p class="text-sm text-gray-500 mt-1">${percentage}% completed</p>
+                                            </div>
+                                        `;
+                                    }).join('')}
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-xl shadow-lg p-8">
+                                <h2 class="text-2xl font-bold mb-6">Body Measurements</h2>
+                                <div class="space-y-4">
+                                    ${[
+                                        {label: 'Weight', value: 75, change: -3.5, unit: 'kg'},
+                                        {label: 'Body Fat', value: 18, change: -2.5, unit: '%'},
+                                        {label: 'Muscle Mass', value: 45, change: +2.1, unit: 'kg'}
+                                    ].map(item => `
+                                        <div class="flex justify-between items-center p-4 bg-gray-50 rounded-lg">
+                                            <div>
+                                                <p class="font-semibold text-gray-700">${item.label}</p>
+                                                <p class="text-2xl font-bold text-purple-600">${item.value} ${item.unit}</p>
+                                            </div>
+                                            <div class="text-right">
+                                                <span class="text-sm font-semibold ${item.change > 0 ? 'text-green-600' : 'text-red-600'}">
+                                                    <i class="fas fa-arrow-${item.change > 0 ? 'up' : 'down'} mr-1"></i>
+                                                    ${Math.abs(item.change)} ${item.unit}
+                                                </span>
+                                                <p class="text-xs text-gray-500">this month</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-8">
+                            <h2 class="text-2xl font-bold mb-6">Workout History</h2>
+                            <div class="space-y-3">
+                                ${[
+                                    {date: '2024-11-22', workout: 'HIIT Blast', duration: 45, calories: 380},
+                                    {date: '2024-11-21', workout: 'Morning Yoga', duration: 60, calories: 180},
+                                    {date: '2024-11-20', workout: 'Strength & Power', duration: 50, calories: 420},
+                                    {date: '2024-11-19', workout: 'CrossFit WOD', duration: 55, calories: 450}
+                                ].map(workout => `
+                                    <div class="flex justify-between items-center p-4 border rounded-lg hover:shadow-md transition">
+                                        <div>
+                                            <p class="font-bold">${workout.workout}</p>
+                                            <p class="text-sm text-gray-600"><i class="fas fa-calendar mr-1"></i>${workout.date}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm text-gray-600"><i class="fas fa-clock mr-1"></i>${workout.duration} min</p>
+                                            <p class="text-sm font-semibold text-orange-600"><i class="fas fa-fire mr-1"></i>${workout.calories} cal</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+            `;
+        }
+
+        // Member Trainers Tab
+        function MemberTrainersTab(member) {
+            return `
+                        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+                            <h2 class="text-2xl font-bold mb-6">Your Trainers</h2>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                ${AppState.trainers.slice(0, 3).map(trainer => `
+                                    <div class="border rounded-lg p-6 hover:shadow-lg transition">
+                                        <div class="flex items-start gap-4 mb-4">
+                                            <img src="${trainer.image}" alt="${trainer.name}" class="w-20 h-20 rounded-full object-cover">
+                                            <div>
+                                                <h3 class="text-xl font-bold">${trainer.name}</h3>
+                                                <p class="text-purple-600 text-sm font-semibold">${trainer.specialization[0]}</p>
+                                                <p class="text-gray-600 text-sm mt-1"><i class="fas fa-star text-yellow-500 mr-1"></i>4.8 rating</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-gray-600 text-sm mb-4">${trainer.bio}</p>
+                                        <button onclick="bookTrainerWhatsApp('${trainer.name}')" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition">
+                                            <i class="fab fa-whatsapp mr-2"></i>Book Session
+                                        </button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-xl shadow-lg p-8">
+                            <h2 class="text-2xl font-bold mb-6">All Trainers</h2>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                ${AppState.trainers.map(trainer => `
+                                    <div class="text-center p-4 border rounded-lg hover:shadow-md transition cursor-pointer" onclick="viewTrainerDetail(${trainer.id})">
+                                        <img src="${trainer.image}" alt="${trainer.name}" class="w-24 h-24 rounded-full object-cover mx-auto mb-3">
+                                        <h3 class="font-bold">${trainer.name}</h3>
+                                        <p class="text-sm text-purple-600">${trainer.specialization[0]}</p>
+                                        <p class="text-xs text-gray-500 mt-1">${trainer.experience} years exp</p>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+            `;
+        }
+
+        // ============================================
+        // EVENT HANDLERS
+        // ============================================
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = Object.values(DEMO_USERS).find(u => u.email === email && u.password === password);
+
+            if (user) {
+                AppState.currentUser = user;
+                showToast(`Welcome back, ${user.name}!`, 'success');
+                navigateTo(`${user.role}-dashboard`);
+            } else {
+                showToast('Invalid credentials', 'error');
+            }
+        }
+
+        function handleContactForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const message = document.getElementById('contactMessage').value;
+
+            showToast('Message sent successfully! We will contact you soon.', 'success');
+            e.target.reset();
+        }
+
+        function filterByDay(day) {
+            AppState.selectedDay = day;
+            render();
+        }
+
+        function joinViaWhatsApp(planName, price) {
+            const message = `Hi FitPro Team! I'm interested in joining the *${planName}* membership plan (${formatCurrency(price)}). Please provide more details and help me get started!`;
+            openWhatsApp(message);
+        }
+
+        function bookClassWhatsApp(className, day, time) {
+            const userName = AppState.currentUser ? AppState.currentUser.name : '[Your Name]';
+            const message = `Hi! I would like to book the *${className}* class on *${day}* at *${time}*.\n\nName: ${userName}\n\nPlease confirm my booking. Thank you!`;
+            openWhatsApp(message);
+        }
+
+        function bookTrainerWhatsApp(trainerName) {
+            const userName = AppState.currentUser ? AppState.currentUser.name : '[Your Name]';
+            const message = `Hi! I would like to book a personal training session with *${trainerName}*.\n\nName: ${userName}\n\nPlease let me know the available slots. Thank you!`;
+            openWhatsApp(message);
+        }
+
+        function contactWhatsApp() {
+            const message = `Hi FitPro Team! I have a question about your gym. Please get back to me.`;
+            openWhatsApp(message);
+        }
+
+        function viewTrainerDetail(trainerId) {
+            const trainer = AppState.trainers.find(t => t.id === trainerId);
+            if (!trainer) return;
+
+            const modal = `
+                <div class="fixed inset-0 z-50 flex items-center justify-center modal-overlay" onclick="closeModal()">
+                    <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full m-4 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+                        <div class="relative">
+                            <img src="${trainer.image}" alt="${trainer.name}" class="w-full h-80 object-cover rounded-t-xl">
+                            <button onclick="closeModal()" class="absolute top-4 right-4 bg-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-gray-100">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="p-8">
+                            <h2 class="text-3xl font-bold mb-2">${trainer.name}</h2>
+                            <p class="text-purple-600 font-semibold mb-4">${trainer.specialization.join(', ')}</p>
+                            
+                            <div class="grid grid-cols-2 gap-4 mb-6">
+                                <div class="bg-purple-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm">Experience</p>
+                                    <p class="text-2xl font-bold text-purple-600">${trainer.experience} Years</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <p class="text-gray-600 text-sm">Clients Trained</p>
+                                    <p class="text-2xl font-bold text-green-600">${trainer.clientsTrained}+</p>
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <h3 class="font-bold text-lg mb-2">About</h3>
+                                <p class="text-gray-700">${trainer.bio}</p>
+                            </div>
+
+                            <div class="mb-6">
+                                <h3 class="font-bold text-lg mb-2">Certifications</h3>
+                                <div class="flex flex-wrap gap-2">
+                                    ${trainer.certifications.map(cert => `
+                                        <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-semibold">${cert}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+
+                            <button onclick="bookTrainerWhatsApp('${trainer.name}')" class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition btn-ripple flex items-center justify-center">
+                                <i class="fab fa-whatsapp mr-2 text-xl"></i> Book Session with ${trainer.name}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            const modalDiv = document.createElement('div');
+            modalDiv.innerHTML = modal;
+            document.body.appendChild(modalDiv);
+        }
+
+        function closeModal() {
+            const modals = document.querySelectorAll('.modal-overlay');
+            modals.forEach(modal => modal.parentElement.remove());
+        }
+
+        function setAdminTab(tab) {
+            AppState.adminTab = tab;
+            render();
+        }
+
+        function setMemberTab(tab) {
+            AppState.memberTab = tab;
+            render();
+        }
+
+        function setTrainerTab(tab) {
+            AppState.trainerTab = tab;
+            render();
+        }
+
+        function contactStudentWhatsApp(studentName, phone) {
+            const message = `Hi ${studentName}! This is your trainer from FitPro. I wanted to check on your progress and see if you need any guidance. Keep up the great work!`;
+            openWhatsApp(message);
+        }
+
+        function viewStudentProgress(studentId) {
+            showToast('Viewing student progress - Demo feature', 'info');
+        }
+
+        function markAttendance(className) {
+            showToast(`Marking attendance for ${className} - Demo feature`, 'info');
+        }
+
+        function addClassNote(className) {
+            showToast(`Adding note for ${className} - Demo feature`, 'info');
+        }
+
+        function filterMembers(status) {
+            AppState.memberFilter = status;
+            render();
+        }
+
+        function showAddMemberModal() {
+            showToast('Add Member feature - Demo only', 'info');
+        }
+
+        function showAddClassModal() {
+            showToast('Add Class feature - Demo only', 'info');
+        }
+
+        function showAddTrainerModal() {
+            showToast('Add Trainer feature - Demo only', 'info');
+        }
+
+        function editMember(id) {
+            showToast('Edit Member feature - Demo only', 'info');
+        }
+
+        function editTrainer(id) {
+            showToast('Edit Trainer feature - Demo only', 'info');
+        }
+
+        function generateReport(type) {
+            showToast(`Generating ${type} report... This is a demo feature.`, 'info');
+        }
+
+        function exportData(format) {
+            showToast(`Exporting data as ${format.toUpperCase()}... This is a demo feature.`, 'info');
+        }
+
+        function cancelBooking(className) {
+            if (confirm(`Cancel booking for ${className}?`)) {
+                showToast('Booking cancelled successfully', 'success');
+            }
+        }
+
+        function deleteMember(id) {
+            if (confirm('Are you sure you want to delete this member?')) {
+                AppState.members = AppState.members.filter(m => m.id !== id);
+                showToast('Member deleted successfully', 'success');
+                render();
+            }
+        }
+
+        // ============================================
+        // RENDER FUNCTION
+        // ============================================
+        function render() {
+            const app = document.getElementById('app');
+            let content = '';
+
+            switch (AppState.currentPage) {
+                case 'home':
+                    content = Navbar() + HomePage() + Footer();
+                    break;
+                case 'memberships':
+                    content = Navbar() + MembershipsPage() + Footer();
+                    break;
+                case 'classes':
+                    content = Navbar() + ClassesPage() + Footer();
+                    break;
+                case 'trainers':
+                    content = Navbar() + TrainersPage() + Footer();
+                    break;
+                case 'contact':
+                    content = Navbar() + ContactPage() + Footer();
+                    break;
+                case 'login':
+                    content = LoginPage();
+                    break;
+                case 'admin-dashboard':
+                    content = AdminDashboard() + Footer();
+                    break;
+                case 'member-dashboard':
+                    content = MemberDashboard() + Footer();
+                    break;
+                case 'trainer-dashboard':
+                    content = TrainerDashboard() + Footer();
+                    break;
+                default:
+                    content = Navbar() + HomePage() + Footer();
+            }
+
+            app.innerHTML = content;
+            window.scrollTo(0, 0);
+        }
+
+        // ============================================
+        // INITIALIZE APP
+        // ============================================
+        render();
+    </script>
+</body>
+</html>

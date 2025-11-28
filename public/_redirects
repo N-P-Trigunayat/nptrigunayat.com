@@ -1,13 +1,22 @@
-<<<<<<< HEAD
-# Static assets served normally
-/Images/* /Images/:splat 200
-/sources/* /sources/:splat 200
+/about /public/pages/about.html 200
+/services /public/pages/services.html 200
+/contact /public/pages/contact.html 200
+/portfolio /public/pages/portfolio.html 200
+/pricing /public/pages/pricing.html 200
+/testimonials /public/pages/testimonials.html 200
 
-# Everything else handled by the Worker
-=======
-# Static assets served normally
-/Images/* /Images/:splat 200
-/sources/* /sources/:splat 200
+/case-studies/aromcraft /public/Case-Studies/AromaCraft.html 200
+/case-studies/dancevibe /public/Case-Studies/DanceVibe.html 200
+/case-studies/fitzone /public/Case-Studies/FitZone.html 200
+/case-studies/glowskin /public/Case-Studies/GlowSkin.html 200
+/case-studies/pawhaven /public/Case-Studies/PawHaven.html 200
+/case-studies/sharmas /public/Case-Studies/Sharmas.html 200
 
-# Everything else handled by the Worker
->>>>>>> 41fe2cd (Add .gitignore and remove node_modules)
+/portfolio-pages/analytics /public/Portfolio-Pages/Analytics.html 200
+/portfolio-pages/connecthub /public/Portfolio-Pages/ConnectHub.html 200
+/portfolio-pages/fitpro /public/Portfolio-Pages/FitPro.html 200
+/portfolio-pages/inventory /public/Portfolio-Pages/inventory-system/Inventory.html 200
+/portfolio-pages/shopup /public/Portfolio-Pages/ShopUp.html 200
+/portfolio-pages/techvision /public/Portfolio-Pages/TechVision/TechVision.html 200
+
+/ /public/pages/index.html 200

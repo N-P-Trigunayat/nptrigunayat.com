@@ -34,29 +34,34 @@ export default {
     const filePath = urlMap[pathname];
 
     if (filePath) {
-      // Fetch the actual file
-      const fileRequest = new Request(new URL(filePath, request.url).toString(), request);
-      let response = await env.ASSETS.fetch(fileRequest);
+      try {
+        // Fetch from Pages
+        const response = await fetch(new URL(filePath, request.url).toString());
+        
+        if (!response.ok) {
+          return new Response('Not found', { status: 404 });
+        }
 
-      // If it's HTML, inject <base> tag
-      if (response.status === 200 && response.headers.get('content-type')?.includes('text/html')) {
-        try {
+        // If it's HTML, inject <base> tag
+        const contentType = response.headers.get('content-type') || '';
+        if (contentType.includes('text/html')) {
           const text = await response.text();
           const modified = text.replace(
             /<head[^>]*>/i,
             `$&\n    <base href="/">`
           );
-          response = new Response(modified, response);
-          response.headers.set('content-type', 'text/html; charset=utf-8');
-        } catch (e) {
-          console.error('Error processing HTML:', e);
+          return new Response(modified, {
+            status: 200,
+            headers: { 'content-type': 'text/html; charset=utf-8' },
+          });
         }
-      }
 
-      return response;
+        return response;
+      } catch (e) {
+        console.error('Error:', e);
+        return new Response('Error processing request', { status: 500 });
+      }
     }
 
-    // For non-mapped routes (static files, images, etc.), serve as-is
-    return env.ASSETS.fetch(request);
-  },
-};
+    // For unmapped routes, return 404
+    return new Response('

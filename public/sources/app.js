@@ -101,10 +101,10 @@ if (contactForm) {
         submitButton.disabled = true;
 
         // Send email to YOU with form details
-        const sendToYou = emailjs.sendForm('service_28t4x8p', 'template_vvmjxp1', this);
+        const sendToYou = emailjs.sendForm('service_28t4x8p', 'template_o5upzww', this);
         
         // Send auto-reply to USER
-        const sendToUser = emailjs.sendForm('service_28t4x8p', 'template_01o8thg', this);
+        const sendToUser = emailjs.sendForm('service_28t4x8p', 'template_xj8v0vr', this);
 
         // Wait for both emails to send
         Promise.all([sendToYou, sendToUser])

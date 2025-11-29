@@ -89,7 +89,7 @@ const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
     // Initialize EmailJS
-    emailjs.init('EhoMQeMVvvF3ysKJC');
+    emailjs.init('LK_dyax9fqTqVrw6H');
     
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -101,10 +101,10 @@ if (contactForm) {
         submitButton.disabled = true;
 
         // Send email to YOU with form details
-        const sendToYou = emailjs.sendForm('service_28t4x8p', 'template_o5upzww', this);
+        const sendToYou = emailjs.sendForm('service_28t4x8p', 'template_ns0ydki', this);
         
         // Send auto-reply to USER
-        const sendToUser = emailjs.sendForm('service_28t4x8p', 'template_xj8v0vr', this);
+        const sendToUser = emailjs.sendForm('service_28t4x8p', 'template_b9bu9c7', this);
 
         // Wait for both emails to send
         Promise.all([sendToYou, sendToUser])

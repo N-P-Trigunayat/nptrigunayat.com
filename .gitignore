@@ -1,1 +1,6 @@
 node_modules/
+.wrangler/
+add_base_tag.js
+add_base_tag.py
+functions/
+src/

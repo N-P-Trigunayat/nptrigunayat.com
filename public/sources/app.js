@@ -117,7 +117,7 @@ if (contactForm) {
             .catch((error) => {
                 submitButton.innerHTML = originalText;
                 submitButton.disabled = false;
-                alert('❌ Something went wrong. Please try again or email me directly at trigunayatnp@gmail.com');
+                alert('❌ Something went wrong. Please try again or email me directly at hello@nptrigunayat.com');
                 console.error('EmailJS error:', error);
             });
     });

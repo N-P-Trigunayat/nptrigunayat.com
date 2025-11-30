@@ -66,7 +66,7 @@
 
                 <div class="contact-methods">
                     <!-- Email -->
-                    <a href="mailto:your.email@example.com" class="contact-method">
+                    <a href="mailto:hello@nptrigunayat.co" class="contact-method">
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
@@ -240,8 +240,16 @@
         </div>
     </footer>
 
-    <script src="https://cdn.emailjs.com/sdk/3.11.0/email.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: 'LK_dyax9fqTqVrw6H',  // your public key
+            });
+        })();
+    </script>
     <script src="/sources/app.js"></script>
 </body>
+
 
 </html>

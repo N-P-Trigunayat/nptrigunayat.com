@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://nptrigunayat.com/</loc>
+    <priority>1.0</priority>
+  </url>
+
+  <url><loc>https://nptrigunayat.com/services.html</loc></url>
+  <url><loc>https://nptrigunayat.com/portfolio.html</loc></url>
+  <url><loc>https://nptrigunayat.com/pricing.html</loc></url>
+  <url><loc>https://nptrigunayat.com/about.html</loc></url>
+  <url><loc>https://nptrigunayat.com/testimonials.html</loc></url>
+  <url><loc>https://nptrigunayat.com/contact.html</loc></url>
+
+  <!-- Case Studies -->
+  <url><loc>https://nptrigunayat.com/Case-Studies/AromaCraft.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Case-Studies/DanceVibe.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Case-Studies/FitZone.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Case-Studies/GlowSkin.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Case-Studies/PawHaven.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Case-Studies/Sharmas.html</loc></url>
+
+  <!-- Portfolio pages -->
+  <url><loc>https://nptrigunayat.com/Portfolio-Pages/Analytics.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Portfolio-Pages/ConnectHub.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Portfolio-Pages/FitPro.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Portfolio-Pages/inventory-system/Inventory.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Portfolio-Pages/ShopUp.html</loc></url>
+  <url><loc>https://nptrigunayat.com/Portfolio-Pages/TechVision/TechVision.html</loc></url>
+</urlset>

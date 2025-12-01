@@ -172,11 +172,6 @@ function nextTestimonial() {
 function setupCarousel() {
     initCarousel();
     
-    if (!testimonialTrack || !totalTestimonials) {
-        console.warn('Carousel elements not found');
-        return;
-    }
-    
     // Manual navigation with indicators
     indicators.forEach((indicator, index) => {
         indicator.addEventListener('click', () => {

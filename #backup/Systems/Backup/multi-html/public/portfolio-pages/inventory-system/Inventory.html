@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StockFlow - Inventory Management System</title>
+  <link rel="icon" type="image/x-icon" href="../../../Images/Logo.png">
+  <style>
+    /* PERPLEXITY DESIGN SYSTEM */
+    :root {
+      /* Primitive Color Tokens */
+      --color-white: rgba(255, 255, 255, 1);
+      --color-black: rgba(0, 0, 0, 1);
+      --color-cream-50: rgba(252, 252, 249, 1);
+      --color-cream-100: rgba(255, 255, 253, 1);
+      --color-gray-200: rgba(245, 245, 245, 1);
+      --color-gray-300: rgba(167, 169, 169, 1);
+      --color-gray-400: rgba(119, 124, 124, 1);
+      --color-slate-500: rgba(98, 108, 113, 1);
+      --color-brown-600: rgba(94, 82, 64, 1);
+      --color-charcoal-700: rgba(31, 33, 33, 1);
+      --color-charcoal-800: rgba(38, 40, 40, 1);
+      --color-slate-900: rgba(19, 52, 59, 1);
+      --color-teal-300: rgba(50, 184, 198, 1);
+      --color-teal-400: rgba(45, 166, 178, 1);
+      --color-teal-500: rgba(33, 128, 141, 1);
+      --color-teal-600: rgba(29, 116, 128, 1);
+      --color-teal-700: rgba(26, 104, 115, 1);
+      --color-teal-800: rgba(41, 150, 161, 1);
+      --color-red-400: rgba(255, 84, 89, 1);
+      --color-red-500: rgba(192, 21, 47, 1);
+      --color-orange-400: rgba(230, 129, 97, 1);
+      --color-orange-500: rgba(168, 75, 47, 1);
+      --color-brown-600-rgb: 94, 82, 64;
+      --color-teal-500-rgb: 33, 128, 141;
+      --color-slate-900-rgb: 19, 52, 59;
+      --color-slate-500-rgb: 98, 108, 113;
+      --color-red-500-rgb: 192, 21, 47;
+      --color-red-400-rgb: 255, 84, 89;
+      --color-orange-500-rgb: 168, 75, 47;
+      --color-orange-400-rgb: 230, 129, 97;
+      --color-bg-1: rgba(59, 130, 246, 0.08);
+      --color-bg-2: rgba(245, 158, 11, 0.08);
+      --color-bg-3: rgba(34, 197, 94, 0.08);
+      --color-bg-4: rgba(239, 68, 68, 0.08);
+      --color-bg-5: rgba(147, 51, 234, 0.08);
+      --color-bg-6: rgba(249, 115, 22, 0.08);
+      --color-bg-7: rgba(236, 72, 153, 0.08);
+      --color-bg-8: rgba(6, 182, 212, 0.08);
+      --color-background: var(--color-cream-50);
+      --color-surface: var(--color-cream-100);
+      --color-text: var(--color-slate-900);
+      --color-text-secondary: var(--color-slate-500);
+      --color-primary: var(--color-teal-500);
+      --color-primary-hover: var(--color-teal-600);
+      --color-primary-active: var(--color-teal-700);
+      --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+      --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+      --color-btn-primary-text: var(--color-cream-50);
+      --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+      --color-error: var(--color-red-500);
+      --color-success: var(--color-teal-500);
+      --color-warning: var(--color-orange-500);
+      --color-info: var(--color-slate-500);
+      --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+      --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+      --focus-ring: 0 0 0 3px var(--color-focus-ring);
+      --focus-outline: 2px solid var(--color-primary);
+      --status-bg-opacity: 0.15;
+      --status-border-opacity: 0.25;
+      --color-success-rgb: 33, 128, 141;
+      --color-error-rgb: 192, 21, 47;
+      --color-warning-rgb: 168, 75, 47;
+      --color-info-rgb: 98, 108, 113;
+      --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-size-xs: 11px;
+      --font-size-sm: 12px;
+      --font-size-base: 14px;
+      --font-size-md: 14px;
+      --font-size-lg: 16px;
+      --font-size-xl: 18px;
+      --font-size-2xl: 20px;
+      --font-size-3xl: 24px;
+      --font-size-4xl: 30px;
+      --font-weight-normal: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 550;
+      --font-weight-bold: 600;
+      --line-height-tight: 1.2;
+      --line-height-normal: 1.5;
+      --letter-spacing-tight: -0.01em;
+      --space-0: 0;
+      --space-1: 1px;
+      --space-2: 2px;
+      --space-4: 4px;
+      --space-6: 6px;
+      --space-8: 8px;
+      --space-10: 10px;
+      --space-12: 12px;
+      --space-16: 16px;
+      --space-20: 20px;
+      --space-24: 24px;
+      --space-32: 32px;
+      --radius-sm: 6px;
+      --radius-base: 8px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-full: 9999px;
+      --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+      --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+      --duration-fast: 150ms;
+      --duration-normal: 250ms;
+      --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+      --container-sm: 640px;
+      --container-md: 768px;
+      --container-lg: 1024px;
+      --container-xl: 1280px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-gray-400-rgb: 119, 124, 124;
+        --color-teal-300-rgb: 50, 184, 198;
+        --color-gray-300-rgb: 167, 169, 169;
+        --color-gray-200-rgb: 245, 245, 245;
+        --color-bg-1: rgba(29, 78, 216, 0.15);
+        --color-bg-2: rgba(180, 83, 9, 0.15);
+        --color-bg-3: rgba(21, 128, 61, 0.15);
+        --color-bg-4: rgba(185, 28, 28, 0.15);
+        --color-bg-5: rgba(107, 33, 168, 0.15);
+        --color-bg-6: rgba(194, 65, 12, 0.15);
+        --color-bg-7: rgba(190, 24, 93, 0.15);
+        --color-bg-8: rgba(8, 145, 178, 0.15);
+        --color-background: var(--color-charcoal-700);
+        --color-surface: var(--color-charcoal-800);
+        --color-text: var(--color-gray-200);
+        --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+        --color-primary: var(--color-teal-300);
+        --color-primary-hover: var(--color-teal-400);
+        --color-primary-active: var(--color-teal-800);
+        --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+        --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+        --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+        --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+        --color-error: var(--color-red-400);
+        --color-success: var(--color-teal-300);
+        --color-warning: var(--color-orange-400);
+        --color-info: var(--color-gray-300);
+        --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+        --color-btn-primary-text: var(--color-slate-900);
+        --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+        --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+        --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+        --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+        --color-success-rgb: var(--color-teal-300-rgb);
+        --color-error-rgb: var(--color-red-400-rgb);
+        --color-warning-rgb: var(--color-orange-400-rgb);
+        --color-info-rgb: var(--color-gray-300-rgb);
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-family-base);
+      background-color: var(--color-background);
+      color: var(--color-text);
+      line-height: var(--line-height-normal);
+      font-size: var(--font-size-base);
+    }
+
+    .app-container {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 260px;
+      background-color: var(--color-surface);
+      border-right: 1px solid var(--color-border);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s var(--ease-standard);
+    }
+
+    .sidebar.mobile-hidden {
+      transform: translateX(-100%);
+    }
+
+    .sidebar-header {
+      padding: var(--space-20);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .sidebar-logo {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+    }
+
+    .sidebar-tagline {
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      margin-top: var(--space-4);
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-16);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: var(--space-10) var(--space-12);
+      margin-bottom: var(--space-4);
+      border-radius: var(--radius-base);
+      color: var(--color-text);
+      cursor: pointer;
+      transition: background-color var(--duration-fast) var(--ease-standard);
+      text-decoration: none;
+    }
+
+    .nav-item:hover {
+      background-color: var(--color-secondary);
+    }
+
+    .nav-item.active {
+      background-color: var(--color-primary);
+      color: var(--color-btn-primary-text);
+    }
+
+    .nav-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: var(--space-12);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .top-bar {
+      height: 60px;
+      background-color: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--space-24);
+    }
+
+    .top-bar-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-16);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-8);
+      color: var(--color-text);
+    }
+
+    .live-indicator {
+      display: flex;
+      align-items: center;
+      gap: var(--space-8);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--color-success);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .live-dot.active {
+      animation: pulse-fast 0.5s 3;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    @keyframes pulse-fast {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.7; transform: scale(1.2); }
+    }
+
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: var(--space-12);
+      cursor: pointer;
+      padding: var(--space-8) var(--space-12);
+      border-radius: var(--radius-base);
+      transition: background-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .user-menu:hover {
+      background-color: var(--color-secondary);
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--color-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-btn-primary-text);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-sm);
+    }
+
+    .page-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--space-24);
+    }
+
+    .page-container {
+      display: none;
+    }
+
+    .page-container.active {
+      display: block;
+    }
+
+    /* Login Page */
+    .login-page {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: var(--color-background);
+    }
+
+    .login-card {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-card-border);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-32);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: var(--space-24);
+    }
+
+    .login-logo {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-primary);
+      margin-bottom: var(--space-8);
+    }
+
+    .login-subtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-16);
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: var(--space-8);
+      font-weight: var(--font-weight-medium);
+      font-size: var(--font-size-sm);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: var(--space-10) var(--space-12);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-base);
+      background-color: var(--color-surface);
+      color: var(--color-text);
+      font-size: var(--font-size-base);
+      transition: border-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: var(--focus-ring);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-10) var(--space-16);
+      border: none;
+      border-radius: var(--radius-base);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+      cursor: pointer;
+      transition: all var(--duration-fast) var(--ease-standard);
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--color-primary);
+      color: var(--color-btn-primary-text);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--color-secondary);
+      color: var(--color-text);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--color-secondary-hover);
+    }
+
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+
+    .btn-outline:hover {
+      background-color: var(--color-secondary);
+    }
+
+    .btn-sm {
+      padding: var(--space-6) var(--space-12);
+      font-size: var(--font-size-sm);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .btn-danger {
+      background-color: var(--color-error);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      opacity: 0.9;
+    }
+
+    /* Page Header */
+    .page-header {
+      margin-bottom: var(--space-24);
+    }
+
+    .page-title {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--space-8);
+    }
+
+    .page-subtitle {
+      font-size: var(--font-size-base);
+      color: var(--color-text-secondary);
+    }
+
+    /* Cards */
+    .card {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-card-border);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: var(--space-16);
+      border-bottom: 1px solid var(--color-card-border-inner);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: var(--font-size-lg);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .card-body {
+      padding: var(--space-16);
+    }
+
+    /* Grid */
+    .grid {
+      display: grid;
+      gap: var(--space-16);
+    }
+
+    .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+    .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+    .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+    /* KPI Cards */
+    .kpi-card {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-card-border);
+      padding: var(--space-20);
+    }
+
+    .kpi-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-8);
+    }
+
+    .kpi-value {
+      font-size: var(--font-size-3xl);
+      font-weight: var(--font-weight-bold);
+      color: var(--color-text);
+    }
+
+    .kpi-change {
+      font-size: var(--font-size-sm);
+      margin-top: var(--space-8);
+    }
+
+    .kpi-change.positive {
+      color: var(--color-success);
+    }
+
+    .kpi-change.negative {
+      color: var(--color-error);
+    }
+
+    /* Table */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table th,
+    .table td {
+      padding: var(--space-12);
+      text-align: left;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .table th {
+      font-weight: var(--font-weight-semibold);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      background-color: var(--color-secondary);
+    }
+
+    .table tbody tr {
+      cursor: pointer;
+      transition: background-color var(--duration-fast) var(--ease-standard);
+    }
+
+    .table tbody tr:hover {
+      background-color: var(--color-secondary);
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--space-4) var(--space-10);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-xs);
+      font-weight: var(--font-weight-medium);
+    }
+
+    .status-badge.success {
+      background-color: rgba(var(--color-success-rgb), 0.15);
+      color: var(--color-success);
+      border: 1px solid rgba(var(--color-success-rgb), 0.25);
+    }
+
+    .status-badge.warning {
+      background-color: rgba(var(--color-warning-rgb), 0.15);
+      color: var(--color-warning);
+      border: 1px solid rgba(var(--color-warning-rgb), 0.25);
+    }
+
+    .status-badge.error {
+      background-color: rgba(var(--color-error-rgb), 0.15);
+      color: var(--color-error);
+      border: 1px solid rgba(var(--color-error-rgb), 0.25);
+    }
+
+    .status-badge.info {
+      background-color: rgba(var(--color-info-rgb), 0.15);
+      color: var(--color-info);
+      border: 1px solid rgba(var(--color-info-rgb), 0.25);
+    }
+
+    /* Filters */
+    .filters {
+      display: flex;
+      gap: var(--space-12);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-16);
+    }
+
+    .filter-item {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      padding: var(--space-20);
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: var(--font-size-2xl);
+      cursor: pointer;
+      color: var(--color-text-secondary);
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
+      padding: var(--space-20);
+    }
+
+    .modal-footer {
+      padding: var(--space-20);
+      border-top: 1px solid var(--color-border);
+      display: flex;
+      gap: var(--space-12);
+      justify-content: flex-end;
+    }
+
+    /* Toast */
+    .toast-container {
+      position: fixed;
+      top: 80px;
+      right: var(--space-24);
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-12);
+    }
+
+    .toast {
+      background-color: var(--color-surface);
+      border-radius: var(--radius-base);
+      box-shadow: var(--shadow-lg);
+      padding: var(--space-16);
+      min-width: 300px;
+      border-left: 4px solid;
+      animation: slideIn 0.3s var(--ease-standard);
+    }
+
+    .toast.success {
+      border-left-color: var(--color-success);
+    }
+
+    .toast.error {
+      border-left-color: var(--color-error);
+    }
+
+    .toast.info {
+      border-left-color: var(--color-info);
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Utility Classes */
+    .flex { display: flex; }
+    .items-center { align-items: center; }
+    .justify-between { justify-content: space-between; }
+    .gap-8 { gap: var(--space-8); }
+    .gap-12 { gap: var(--space-12); }
+    .gap-16 { gap: var(--space-16); }
+    .mb-16 { margin-bottom: var(--space-16); }
+    .mb-24 { margin-bottom: var(--space-24); }
+    .mt-16 { margin-top: var(--space-16); }
+    .text-sm { font-size: var(--font-size-sm); }
+    .text-secondary { color: var(--color-text-secondary); }
+    .font-medium { font-weight: var(--font-weight-medium); }
+    .font-semibold { font-weight: var(--font-weight-semibold); }
+
+    /* Chart Container */
+    .chart-container {
+      position: relative;
+      height: 300px;
+      margin-top: var(--space-16);
+    }
+
+    /* Line Items Table */
+    .line-items-table {
+      margin-top: var(--space-16);
+    }
+
+    .line-item-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 60px;
+      gap: var(--space-12);
+      margin-bottom: var(--space-12);
+      align-items: center;
+    }
+
+    .remove-item-btn {
+      background: none;
+      border: none;
+      color: var(--color-error);
+      cursor: pointer;
+      font-size: var(--font-size-lg);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 100;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .grid-cols-4,
+      .grid-cols-3,
+      .grid-cols-2 {
+        grid-template-columns: repeat(1, 1fr);
+      }
+
+      .page-content {
+        padding: var(--space-16);
+      }
+
+      .filters {
+        flex-direction: column;
+      }
+
+      .filter-item {
+        width: 100%;
+      }
+
+      .line-item-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: var(--space-32);
+      color: var(--color-text-secondary);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: var(--space-8);
+    }
+
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23626C71' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 40px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-16);
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-label {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .info-value {
+      font-size: var(--font-size-base);
+      font-weight: var(--font-weight-medium);
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" class="login-page">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="login-logo">StockFlow</div>
+        <div class="login-subtitle">Inventory Management System</div>
+      </div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="email">Email</label>
+          <input type="email" id="email" class="form-control" placeholder="admin@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter password" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+      </form>
+      <div style="margin-top: 24px; font-size: 12px; color: var(--color-text-secondary);">
+        <p><strong>Demo Users:</strong></p>
+        <p>Admin: admin@example.com / Admin@123</p>
+        <p>Manager: manager@example.com / Manager@123</p>
+        <p>Viewer: viewer@example.com / Viewer@123</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="mainApp" class="app-container" style="display: none;">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">StockFlow</div>
+        <div class="sidebar-tagline">Real-time inventory tracking</div>
+      </div>
+      <nav class="sidebar-nav">
+        <a href="#/dashboard" class="nav-item" data-page="dashboard">
+          <span class="nav-icon">📊</span>
+          Dashboard
+        </a>
+        <a href="#/inventory" class="nav-item" data-page="inventory">
+          <span class="nav-icon">📦</span>
+          Inventory
+        </a>
+        <a href="#/warehouses" class="nav-item" data-page="warehouses">
+          <span class="nav-icon">🏭</span>
+          Warehouses
+        </a>
+        <a href="#/orders/purchase" class="nav-item" data-page="purchase-orders">
+          <span class="nav-icon">🛒</span>
+          Purchase Orders
+        </a>
+        <a href="#/orders/sales" class="nav-item" data-page="sales-orders">
+          <span class="nav-icon">💰</span>
+          Sales Orders
+        </a>
+        <a href="#/alerts" class="nav-item" data-page="alerts">
+          <span class="nav-icon">🔔</span>
+          Alerts
+          <span id="alertBadge" class="status-badge error" style="margin-left: auto; display: none;">0</span>
+        </a>
+        <a href="#/reports" class="nav-item" data-page="reports">
+          <span class="nav-icon">📈</span>
+          Reports
+        </a>
+        <a href="#/settings" class="nav-item" data-page="settings" id="settingsNav" style="display: none;">
+          <span class="nav-icon">⚙️</span>
+          Settings
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <div class="top-bar">
+        <div class="top-bar-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="live-indicator">
+            <span class="live-dot" id="liveDot"></span>
+            <span>Live</span>
+          </div>
+        </div>
+        <div class="user-menu" id="userMenu">
+          <div class="user-avatar" id="userAvatar">A</div>
+          <span id="userName">Admin User</span>
+        </div>
+      </div>
+
+      <!-- Page Content -->
+      <div class="page-content">
+        <!-- Dashboard Page -->
+        <div id="dashboardPage" class="page-container">
+          <div class="page-header">
+            <h1 class="page-title">Dashboard</h1>
+            <p class="page-subtitle">Overview of your inventory system</p>
+          </div>
+
+          <div class="grid grid-cols-4 mb-24">
+            <div class="kpi-card">
+              <div class="kpi-label">Total SKUs</div>
+              <div class="kpi-value" id="totalSkus">0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Total Stock Value</div>
+              <div class="kpi-value" id="totalValue">$0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Low Stock Items</div>
+              <div class="kpi-value" id="lowStockCount">0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-label">Open Orders</div>
+              <div class="kpi-value" id="openOrders">0</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 mb-24">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Stock Movements (Last 7 Days)</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-container">
+                  <canvas id="movementsChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Recent Alerts</h3>
+              </div>
+              <div class="card-body">
+                <div id="recentAlerts"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Stock Movements</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="recentMovementsTable">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Item</th>
+                      <th>Warehouse</th>
+                      <th>Type</th>
+                      <th>Quantity</th>
+                      <th>Reference</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Inventory Page -->
+        <div id="inventoryPage" class="page-container">
+          <div class="page-header">
+            <div class="flex justify-between items-center">
+              <div>
+                <h1 class="page-title">Inventory</h1>
+                <p class="page-subtitle">Manage your product catalog</p>
+              </div>
+              <button class="btn btn-primary" id="addItemBtn" style="display: none;">Add New Item</button>
+            </div>
+          </div>
+
+          <div class="card mb-16">
+            <div class="card-body">
+              <div class="filters">
+                <div class="filter-item">
+                  <input type="text" id="searchInput" class="form-control" placeholder="Search by name or SKU...">
+                </div>
+                <div class="filter-item">
+                  <select id="categoryFilter" class="form-control">
+                    <option value="">All Categories</option>
+                  </select>
+                </div>
+                <div class="filter-item">
+                  <select id="statusFilter" class="form-control">
+                    <option value="">All Status</option>
+                    <option value="In Stock">In Stock</option>
+                    <option value="Low Stock">Low Stock</option>
+                    <option value="Out of Stock">Out of Stock</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="inventoryTable">
+                  <thead>
+                    <tr>
+                      <th>SKU</th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Stock</th>
+                      <th>Reorder Point</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item Detail Page -->
+        <div id="itemDetailPage" class="page-container">
+          <div class="page-header">
+            <button class="btn btn-secondary mb-16" id="backToInventory">← Back to Inventory</button>
+            <h1 class="page-title" id="itemDetailName">Item Details</h1>
+          </div>
+
+          <div class="grid grid-cols-2 mb-24">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Item Information</h3>
+              </div>
+              <div class="card-body">
+                <div class="info-grid" id="itemInfo"></div>
+              </div>
+            </div>
+            <div class="card" id="adjustStockCard" style="display: none;">
+              <div class="card-header">
+                <h3 class="card-title">Quick Stock Adjustment</h3>
+              </div>
+              <div class="card-body">
+                <form id="adjustStockForm">
+                  <div class="form-group">
+                    <label class="form-label">Warehouse</label>
+                    <select id="adjustWarehouse" class="form-control" required></select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Quantity Change</label>
+                    <input type="number" id="adjustQuantity" class="form-control" placeholder="+50 or -30" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Note</label>
+                    <input type="text" id="adjustNote" class="form-control" placeholder="Reason for adjustment">
+                  </div>
+                  <button type="submit" class="btn btn-primary">Adjust Stock</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-24">
+            <div class="card-header">
+              <h3 class="card-title">Stock by Warehouse</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="itemStockTable">
+                  <thead>
+                    <tr>
+                      <th>Warehouse</th>
+                      <th>Code</th>
+                      <th>Current Stock</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Recent Movements</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="itemMovementsTable">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Warehouse</th>
+                      <th>Type</th>
+                      <th>Quantity</th>
+                      <th>Reference</th>
+                      <th>User</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Warehouses Page -->
+        <div id="warehousesPage" class="page-container">
+          <div class="page-header">
+            <div class="flex justify-between items-center">
+              <div>
+                <h1 class="page-title">Warehouses</h1>
+                <p class="page-subtitle">Manage warehouse locations</p>
+              </div>
+              <button class="btn btn-primary" id="addWarehouseBtn" style="display: none;">Add Warehouse</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3" id="warehousesGrid"></div>
+        </div>
+
+        <!-- Purchase Orders Page -->
+        <div id="purchaseOrdersPage" class="page-container">
+          <div class="page-header">
+            <div class="flex justify-between items-center">
+              <div>
+                <h1 class="page-title">Purchase Orders</h1>
+                <p class="page-subtitle">Manage inbound inventory</p>
+              </div>
+              <button class="btn btn-primary" id="createPOBtn" style="display: none;">Create Purchase Order</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="purchaseOrdersTable">
+                  <thead>
+                    <tr>
+                      <th>PO #</th>
+                      <th>Supplier</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Total</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sales Orders Page -->
+        <div id="salesOrdersPage" class="page-container">
+          <div class="page-header">
+            <div class="flex justify-between items-center">
+              <div>
+                <h1 class="page-title">Sales Orders</h1>
+                <p class="page-subtitle">Manage outbound inventory</p>
+              </div>
+              <button class="btn btn-primary" id="createSOBtn" style="display: none;">Create Sales Order</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="salesOrdersTable">
+                  <thead>
+                    <tr>
+                      <th>SO #</th>
+                      <th>Customer</th>
+                      <th>Date</th>
+                      <th>Status</th>
+                      <th>Total</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alerts Page -->
+        <div id="alertsPage" class="page-container">
+          <div class="page-header">
+            <h1 class="page-title">Stock Alerts</h1>
+            <p class="page-subtitle">Monitor low stock and out-of-stock items</p>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="alertsTable">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Warehouse</th>
+                      <th>Current Stock</th>
+                      <th>Reorder Point</th>
+                      <th>Type</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports Page -->
+        <div id="reportsPage" class="page-container">
+          <div class="page-header">
+            <h1 class="page-title">Reports &amp; Analytics</h1>
+            <p class="page-subtitle">Analyze inventory data and trends</p>
+          </div>
+
+          <div class="card mb-24">
+            <div class="card-header">
+              <h3 class="card-title">Stock Summary</h3>
+              <button class="btn btn-sm btn-secondary" id="exportSummaryBtn">Export CSV</button>
+            </div>
+            <div class="card-body">
+              <div class="grid grid-cols-3 mb-24">
+                <div class="kpi-card">
+                  <div class="kpi-label">Total Inventory Value</div>
+                  <div class="kpi-value" id="reportTotalValue">$0</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">Total Items</div>
+                  <div class="kpi-value" id="reportTotalItems">0</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-label">Total Quantity</div>
+                  <div class="kpi-value" id="reportTotalQty">0</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2">
+                <div class="chart-container">
+                  <canvas id="categoryChart"></canvas>
+                </div>
+                <div class="chart-container">
+                  <canvas id="warehouseChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-24">
+            <div class="card-header">
+              <h3 class="card-title">Low Stock Report</h3>
+              <button class="btn btn-sm btn-secondary" id="exportLowStockBtn">Export CSV</button>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="lowStockTable">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Category</th>
+                      <th>Warehouse</th>
+                      <th>Current Stock</th>
+                      <th>Reorder Point</th>
+                      <th>Shortage</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Stock Movements Report</h3>
+              <button class="btn btn-sm btn-secondary" id="exportMovementsBtn">Export CSV</button>
+            </div>
+            <div class="card-body">
+              <div class="chart-container mb-24">
+                <canvas id="movementsReportChart"></canvas>
+              </div>
+              <div class="table-container">
+                <table class="table" id="movementsReportTable">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Item</th>
+                      <th>Type</th>
+                      <th>Quantity</th>
+                      <th>Warehouse</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div id="settingsPage" class="page-container">
+          <div class="page-header">
+            <h1 class="page-title">Settings</h1>
+            <p class="page-subtitle">System configuration</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">User Management</h3>
+            </div>
+            <div class="card-body">
+              <div class="table-container">
+                <table class="table" id="usersTable">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Role</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Item Modal -->
+  <div class="modal-overlay" id="itemModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="itemModalTitle">Add New Item</h3>
+        <button class="modal-close" onclick="closeModal('itemModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="itemForm">
+          <div class="form-group">
+            <label class="form-label">SKU</label>
+            <input type="text" id="itemSku" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" id="itemName" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Category</label>
+            <select id="itemCategory" class="form-control" required></select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <input type="text" id="itemDescription" class="form-control">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Unit</label>
+            <input type="text" id="itemUnit" class="form-control" value="pcs" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reorder Level</label>
+            <input type="number" id="itemReorder" class="form-control" required>
+          </div>
+          <div class="grid grid-cols-2">
+            <div class="form-group">
+              <label class="form-label">Cost Price</label>
+              <input type="number" id="itemCost" class="form-control" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Selling Price</label>
+              <input type="number" id="itemPrice" class="form-control" step="0.01" required>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('itemModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveItem()">Save Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Purchase Order Modal -->
+  <div class="modal-overlay" id="poModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Purchase Order</h3>
+        <button class="modal-close" onclick="closeModal('poModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="poForm">
+          <div class="form-group">
+            <label class="form-label">Supplier</label>
+            <input type="text" id="poSupplier" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Expected Date</label>
+            <input type="date" id="poDate" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Warehouse</label>
+            <select id="poWarehouse" class="form-control" required></select>
+          </div>
+          <div class="line-items-table">
+            <label class="form-label">Line Items</label>
+            <div id="poLineItems"></div>
+            <button type="button" class="btn btn-sm btn-secondary mt-16" onclick="addPOLineItem()">+ Add Item</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('poModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="savePO()">Create PO</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sales Order Modal -->
+  <div class="modal-overlay" id="soModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Sales Order</h3>
+        <button class="modal-close" onclick="closeModal('soModal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="soForm">
+          <div class="form-group">
+            <label class="form-label">Customer</label>
+            <input type="text" id="soCustomer" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Order Date</label>
+            <input type="date" id="soDate" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Warehouse</label>
+            <select id="soWarehouse" class="form-control" required></select>
+          </div>
+          <div class="line-items-table">
+            <label class="form-label">Line Items</label>
+            <div id="soLineItems"></div>
+            <button type="button" class="btn btn-sm btn-secondary mt-16" onclick="addSOLineItem()">+ Add Item</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('soModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveSO()">Create SO</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

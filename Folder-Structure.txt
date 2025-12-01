@@ -1,19 +1,13 @@
-nptrigunayat.com/
-├── .gitignore
-├── Folder-Structure.txt
-├── package-lock.json
-├── package.json
+public/
 └── public/
-    ├── about.html
-    ├── Case-Studies/
+    ├── case-studies/
     │   ├── AromaCraft.html
     │   ├── DanceVibe.html
     │   ├── FitZone.html
     │   ├── GlowSkin.html
     │   ├── PawHaven.html
     │   └── Sharmas.html
-    ├── contact.html
-    ├── images/
+    ├── Images/
     │   ├── analytics.png
     │   ├── connecthub.png
     │   ├── fitpro.png
@@ -21,23 +15,29 @@ nptrigunayat.com/
     │   ├── Logo.png
     │   ├── shopup.png
     │   └── techvision.png
-    ├── index.html
-    ├── Portfolio-Pages/
-    │   ├── Analytics.html
-    │   ├── ConnectHub.html
-    │   ├── FitPro.html
+    ├── portfolio-pages/
     │   ├── inventory-system/
     │   │   ├── app.js
     │   │   └── Inventory.html
-    │   ├── ShopUp.html
-    │   └── TechVision/
-    │       ├── app.js
-    │       ├── style.css
-    │       └── TechVision.html
-    ├── portfolio.html
-    ├── pricing.html
-    ├── services.html
+    │   ├── TechVision/
+    │   │   ├── app.js
+    │   │   ├── style.css
+    │   │   └── TechVision.html
+    │   ├── Analytics.html
+    │   ├── ConnectHub.html
+    │   ├── FitPro.html
+    │   └── ShopUp.html
     ├── sources/
     │   ├── app.js
     │   └── style.css
+    ├── 49d141aa12064c0ab233567dd0abaeac.txt
+    ├── about.html
+    ├── contact.html
+    ├── index.html
+    ├── portfolio.html
+    ├── pricing.html
+    ├── robots.txt
+    ├── services.html
+    ├── site.webmanifest
+    ├── sitemap.xml
     └── testimonials.html

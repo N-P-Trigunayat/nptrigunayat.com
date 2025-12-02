@@ -2128,6 +2128,29 @@
      .case-study-arrow {
          margin: var(--space-16) auto 0;
      }
+
+     .testimonial-carousel {
+         padding: 0 var(--space-8);
+     }
+
+     .testimonial-slide {
+         min-width: 100%;
+         padding: 0 var(--space-8);
+     }
+
+     .carousel-indicators {
+         gap: var(--space-6);
+         margin-top: var(--space-16);
+     }
+
+     .indicator {
+         width: 10px;
+         height: 10px;
+     }
+
+     .indicator.active {
+         width: 28px;
+     }
  }
 
  @media (max-width: 480px) {
@@ -2143,6 +2166,48 @@
 
      .testimonial-quote {
          font-size: var(--font-size-sm);
+     }
+
+     .testimonial-carousel {
+         padding: 0 var(--space-4);
+     }
+
+     .testimonial-slide {
+         min-width: 100%;
+         padding: 0 var(--space-4);
+     }
+
+     .testimonial-card {
+         padding: var(--space-20);
+     }
+
+     .testimonial-quote {
+         font-size: var(--font-size-sm);
+         padding-left: var(--space-12);
+     }
+
+     .carousel-indicators {
+         gap: var(--space-4);
+         margin-top: var(--space-12);
+     }
+
+     .indicator {
+         width: 8px;
+         height: 8px;
+     }
+
+     .indicator.active {
+         width: 24px;
+     }
+
+     .testimonial-author {
+         flex-direction: column;
+         text-align: center;
+     }
+
+     .author-avatar {
+         width: 48px;
+         height: 48px;
      }
 
  }

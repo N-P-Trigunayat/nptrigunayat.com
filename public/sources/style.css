@@ -1392,6 +1392,12 @@
      .quick-connect {
          justify-content: center;
      }
+
+     .carasoul-star {
+    font-size: 24px;
+    max-width: 100px;
+    gap: 3px;
+  }
  }
 
  /* ===== TESTIMONIAL CAROUSEL STYLES ===== */
@@ -1418,6 +1424,16 @@
      gap: var(--space-8);
      margin-top: var(--space-24);
  }
+
+ .carasoul-star {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+  max-width: 120px;
+  margin: 0 auto var(--space-16);
+  font-size: 28px;
+}
 
  .indicator {
      width: 12px;

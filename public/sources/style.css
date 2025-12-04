@@ -943,7 +943,7 @@
      right: var(--space-24);
      background: var(--color-primary);
      color: white;
-     padding: var(--space-4) var(--space-16);
+     padding: 3px 8px;
      border-radius: 50px;
      font-size: var(--font-size-sm);
      font-weight: 600;

@@ -1,0 +1,5 @@
+# robots.txt for https://nptrigunayat.com
+User-agent: *
+Allow: /
+
+Sitemap: https://nptrigunayat.com/sitemap.xml

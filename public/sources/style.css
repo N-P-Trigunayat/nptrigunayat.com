@@ -2227,3 +2227,27 @@
      }
 
  }
+
+ /*=============== NAV Link Light theme =======*/
+ @media (prefers-color-scheme: light) {
+    .nav-links a {
+        color: rgba(0, 0, 0, 0.8);  /* Black/dark text in light mode */
+    }
+
+    .nav-links a:hover {
+        color: var(--color-primary);  /* Purple on hover */
+    }
+
+    .nav-links a::after {
+        background: var(--color-primary);  /* Purple underline */
+    }
+
+    .nav-cta {
+        color: white !important;
+        background: var(--color-primary);
+    }
+
+    .nav-cta:hover {
+        background: var(--color-primary-hover);
+    }
+}

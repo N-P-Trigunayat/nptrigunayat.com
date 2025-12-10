@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./sources/style.css">
+    <link rel="stylesheet" href="./sources/faqs.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -537,60 +538,86 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="cta-section reveal">
-        <h2>Still have questions?</h2>
-        <p>Get in touch with us directly. We typically respond within 24 hours.</p>
-        <div class="cta-group">
-            <a href="contact.html" class="cta-button">Start Your Project</a>
-            <a href="mailto:hello@nptrigunayat.com" class="cta-button cta-button-secondary">Email Us</a>
-        </div>
-        <p class="contact-info">
+    <!-- CTA Section -->
+        <section class="section reveal" style="text-align: center; padding-bottom: var(--space-64);">
+            <h2 class="section-title">Ready to Join Our Success Stories?</h2>
+            <p class="section-subtitle">Let's create something amazing together. Get in touch and start your
+                transformation
+                today.</p>
+            <div class="hero-cta-group">
+                <a href="/contact.html" class="cta-button">
+                    <i class="fas fa-rocket"></i> Start Your Project
+                </a>
+                <a href="/portfolio.html" class="cta-button cta-button-secondary">
+                    <i class="fas fa-eye"></i> View Portfolio
+                </a>
+            </div>
+            <p class="contact-info">
             📧 hello@nptrigunayat.com | 📱 +91 9506919515 | 🔗 @nainabh_vibes
         </p>
-    </section>
+        </section>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-section">
-                <h3>NP TRIGUNAYAT</h3>
-                <p>Building digital systems that empower people and accelerate businesses.</p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>NP TRIGUNAYAT SYSTEMS</h3>
+                <p>Creative developer crafting exceptional digital experiences. Transforming ideas into powerful web
+                    solutions that drive business growth.</p>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@nainabhvibes" target="_blank" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="https:///wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
+                        target="_blank" aria-label="WhatsApp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://t.me/yourusername" target="_blank" aria-label="Telegram">
+                        <i class="fab fa-telegram"></i>
+                    </a>
+                    <a href="https://instagram.com/nainabh_vibes" target="_blank" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
             </div>
 
             <div class="footer-section">
                 <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="services.html">Services</a></li>
-                    <li><a href="portfolio.html">Portfolio</a></li>
-                    <li><a href="pricing.html">Pricing</a></li>
+                <ul class="footer-links">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="../services.html">Services</a></li>
+                    <li><a href="../portfolio.html">Portfolio</a></li>
+                    <li><a href="../testimonials.html">Testimonials</a></li>
+                    <li><a href="../contact.html">Contact</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4>More</h4>
-                <ul>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="testimonials.html">Testimonials</a></li>
-                    <li><a href="faqs.html">FAQs</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                <h4>Services</h4>
+                <ul class="footer-links">
+                    <li><a href="../services.html">Full-Stack Development</a></li>
+                    <li><a href="../services.html">Management Systems</a></li>
+                    <li><a href="../services.html">Performance Optimization</a></li>
+                    <li><a href="../services.html">Business Solutions</a></li>
+                    <li><a href="../services.html">Mobile-First Development</a></li>
+                    <li><a href="../services.html">Security & Maintenance</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
-                <h4>Connect</h4>
-                <ul>
+                <h4>Contact</h4>
+                <ul class="footer-links">
                     <li><a href="mailto:hello@nptrigunayat.com">Email</a></li>
-                    <li><a href="tel:+919506919515">Call</a></li>
+                    <li><a href="https://wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
+                            target="_blank">WhatsApp</a></li>
+                    <li><a href="tel:+919506919515">Phone</a></li>
                     <li><a href="https://instagram.com/nainabh_vibes" target="_blank">Instagram</a></li>
-                    <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2024 NP TRIGUNAYAT. All rights reserved.</p>
-            <p>Built with care. Designed with purpose. Delivered with excellence.</p>
+            <p>&copy; 2025 NP TRIGUNAYAT Systems. All rights reserved. Built with ❤️ in India.</p>
         </div>
     </footer>
 
@@ -620,379 +647,6 @@
             answer.style.display = item.classList.contains('active') ? 'block' : 'none';
         }
     </script>
-
-    <style>
-        /* ===== FAQs SECTION ===== */
-
-        .faqs-section {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: var(--space-48) var(--space-32);
-            position: relative;
-            z-index: 1;
-        }
-
-        .faqs-container {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-48);
-        }
-
-        .faq-category {
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        .faq-category:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-
-        .faq-category:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        .faq-category:nth-child(4) {
-            animation-delay: 0.3s;
-        }
-
-        .faq-category:nth-child(5) {
-            animation-delay: 0.4s;
-        }
-
-        .faq-category:nth-child(6) {
-            animation-delay: 0.5s;
-        }
-
-        .category-title {
-            font-size: var(--font-size-2xl);
-            font-weight: 700;
-            color: var(--color-text);
-            margin-bottom: var(--space-32);
-            padding-bottom: var(--space-16);
-            border-bottom: 2px solid var(--color-border);
-            position: relative;
-        }
-
-        .category-title::before {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background: var(--color-primary);
-        }
-
-        .faq-item {
-            background: var(--color-surface);
-            border: 1px solid var(--color-card-border);
-            border-radius: var(--radius-lg);
-            margin-bottom: var(--space-16);
-            transition: all 0.3s ease;
-            overflow: hidden;
-        }
-
-        .faq-item:hover {
-            border-color: var(--color-primary);
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
-        }
-
-        .faq-item.active {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.02), rgba(59, 130, 246, 0.02));
-        }
-
-        .faq-question {
-            width: 100%;
-            padding: var(--space-20);
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: var(--space-16);
-            font-size: var(--font-size-base);
-            font-weight: 600;
-            color: var(--color-text);
-            transition: all 0.3s ease;
-        }
-
-        .faq-question:hover {
-            color: var(--color-primary);
-        }
-
-        .faq-question span:first-child {
-            text-align: left;
-            flex: 1;
-        }
-
-        .faq-icon {
-            font-size: 24px;
-            color: var(--color-primary);
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .faq-item.active .faq-icon {
-            transform: rotate(45deg);
-        }
-
-        .faq-answer {
-            display: none;
-            padding: 0 var(--space-20) var(--space-20);
-            color: var(--color-text-secondary);
-            line-height: 1.8;
-            animation: slideDown 0.3s ease forwards;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .faq-answer p {
-            margin-bottom: var(--space-12);
-        }
-
-        .faq-answer ul,
-        .faq-answer ol {
-            margin-left: var(--space-24);
-            color: var(--color-text-secondary);
-        }
-
-        .faq-answer li {
-            margin-bottom: var(--space-8);
-            line-height: 1.6;
-        }
-
-        .faq-answer a {
-            color: var(--color-primary);
-            font-weight: 500;
-            text-decoration: underline;
-        }
-
-        .faq-answer a:hover {
-            color: var(--color-primary-hover);
-        }
-
-        /* ===== CTA SECTION ===== */
-
-        .cta-section {
-            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
-            border: 1px solid var(--color-border);
-            border-radius: var(--radius-lg);
-            padding: var(--space-48);
-            text-align: center;
-            max-width: 1000px;
-            margin: var(--space-48) auto;
-            position: relative;
-            z-index: 1;
-            animation: fadeIn 0.6s ease 0.6s forwards;
-            opacity: 0;
-        }
-
-        .cta-section h2 {
-            font-size: var(--font-size-2xl);
-            margin-bottom: var(--space-16);
-            color: var(--color-text);
-        }
-
-        .cta-section > p {
-            font-size: var(--font-size-lg);
-            color: var(--color-text-secondary);
-            margin-bottom: var(--space-32);
-        }
-
-        .cta-group {
-            display: flex;
-            gap: var(--space-16);
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: var(--space-32);
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-8);
-            background: var(--color-primary);
-            color: white;
-            padding: var(--space-12) var(--space-32);
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: var(--font-size-base);
-            transition: all 0.3s ease;
-            border: 2px solid var(--color-primary);
-            cursor: pointer;
-        }
-
-        .cta-button:hover {
-            background: var(--color-primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
-        }
-
-        .cta-button-secondary {
-            background: transparent;
-            color: var(--color-text);
-            border: 2px solid var(--color-border);
-        }
-
-        .cta-button-secondary:hover {
-            background: var(--color-surface);
-            border-color: var(--color-primary);
-            color: var(--color-primary);
-        }
-
-        .contact-info {
-            font-size: var(--font-size-base);
-            color: var(--color-text-secondary);
-        }
-
-        /* ===== FOOTER ===== */
-
-        .footer {
-            background: var(--color-charcoal-800);
-            color: var(--color-gray-200);
-            padding: var(--space-48) var(--space-32) var(--space-24);
-            margin-top: var(--space-48);
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: var(--space-32);
-            margin-bottom: var(--space-32);
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-            color: white;
-            margin-bottom: var(--space-16);
-            font-size: var(--font-size-lg);
-        }
-
-        .footer-section p {
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-            font-size: var(--font-size-sm);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: var(--space-8);
-        }
-
-        .footer-section ul li a {
-            color: var(--color-text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: var(--font-size-sm);
-        }
-
-        .footer-section ul li a:hover {
-            color: var(--color-primary);
-            transform: translateX(4px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: var(--space-24);
-            text-align: center;
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-        }
-
-        .footer-bottom p {
-            margin-bottom: var(--space-8);
-        }
-
-        /* ===== RESPONSIVE DESIGN ===== */
-
-        @media (max-width: 768px) {
-            .faqs-section {
-                padding: var(--space-32) var(--space-16);
-            }
-
-            .category-title {
-                font-size: var(--font-size-xl);
-            }
-
-            .faq-question {
-                padding: var(--space-16);
-                font-size: var(--font-size-sm);
-            }
-
-            .faq-answer {
-                padding: 0 var(--space-16) var(--space-16);
-            }
-
-            .cta-section {
-                padding: var(--space-32) var(--space-16);
-            }
-
-            .cta-group {
-                flex-direction: column;
-            }
-
-            .cta-button {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .hero {
-                padding: 80px var(--space-16) var(--space-32);
-            }
-
-            .hero-title {
-                font-size: var(--font-size-2xl);
-            }
-
-            .hero-subtitle {
-                font-size: var(--font-size-base);
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .faq-icon {
-                font-size: 20px;
-            }
-
-            .faq-question span:first-child {
-                font-size: 14px;
-            }
-
-            .category-title {
-                font-size: var(--font-size-lg);
-                margin-bottom: var(--space-16);
-            }
-
-            .cta-section {
-                padding: var(--space-24) var(--space-16);
-            }
-
-            .cta-section h2 {
-                font-size: var(--font-size-xl);
-            }
-        }
-    </style>
 
 </body>
 </html>

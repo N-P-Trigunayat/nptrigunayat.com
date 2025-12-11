@@ -1,15 +1,16 @@
-/* ===== FAQs PAGE SPECIFIC STYLES ===== */
+/* ===== FAQs PAGE - ONLY NEW STYLES ===== */
+/* Add this to your style.css - it only targets unstyled FAQ elements */
 
 /* FAQs Main Section */
 .faqs-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 80px var(--space-32) var(--space-64);
+    padding: calc(var(--space-32) * 2.5) var(--space-32) calc(var(--space-32) * 2);
 }
 
 .faqs-container {
     display: grid;
-    gap: var(--space-64);
+    gap: calc(var(--space-32) * 2);
 }
 
 .faq-category {
@@ -17,14 +18,12 @@
 }
 
 .category-title {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-32);
-    color: var(--color-text);
-    letter-spacing: var(--letter-spacing-tight);
     display: flex;
     align-items: center;
     gap: var(--space-12);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
 }
 
 .faq-items {
@@ -50,7 +49,7 @@
     left: 0;
     width: 100%;
     height: 3px;
-    background: linear-gradient(90deg, var(--color-teal-500), var(--color-teal-400), var(--color-teal-300));
+    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
     background-size: 200% 100%;
     animation: gradientSlide 3s ease infinite;
     transform: scaleX(0);
@@ -74,9 +73,6 @@
     background: none;
     border: none;
     text-align: left;
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
@@ -84,6 +80,9 @@
     gap: var(--space-16);
     transition: all var(--duration-normal) var(--ease-standard);
     font-family: var(--font-family-base);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text);
 }
 
 .faq-question:hover {
@@ -92,6 +91,11 @@
 
 .faq-question:active {
     transform: scale(0.99);
+}
+
+.faq-question:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
 }
 
 /* FAQ Icon */
@@ -105,7 +109,7 @@
     border-radius: var(--radius-full);
     color: var(--color-primary);
     font-weight: var(--font-weight-bold);
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     transition: all var(--duration-normal) var(--ease-standard);
     flex-shrink: 0;
 }
@@ -142,7 +146,7 @@
 
 .faq-answer strong {
     color: var(--color-primary);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semibold);
 }
 
 .faq-answer em {
@@ -158,7 +162,7 @@
 }
 
 .faq-answer li {
-    padding: var(--space-12) 0 var(--space-12) var(--space-28);
+    padding: var(--space-12) 0 var(--space-12) var(--space-32);
     position: relative;
     color: var(--color-text-secondary);
     line-height: var(--line-height-normal);
@@ -171,15 +175,15 @@
     left: 0;
     color: var(--color-primary);
     font-weight: var(--font-weight-bold);
-    font-size: 16px;
+    font-size: var(--font-size-lg);
 }
 
 /* CTA Section */
 .cta-section {
     background: var(--color-bg-1);
     border: 1px solid var(--color-card-border);
-    padding: 80px var(--space-32);
-    margin: var(--space-64) var(--space-32);
+    padding: calc(var(--space-32) * 2.5) var(--space-32);
+    margin: calc(var(--space-32) * 2) var(--space-32);
     border-radius: var(--radius-lg);
     position: relative;
     overflow: hidden;
@@ -193,7 +197,7 @@
     right: 0;
     bottom: 0;
     background: radial-gradient(circle at 20% 50%, rgba(var(--color-teal-500-rgb), 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(var(--color-teal-400-rgb), 0.06) 0%, transparent 50%);
+                radial-gradient(circle at 80% 80%, rgba(var(--color-teal-500-rgb), 0.04) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -206,11 +210,12 @@
 }
 
 .cta-container h2 {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--space-16);
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
-    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-16);
     letter-spacing: var(--letter-spacing-tight);
+    line-height: var(--line-height-tight);
 }
 
 .cta-container p {
@@ -237,7 +242,7 @@
     padding: var(--space-16) var(--space-32);
     border-radius: var(--radius-full);
     text-decoration: none;
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semibold);
     font-size: var(--font-size-base);
     transition: all var(--duration-normal) var(--ease-standard);
     border: none;
@@ -257,26 +262,35 @@
     background: var(--color-primary-active);
 }
 
+.cta-button:focus-visible {
+    outline: var(--focus-outline);
+    outline-offset: 2px;
+    box-shadow: var(--focus-ring);
+}
+
 .cta-button-secondary {
-    background: var(--color-surface);
+    background: var(--color-secondary);
     color: var(--color-text);
     border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-sm);
 }
 
 .cta-button-secondary:hover {
-    background: var(--color-secondary);
+    background: var(--color-secondary-hover);
     border-color: var(--color-primary);
     color: var(--color-primary);
     box-shadow: var(--shadow-sm);
+}
+
+.cta-button-secondary:active {
+    background: var(--color-secondary-active);
 }
 
 /* Footer */
 .footer {
     background: var(--color-bg-2);
     border-top: 1px solid var(--color-card-border);
-    padding: 60px var(--space-32) var(--space-32);
-    margin-top: var(--space-64);
+    padding: calc(var(--space-32) * 1.875) var(--space-32) var(--space-32);
+    margin-top: calc(var(--space-32) * 2);
 }
 
 .footer-content {
@@ -284,15 +298,15 @@
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-48);
-    margin-bottom: var(--space-48);
+    gap: var(--space-32);
+    margin-bottom: var(--space-32);
 }
 
 .footer-section h3 {
     font-size: var(--font-size-lg);
     margin-bottom: var(--space-16);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
-    font-weight: var(--font-weight-bold);
 }
 
 .footer-section p,
@@ -303,6 +317,7 @@
     margin: var(--space-8) 0;
     font-size: var(--font-size-sm);
     transition: all var(--duration-fast) var(--ease-standard);
+    display: inline-block;
 }
 
 .footer-section a:hover {
@@ -313,6 +328,7 @@
 .footer-section ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .footer-section ul li {
@@ -331,7 +347,7 @@
 .hero {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 120px var(--space-32) var(--space-64);
+    padding: calc(var(--space-32) * 3.75) var(--space-32) calc(var(--space-32) * 2);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -344,10 +360,11 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(var(--color-teal-500-rgb), 0.03) 1px, transparent 1px);
+    background: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
     background-size: 50px 50px;
     animation: gridMove 20s linear infinite;
     z-index: 0;
+    opacity: 0.3;
 }
 
 .hero > * {
@@ -360,29 +377,29 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-8);
-    background: linear-gradient(135deg, var(--color-teal-500), var(--color-teal-400), var(--color-teal-300));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
     background-size: 200% 200%;
     animation: gradientSlide 3s ease infinite, float 3s ease-in-out infinite;
     color: var(--color-btn-primary-text);
     padding: var(--space-12) var(--space-24);
     border-radius: var(--radius-full);
     font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semibold);
     margin-bottom: var(--space-24);
     box-shadow: var(--shadow-md);
 }
 
 .hero-title {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--space-24);
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-semibold);
     color: var(--color-text);
+    margin-bottom: var(--space-24);
     line-height: var(--line-height-tight);
-    font-weight: var(--font-weight-bold);
     letter-spacing: var(--letter-spacing-tight);
 }
 
 .hero-title .highlight {
-    background: linear-gradient(135deg, var(--color-teal-500), var(--color-teal-400), var(--color-teal-300));
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
     background-size: 200% 200%;
     animation: gradientSlide 5s ease infinite;
     -webkit-background-clip: text;
@@ -393,17 +410,17 @@
 .hero-subtitle {
     font-size: var(--font-size-xl);
     color: var(--color-text-secondary);
-    margin-bottom: var(--space-48);
+    margin-bottom: var(--space-32);
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     line-height: var(--line-height-normal);
 }
 
-/* Responsive Design */
+/* Responsive Design - Tablet */
 @media (max-width: 768px) {
     .faqs-section {
-        padding: 60px var(--space-16) var(--space-48);
+        padding: calc(var(--space-32) * 1.875) var(--space-16) var(--space-32);
     }
 
     .category-title {
@@ -430,8 +447,12 @@
     }
 
     .cta-section {
-        padding: 60px var(--space-16);
-        margin: var(--space-48) var(--space-16);
+        padding: calc(var(--space-32) * 1.875) var(--space-16);
+        margin: var(--space-32) var(--space-16);
+    }
+
+    .cta-container h2 {
+        font-size: var(--font-size-2xl);
     }
 
     .cta-buttons {
@@ -444,11 +465,11 @@
     }
 
     .hero {
-        padding: 80px var(--space-24) var(--space-48);
+        padding: calc(var(--space-32) * 2.5) var(--space-24) var(--space-32);
     }
 
     .hero-title {
-        font-size: var(--font-size-2xl);
+        font-size: var(--font-size-3xl);
     }
 
     .hero-subtitle {
@@ -460,17 +481,10 @@
     }
 }
 
+/* Responsive Design - Mobile Portrait */
 @media (max-width: 480px) {
     .faqs-section {
-        padding: 40px var(--space-12) var(--space-32);
-    }
-
-    .faqs-container {
-        gap: var(--space-48);
-    }
-
-    .faq-items {
-        gap: var(--space-16);
+        padding: calc(var(--space-32) * 1.25) var(--space-12) var(--space-32);
     }
 
     .faq-question {
@@ -481,7 +495,7 @@
     .faq-icon {
         width: 28px;
         height: 28px;
-        font-size: 16px;
+        font-size: var(--font-size-base);
     }
 
     .faq-answer {
@@ -495,7 +509,6 @@
     .category-title {
         font-size: var(--font-size-lg);
         gap: var(--space-8);
-        margin-bottom: var(--space-24);
     }
 
     .faq-answer p {
@@ -509,7 +522,7 @@
     }
 
     .cta-section {
-        padding: 40px var(--space-12);
+        padding: calc(var(--space-32) * 1.25) var(--space-12);
         margin: var(--space-32) var(--space-8);
     }
 
@@ -528,13 +541,14 @@
     }
 
     .footer {
-        padding: 40px var(--space-16) var(--space-16);
-        margin-top: var(--space-48);
+        padding: calc(var(--space-32) * 1.25) var(--space-16) var(--space-16);
+        margin-top: var(--space-32);
     }
 
     .footer-content {
         gap: var(--space-24);
         margin-bottom: var(--space-32);
+        grid-template-columns: 1fr;
     }
 
     .footer-section h3 {
@@ -554,7 +568,7 @@
     }
 
     .hero {
-        padding: 60px var(--space-16) var(--space-32);
+        padding: calc(var(--space-32) * 1.875) var(--space-16) var(--space-32);
     }
 
     .hero-badge {
@@ -564,7 +578,7 @@
     }
 
     .hero-title {
-        font-size: 28px;
+        font-size: var(--font-size-2xl);
         margin-bottom: var(--space-16);
     }
 
@@ -613,9 +627,11 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
+        transform: translateY(0);
     }
 }
 

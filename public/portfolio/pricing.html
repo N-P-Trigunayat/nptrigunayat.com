@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | wrkout world</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ff6a00',
+                        dark: { 900: '#0a0a0a', 800: '#171717', 700: '#262626' },
+                        light: { 100: '#ffffff', 200: '#f3f4f6' }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light-100 dark:bg-dark-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
+
+    <nav class="fixed w-full z-50 bg-light-100/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-gray-200 dark:border-dark-700">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="text-2xl font-black tracking-tighter uppercase italic group">
+                    wrkout<span class="text-primary group-hover:text-orange-400 transition-colors">world</span>
+                </a>
+                <div class="hidden md:flex space-x-8 items-center font-bold text-sm uppercase tracking-wide">
+                    <a href="index.html" class="hover:text-primary transition-colors">Home</a>
+                    <a href="about.html" class="hover:text-primary transition-colors">About</a>
+                    <a href="pricing.html" class="text-primary">Pricing</a>
+                    <a href="gallery.html" class="hover:text-primary transition-colors">Gallery</a>
+                    <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
+                    <button id="theme-toggle" class="w-10 h-10 rounded-full bg-gray-200 dark:bg-dark-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="pricing.html" class="bg-primary text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30">
+                        Join Now
+                    </a>
+                </div>
+                <button id="menu-btn" class="block md:hidden focus:outline-none z-50">
+                    <span class="block w-8 h-0.5 bg-current mb-1.5 hamburger-line"></span>
+                    <span class="block w-8 h-0.5 bg-current mb-1.5 hamburger-line"></span>
+                    <span class="block w-8 h-0.5 bg-current hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-light-100 dark:bg-dark-900 z-40 flex-col items-center justify-center space-y-8 text-2xl font-black uppercase">
+            <a href="index.html" class="hover:text-primary">Home</a>
+            <a href="about.html" class="hover:text-primary">About</a>
+            <a href="pricing.html" class="text-primary">Pricing</a>
+            <a href="gallery.html" class="hover:text-primary">Gallery</a>
+            <a href="contact.html" class="hover:text-primary">Contact</a>
+            <a href="pricing.html" class="text-base bg-primary text-white px-8 py-3 rounded-full shadow-xl">Join Now</a>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <section class="pt-40 pb-24">
+        <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+            <h1 class="text-5xl md:text-6xl font-black uppercase mb-6 fade-up">Invest in <span class="text-primary">Yourself</span></h1>
+            <p class="text-gray-500 max-w-2xl mx-auto fade-up text-lg">No hidden fees. No cancellation penalties. Just pure value.</p>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8 items-center">
+            <!-- Monthly -->
+            <div class="bg-white dark:bg-dark-800 p-8 rounded-3xl border border-gray-200 dark:border-dark-700 hover-lift fade-up">
+                <h3 class="text-xl font-bold text-gray-500 mb-2">Monthly</h3>
+                <div class="text-5xl font-black mb-6">₹1,499</div>
+                <ul class="space-y-4 mb-8 text-left text-gray-600 dark:text-gray-300">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Full Gym Floor Access</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Locker & Shower</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Free WiFi</li>
+                    <li class="flex items-center text-gray-400"><i class="fas fa-times mr-4 ml-1"></i> Group Classes</li>
+                </ul>
+                <button class="w-full py-4 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all">Choose Monthly</button>
+            </div>
+
+            <!-- Quarterly -->
+            <div class="bg-dark-900 p-8 rounded-3xl border-2 border-primary transform md:scale-105 shadow-2xl shadow-primary/20 fade-up relative overflow-hidden my-4 md:my-0">
+                <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-1 rounded-bl-xl">POPULAR</div>
+                <h3 class="text-xl font-bold text-gray-400 mb-2">Quarterly</h3>
+                <div class="text-5xl font-black text-white mb-6">₹3,999</div>
+                <ul class="space-y-4 mb-8 text-left text-gray-300">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> All Monthly Features</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> <span class="text-white font-bold">Unlimited Group Classes</span></li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> 2 Personal Training Sessions</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Nutrition Guide</li>
+                </ul>
+                <button class="w-full py-4 rounded-xl font-bold bg-primary text-white hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-500/50">Choose Quarterly</button>
+            </div>
+
+            <!-- Annual -->
+            <div class="bg-white dark:bg-dark-800 p-8 rounded-3xl border border-gray-200 dark:border-dark-700 hover-lift fade-up">
+                <h3 class="text-xl font-bold text-gray-500 mb-2">Annual</h3>
+                <div class="text-5xl font-black mb-6">₹11,499</div>
+                <ul class="space-y-4 mb-8 text-left text-gray-600 dark:text-gray-300">
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> All Access VIP</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Priority Booking</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> Free Merch Pack</li>
+                    <li class="flex items-center"><i class="fas fa-check-circle text-primary mr-3"></i> 1 Month Freeze Option</li>
+                </ul>
+                <button class="w-full py-4 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all">Choose Annual</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="w-full bg-neutral-50 dark:bg-neutral-950 text-neutral-600 dark:text-neutral-400 font-sans border-t border-neutral-200 dark:border-neutral-800 transition-colors duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    
+    <!-- Top Section: 3 Columns -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 mb-12">
+      
+      <!-- Column 1: Brand & Tagline (Spans 4 columns) -->
+      <div class="md:col-span-5 lg:col-span-5 flex flex-col items-start space-y-4">
+        <!-- Brand Name / Logo -->
+        <a href="/" class="text-2xl font-bold tracking-tighter text-neutral-900 dark:text-white hover:text-orange-500 transition-colors">
+          WRKOUT <span class="text-orange-500">WORLD</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-xs text-neutral-500 dark:text-neutral-400">
+          Elevate your fitness journey with premium equipment and world-class training. Join the movement today.
+        </p>
+        <!-- Optional Social Icons (Minimalist) -->
+        <div class="flex space-x-4 pt-2">
+          <a href="#" class="text-neutral-400 hover:text-orange-500 transition-colors" aria-label="Instagram">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="text-neutral-400 hover:text-orange-500 transition-colors" aria-label="Twitter">
+            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Column 2: Navigation Links -->
+      <div class="md:col-span-4 lg:col-span-4">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">Explore</h3>
+        <ul class="space-y-3">
+          <li><a href="index.html" class="hover:text-orange-500 transition-colors text-sm">Home</a></li>
+          <li><a href="about.html" class="hover:text-orange-500 transition-colors text-sm">About</a></li>
+          <li><a href="pricing.html" class="hover:text-orange-500 transition-colors text-sm">Pricing</a></li>
+          <li><a href="gallery.html" class="hover:text-orange-500 transition-colors text-sm">Gallery</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Contact & Support -->
+      <div class="md:col-span-3 lg:col-span-3">
+        <h3 class="text-sm font-semibold uppercase tracking-wider text-neutral-900 dark:text-white mb-4">Contact</h3>
+        <ul class="space-y-3">
+          <li><a href="contact.html" class="hover:text-orange-500 transition-colors text-sm">Get in Touch</a></li>
+          <li><a href="#" class="hover:text-orange-500 transition-colors text-sm">Support</a></li>
+          <li class="text-sm pt-2 text-neutral-500">Lucknow, India</li>
+        </ul>
+      </div>
+
+    </div>
+    
+    <!-- Divider Line -->
+    <div class="w-full border-t border-neutral-200 dark:border-neutral-800"></div>
+
+    <!-- Bottom Bar: Credits -->
+    <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium">
+      
+      <!-- Developer Credit (Left/Top on mobile) -->
+      <a href="https://nptrigunayat.com" 
+         target="_blank" 
+         rel="noopener noreferrer" 
+         class="group flex items-center gap-1.5 text-neutral-600 dark:text-neutral-400 hover:text-orange-600 dark:hover:text-orange-400 transition-all duration-300">
+         <span>Powered by</span>
+         <span class="font-bold tracking-wide group-hover:underline decoration-2 underline-offset-4 decoration-orange-500/30">NP TRIGUNAYAT SYSTEMS</span>
+      </a>
+
+      <!-- Made in India (Right/Bottom on mobile) -->
+      <span class="text-neutral-500 dark:text-neutral-500 flex items-center gap-1.5 opacity-80">
+        Built with <span class="text-red-500 animate-pulse">❤️</span> in India.
+      </span>
+
+    </div>
+  </div>
+</footer>
+    <script src="script.js"></script>
+</body>
+</html>

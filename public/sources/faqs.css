@@ -5,7 +5,7 @@
 .faqs-section {
     max-width: 1200px;
     margin: 0 auto;
-    padding: calc(var(--space-32) * 2.5) var(--space-32) calc(var(--space-32) * 2);
+    padding: calc() var(--space-32) calc(var(--space-32) * 2);
 }
 
 .faqs-container {
@@ -232,254 +232,7 @@
     flex-wrap: wrap;
 }
 
-.cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-8);
-    background: var(--color-primary);
-    color: var(--color-btn-primary-text);
-    padding: var(--space-16) var(--space-32);
-    border-radius: var(--radius-full);
-    text-decoration: none;
-    font-weight: var(--font-weight-semibold);
-    font-size: var(--font-size-base);
-    transition: all var(--duration-normal) var(--ease-standard);
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-family-base);
-    box-shadow: var(--shadow-sm);
-}
 
-.cta-button:hover {
-    background: var(--color-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
-}
-
-.cta-button:active {
-    transform: translateY(0);
-    background: var(--color-primary-active);
-}
-
-.cta-button:focus-visible {
-    outline: var(--focus-outline);
-    outline-offset: 2px;
-    box-shadow: var(--focus-ring);
-}
-
-.cta-button-secondary {
-    background: var(--color-secondary);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-}
-
-.cta-button-secondary:hover {
-    background: var(--color-secondary-hover);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    box-shadow: var(--shadow-sm);
-}
-
-.cta-button-secondary:active {
-    background: var(--color-secondary-active);
-}
-
-/* Footer */
-.footer {
-    background: var(--color-bg-2);
-    border-top: 1px solid var(--color-card-border);
-    padding: calc(var(--space-32) * 1.875) var(--space-32) var(--space-32);
-    margin-top: calc(var(--space-32) * 2);
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--space-32);
-    margin-bottom: var(--space-32);
-}
-
-.footer-section h3 {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--space-16);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text);
-}
-
-.footer-section p,
-.footer-section a {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    line-height: var(--line-height-normal);
-    margin: var(--space-8) 0;
-    font-size: var(--font-size-sm);
-    transition: all var(--duration-fast) var(--ease-standard);
-    display: inline-block;
-}
-
-.footer-section a:hover {
-    color: var(--color-primary);
-    transform: translateX(2px);
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.footer-section ul li {
-    margin-bottom: var(--space-8);
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: var(--space-32);
-    border-top: 1px solid var(--color-card-border);
-    color: var(--color-text-secondary);
-    font-size: var(--font-size-sm);
-}
-
-/* Hero Section for FAQs Page */
-.hero {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: calc(var(--space-32) * 3.75) var(--space-32) calc(var(--space-32) * 2);
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, var(--color-border) 1px, transparent 1px);
-    background-size: 50px 50px;
-    animation: gridMove 20s linear infinite;
-    z-index: 0;
-    opacity: 0.3;
-}
-
-.hero > * {
-    position: relative;
-    z-index: 1;
-}
-
-.hero-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-8);
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
-    background-size: 200% 200%;
-    animation: gradientSlide 3s ease infinite, float 3s ease-in-out infinite;
-    color: var(--color-btn-primary-text);
-    padding: var(--space-12) var(--space-24);
-    border-radius: var(--radius-full);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    margin-bottom: var(--space-24);
-    box-shadow: var(--shadow-md);
-}
-
-.hero-title {
-    font-size: var(--font-size-4xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text);
-    margin-bottom: var(--space-24);
-    line-height: var(--line-height-tight);
-    letter-spacing: var(--letter-spacing-tight);
-}
-
-.hero-title .highlight {
-    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
-    background-size: 200% 200%;
-    animation: gradientSlide 5s ease infinite;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.hero-subtitle {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-32);
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: var(--line-height-normal);
-}
-
-/* Responsive Design - Tablet */
-@media (max-width: 768px) {
-    .faqs-section {
-        padding: calc(var(--space-32) * 1.875) var(--space-16) var(--space-32);
-    }
-
-    .category-title {
-        font-size: var(--font-size-xl);
-    }
-
-    .faq-question {
-        padding: var(--space-16);
-        font-size: var(--font-size-base);
-        gap: var(--space-12);
-    }
-
-    .faq-answer {
-        padding: 0 var(--space-16);
-    }
-
-    .faq-item.active .faq-answer {
-        padding: 0 var(--space-16) var(--space-16);
-    }
-
-    .faq-answer li {
-        padding: var(--space-10) 0 var(--space-10) var(--space-24);
-        font-size: var(--font-size-sm);
-    }
-
-    .cta-section {
-        padding: calc(var(--space-32) * 1.875) var(--space-16);
-        margin: var(--space-32) var(--space-16);
-    }
-
-    .cta-container h2 {
-        font-size: var(--font-size-2xl);
-    }
-
-    .cta-buttons {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .cta-button {
-        width: 100%;
-    }
-
-    .hero {
-        padding: calc(var(--space-32) * 2.5) var(--space-24) var(--space-32);
-    }
-
-    .hero-title {
-        font-size: var(--font-size-3xl);
-    }
-
-    .hero-subtitle {
-        font-size: var(--font-size-base);
-    }
-
-    .footer-content {
-        gap: var(--space-32);
-    }
-}
 
 /* Responsive Design - Mobile Portrait */
 @media (max-width: 480px) {
@@ -535,46 +288,8 @@
         margin-bottom: var(--space-24);
     }
 
-    .cta-button {
-        padding: var(--space-12) var(--space-20);
-        font-size: var(--font-size-sm);
-    }
-
-    .footer {
-        padding: calc(var(--space-32) * 1.25) var(--space-16) var(--space-16);
-        margin-top: var(--space-32);
-    }
-
-    .footer-content {
-        gap: var(--space-24);
-        margin-bottom: var(--space-32);
-        grid-template-columns: 1fr;
-    }
-
-    .footer-section h3 {
-        font-size: var(--font-size-base);
-        margin-bottom: var(--space-12);
-    }
-
-    .footer-section p,
-    .footer-section a {
-        font-size: var(--font-size-xs);
-        margin: var(--space-6) 0;
-    }
-
-    .footer-bottom {
-        font-size: var(--font-size-xs);
-        padding-top: var(--space-24);
-    }
-
     .hero {
         padding: calc(var(--space-32) * 1.875) var(--space-16) var(--space-32);
-    }
-
-    .hero-badge {
-        font-size: var(--font-size-xs);
-        padding: var(--space-8) var(--space-16);
-        margin-bottom: var(--space-16);
     }
 
     .hero-title {
@@ -594,35 +309,15 @@
         background: var(--color-bg-1);
     }
 
-    .footer {
-        background: var(--color-bg-2);
-    }
-
     .faq-item:hover {
         box-shadow: var(--shadow-lg);
     }
-
-    .cta-button:hover {
-        box-shadow: var(--shadow-md);
-    }
-}
 
 [data-color-scheme="dark"] .cta-section {
     background: var(--color-bg-1);
 }
 
-[data-color-scheme="dark"] .footer {
-    background: var(--color-bg-2);
 }
-
-[data-color-scheme="dark"] .faq-item:hover {
-    box-shadow: var(--shadow-lg);
-}
-
-[data-color-scheme="dark"] .cta-button:hover {
-    box-shadow: var(--shadow-md);
-}
-
 /* Animation Keyframes */
 @keyframes fadeIn {
     from {

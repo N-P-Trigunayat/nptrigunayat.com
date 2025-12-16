@@ -10,19 +10,22 @@
 
 html {
     scroll-behavior: smooth;
-    -webkit-tap-highlight-color: transparent; /* Remove blue highlight on tap */
+    -webkit-tap-highlight-color: transparent;
+    /* Remove blue highlight on tap */
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    overflow-x: hidden; /* Critical for mobile to prevent horizontal sway */
+    overflow-x: hidden;
+    /* Critical for mobile to prevent horizontal sway */
     width: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 /* Images should never overflow their containers */
-img, video {
+img,
+video {
     max-width: 100%;
     height: auto;
     display: block;
@@ -33,25 +36,33 @@ img, video {
    ========================================= */
 ::-webkit-scrollbar {
     width: 8px;
-    height: 8px; /* For horizontal scroll areas */
+    height: 8px;
+    /* For horizontal scroll areas */
 }
+
 ::-webkit-scrollbar-track {
     background: #0f0f0f;
 }
+
 ::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 4px;
-    border: 2px solid #0f0f0f; /* Adds breathing room */
+    border: 2px solid #0f0f0f;
+    /* Adds breathing room */
 }
+
 ::-webkit-scrollbar-thumb:hover {
     background: #ff6a00;
 }
 
 /* Hide scrollbar for horizontal scrolling containers (Pricing Cards on Mobile) */
 .hide-scroll {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
 }
+
 .hide-scroll::-webkit-scrollbar {
     display: none;
 }
@@ -60,7 +71,8 @@ img, video {
    3. RESPONSIVE MASONRY GRID (Gallery)
    ========================================= */
 .masonry-grid {
-    column-count: 1; /* Default: Mobile */
+    column-count: 1;
+    /* Default: Mobile */
     column-gap: 1.5rem;
     width: 100%;
 }
@@ -84,7 +96,8 @@ img, video {
     break-inside: avoid;
     page-break-inside: avoid;
     margin-bottom: 1.5rem;
-    display: inline-block; /* Fixes some Firefox column rendering issues */
+    display: inline-block;
+    /* Fixes some Firefox column rendering issues */
     width: 100%;
 }
 
@@ -92,7 +105,9 @@ img, video {
    4. ANIMATIONS & TRANSITIONS
    ========================================= */
 /* Global Smooth Theme Transition */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
     transition-duration: 0.3s;
     transition-timing-function: ease;
@@ -108,7 +123,8 @@ img, video {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: opacity, transform; /* GPU Acceleration */
+    will-change: opacity, transform;
+    /* GPU Acceleration */
 }
 
 .fade-up.visible {
@@ -123,7 +139,10 @@ img, video {
         opacity: 1;
         transform: none;
     }
-    *, *::before, *::after {
+
+    *,
+    *::before,
+    *::after {
         transition-duration: 0.01s !important;
     }
 }
@@ -133,6 +152,7 @@ img, video {
     .hover-lift {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .hover-lift:hover {
         transform: translateY(-8px);
         box-shadow: 0 15px 30px -10px rgba(255, 106, 0, 0.2);
@@ -152,25 +172,28 @@ img, video {
 /* Toast Notification - Mobile Optimized */
 #toast {
     visibility: hidden;
-    min-width: 280px; /* Slightly wider for mobile readability */
+    min-width: 280px;
+    /* Slightly wider for mobile readability */
     max-width: 90vw;
     background-color: #171717;
     color: #fff;
     text-align: center;
-    border-radius: 12px; /* Softer corners */
+    border-radius: 12px;
+    /* Softer corners */
     padding: 16px 24px;
     position: fixed;
     z-index: 100;
     left: 50%;
     /* Position initially off-screen or lower */
-    bottom: calc(20px + var(--safe-area-inset-bottom)); 
+    bottom: calc(20px + var(--safe-area-inset-bottom));
     transform: translateX(-50%) translateY(20px);
     opacity: 0;
     border-left: 4px solid #ff6a00;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
     font-weight: 600;
     font-size: 0.95rem;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy enter */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    /* Bouncy enter */
 }
 
 #toast.show {

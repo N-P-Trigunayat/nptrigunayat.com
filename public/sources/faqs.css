@@ -1,5 +1,13 @@
 /* ===== FAQs PAGE - ONLY NEW STYLES ===== */
-/* Add this to your style.css - it only targets unstyled FAQ elements */
+.hero-subtitle{
+    font-size: var(--font-size-xl);
+    color: var(--color-text-secondary);
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
 
 /* FAQs Main Section */
 .faqs-section {
@@ -178,62 +186,6 @@
     font-size: var(--font-size-lg);
 }
 
-/* CTA Section */
-.cta-section {
-    background: var(--color-bg-1);
-    border: 1px solid var(--color-card-border);
-    padding: calc(var(--space-32) * 2.5) var(--space-32);
-    margin: calc(var(--space-32) * 2) var(--space-32);
-    border-radius: var(--radius-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-.cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(var(--color-teal-500-rgb), 0.06) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(var(--color-teal-500-rgb), 0.04) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.cta-container {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-.cta-container h2 {
-    font-size: var(--font-size-3xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text);
-    margin-bottom: var(--space-16);
-    letter-spacing: var(--letter-spacing-tight);
-    line-height: var(--line-height-tight);
-}
-
-.cta-container p {
-    font-size: var(--font-size-lg);
-    color: var(--color-text-secondary);
-    margin-bottom: var(--space-32);
-    line-height: var(--line-height-normal);
-}
-
-.cta-buttons {
-    display: flex;
-    gap: var(--space-16);
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-
-
 /* Responsive Design - Mobile Portrait */
 @media (max-width: 480px) {
     .faqs-section {
@@ -273,51 +225,8 @@
         padding: var(--space-8) 0 var(--space-8) var(--space-20);
         font-size: var(--font-size-sm);
     }
-
-    .cta-section {
-        padding: calc(var(--space-32) * 1.25) var(--space-12);
-        margin: var(--space-32) var(--space-8);
-    }
-
-    .cta-container h2 {
-        font-size: var(--font-size-xl);
-    }
-
-    .cta-container p {
-        font-size: var(--font-size-base);
-        margin-bottom: var(--space-24);
-    }
-
-    .hero {
-        padding: calc(var(--space-32) * 1.875) var(--space-16) var(--space-32);
-    }
-
-    .hero-title {
-        font-size: var(--font-size-2xl);
-        margin-bottom: var(--space-16);
-    }
-
-    .hero-subtitle {
-        font-size: var(--font-size-sm);
-        margin-bottom: var(--space-32);
-    }
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-    .cta-section {
-        background: var(--color-bg-1);
-    }
-
-    .faq-item:hover {
-        box-shadow: var(--shadow-lg);
-    }
-
-[data-color-scheme="dark"] .cta-section {
-    background: var(--color-bg-1);
-}
-
-}
 /* Animation Keyframes */
 @keyframes fadeIn {
     from {

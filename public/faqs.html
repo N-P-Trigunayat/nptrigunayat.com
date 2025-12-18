@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact – NP TRIGUNAYAT SYSTEMS</title>
+    <title>FAQs – NP TRIGUNAYAT SYSTEMS</title>
     <meta name="description"
         content="FAQs – NP TRIGUNAYAT SYSTEMS start your project, ask questions, or discuss custom web solutions.">
 
@@ -48,7 +48,7 @@
                 <li class="nav-link"><a href="./pricing.html">Pricing</a></li>
                 <li class="nav-link"><a href="./about.html">About</a></li>
                 <li class="nav-link"><a href="./testimonials.html">Testimonials</a></li>
-                <li class="nav-link"><a href="./contact.html" class="active">Contact</a></li>
+                <li class="nav-link"><a href="./contact.html">Contact</a></li>
             </ul>
             <button class="nav-toggle" id="navToggle">
                 <span></span>
@@ -629,27 +629,56 @@
     <script src="./sources/app.js"></script>
 
     <script>
-        // FAQ Toggle Functionality
-        function toggleFAQ(button) {
-            const item = button.parentElement;
-            const answer = button.nextElementSibling;
-            const icon = button.querySelector('.faq-icon');
+  function closeFAQ(item) {
+    const answer = item.querySelector('.faq-answer');
 
-            // Close other FAQs
-            document.querySelectorAll('.faq-item').forEach(faq => {
-                if (faq !== item) {
-                    faq.classList.remove('active');
-                    faq.querySelector('.faq-icon').textContent = '+';
-                    faq.querySelector('.faq-answer').style.display = 'none';
-                }
-            });
+    // If it's already closed, do nothing
+    if (!item.classList.contains('active')) return;
 
-            // Toggle current FAQ
-            item.classList.toggle('active');
-            icon.textContent = item.classList.contains('active') ? '−' : '+';
-            answer.style.display = item.classList.contains('active') ? 'block' : 'none';
-        }
-    </script>
+    // Set current height first (so closing animates smoothly from current size)
+    answer.style.maxHeight = answer.scrollHeight + 'px';
+    answer.offsetHeight; // force reflow
+
+    // Then animate to 0
+    item.classList.remove('active');
+    answer.style.maxHeight = '0px';
+  }
+
+  function openFAQ(item) {
+  const answer = item.querySelector('.faq-answer');
+
+  item.classList.add('active');
+
+  answer.style.maxHeight = '0px';
+  answer.offsetHeight;
+
+  // 24px bottom padding + a little buffer
+  answer.style.maxHeight = answer.scrollHeight + 32 + 'px';
+
+  answer.addEventListener('transitionend', (e) => {
+    if (e.propertyName === 'max-height' && item.classList.contains('active')) {
+      answer.style.maxHeight = 'none';
+    }
+  }, { once: true });
+}
+
+
+  function toggleFAQ(button) {
+    const item = button.parentElement;
+
+    // Close others
+    document.querySelectorAll('.faq-item').forEach(faq => {
+      if (faq !== item) closeFAQ(faq);
+    });
+
+    // Toggle current
+    if (item.classList.contains('active')) {
+      closeFAQ(item);
+    } else {
+      openFAQ(item);
+    }
+  }
+</script>
 
 </body>
 </html>

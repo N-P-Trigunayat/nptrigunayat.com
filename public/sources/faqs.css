@@ -43,7 +43,7 @@
 .faq-item {
     background: var(--color-surface);
     border: 1px solid var(--color-card-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-base);
     overflow: hidden;
     transition: all var(--duration-normal) var(--ease-standard);
     position: relative;
@@ -108,37 +108,101 @@
 
 /* FAQ Icon */
 .faq-icon {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32px;
     height: 32px;
     background: var(--color-secondary);
-    border-radius: var(--radius-full);
-    color: var(--color-primary);
-    font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-lg);
-    transition: all var(--duration-normal) var(--ease-standard);
-    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+    color: transparent; /* Hides the original HTML text symbol */
+    transition: background-color 0.3s ease;
+    flex-shrink: 0; /* Prevents squishing on mobile */
 }
 
+/* 2. The Lines: Create the Plus Sign using CSS */
+.faq-icon::before,
+.faq-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 14px;       /* Length of the plus arms */
+    height: 2px;       /* Thickness */
+    background-color: var(--color-primary); /* Default Purple */
+    border-radius: 2px;
+    /* Smooth rotation animation */
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
+}
+
+/* Horizontal Line (Starts flat) */
+.faq-icon::before {
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Vertical Line (Starts upright) */
+.faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* ===== ACTIVE STATE (OPEN) ===== */
+
+/* 3. Box Style: Turns purple, but STAYS SQUARE */
 .faq-item.active .faq-icon {
     background: var(--color-primary);
-    color: var(--color-btn-primary-text);
-    transform: rotate(45deg) scale(1.1);
 }
 
+/* Lines turn white */
+.faq-item.active .faq-icon::before,
+.faq-item.active .faq-icon::after {
+    background-color: white;
+}
+
+/* 4. The Animation: Spin into Minus */
+
+/* Horizontal line spins 180 degrees (Full Rotation) */
+.faq-item.active .faq-icon::before {
+    transform: translate(-50%, -50%) rotate(180deg);
+}
+
+/* Vertical line spins 180 degrees AND vanishes (leaving a Minus) */
+.faq-item.active .faq-icon::after {
+    /* 90 start + 180 spin = 270. Scale(0) makes it disappear */
+    transform: translate(-50%, -50%) rotate(270deg) scale(0); 
+    opacity: 0;
+}
 /* FAQ Answer */
 .faq-answer {
+    /* 1. CLOSED STATE */
     max-height: 0;
+    opacity: 0;
     overflow: hidden;
-    transition: max-height var(--duration-normal) var(--ease-standard);
-    padding: 0 var(--space-24);
+    padding: 0 var(--space-24); /* Keep horizontal padding, remove vertical */
+    transform: translateY(-20px);
+    
+    /* 2. CLOSE TRANSITION (When removing .active) */
+    /* slightly faster closing (0.8s) prevents it from feeling "stuck" */
+    transition: 
+        max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
+        opacity 0.5s ease, 
+        padding 0.8s ease,
+        transform 0.5s ease;
 }
 
 .faq-item.active .faq-answer {
-    max-height: 1200px;
-    padding: 0 var(--space-24) var(--space-24);
+    /* 3. OPEN STATE */
+    opacity: 1;
+    padding: 0 var(--space-24) var(--space-24); /* Add bottom padding */
+    transform: translateY(0);
+
+    /* 4. OPEN TRANSITION (When adding .active) */
+    /* Slower opening (1.2s) for that dramatic "roll down" effect */
+    transition: 
+        max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
+        opacity 0.8s ease 0.2s, /* Delay opacity so it doesn't show too early */
+        padding 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+        transform 0.8s ease 0.1s;
 }
 
 .faq-answer p {
@@ -178,7 +242,6 @@
 }
 
 .faq-answer li::before {
-    content: '→';
     position: absolute;
     left: 0;
     color: var(--color-primary);
@@ -200,7 +263,11 @@
     .faq-icon {
         width: 28px;
         height: 28px;
-        font-size: var(--font-size-base);
+        border-radius: 6px;
+    }
+    
+    .faq-icon::after {
+        font-size: 20px;
     }
 
     .faq-answer {

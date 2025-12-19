@@ -2415,14 +2415,12 @@
  /* ===== ACTIVE STATE (OPEN) ===== */
 
  /* 3. Box Style: Turns purple, but STAYS SQUARE */
- .faq-item.active .faq-icon {
-     background: var(--color-primary);
- }
+ 
 
  /* Lines turn white */
  .faq-item.active .faq-icon::before,
  .faq-item.active .faq-icon::after {
-     background-color: white;
+     background-color: var(--color-primary);
  }
 
  /* 4. The Animation: Spin into Minus */
@@ -2519,50 +2517,87 @@
      font-size: var(--font-size-lg);
  }
 
- /* Responsive Design - Mobile Portrait */
- @media (max-width: 480px) {
-     .faqs-section {
-         padding: calc(var(--space-32) * 1.25) var(--space-12) var(--space-32);
-     }
+/* Tablet & Small Desktop Adjustments */
+@media (max-width: 1024px) {
+  .faqs-section {
+    padding: var(--space-32) var(--space-24); /* Reduced side padding */
+  }
 
-     .faq-question {
-         padding: var(--space-12);
-         font-size: var(--font-size-sm);
-     }
+  .faqs-container {
+    gap: var(--space-32); /* Reduced gap from (space-32 * 2) */
+  }
+}
 
-     .faq-icon {
-         width: 28px;
-         height: 28px;
-         border-radius: 6px;
-     }
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  /* Typography Scaling */
+  .hero-subtitle {
+    font-size: var(--font-size-lg); /* Step down from xl */
+    padding: 0 var(--space-16);     /* Prevent text hitting screen edges */
+  }
 
-     .faq-icon::after {
-         font-size: 20px;
-     }
+  .category-title {
+    font-size: var(--font-size-xl); /* Step down from 2xl */
+    flex-direction: column;         /* Stack icon and title if needed */
+    align-items: flex-start;
+  }
 
-     .faq-answer {
-         padding: 0 var(--space-12);
-     }
+  /* Layout & Spacing */
+  .faqs-section {
+    padding: var(--space-24) var(--space-16);
+  }
 
-     .faq-item.active .faq-answer {
-         padding: 0 var(--space-12) var(--space-12);
-     }
+  .faqs-container {
+    gap: var(--space-24);
+  }
 
-     .category-title {
-         font-size: var(--font-size-lg);
-         gap: var(--space-8);
-     }
+  .faq-items {
+    gap: var(--space-16);
+  }
 
-     .faq-answer p {
-         font-size: var(--font-size-sm);
-         margin-bottom: var(--space-12);
-     }
+  /* FAQ Item Cards */
+  .faq-question {
+    padding: var(--space-16) var(--space-16); /* Tighter padding for mobile */
+    gap: var(--space-12);
+    font-size: var(--font-size-base); /* Step down from lg */
+    align-items: flex-start; /* Aligns icon with top of text if it wraps */
+  }
 
-     .faq-answer li {
-         padding: var(--space-8) 0 var(--space-8) var(--space-20);
-         font-size: var(--font-size-sm);
-     }
- }
+  .faq-icon {
+    /* Slightly smaller icon container for mobile */
+    width: 28px;
+    height: 28px;
+    margin-top: 2px; /* Optical alignment with text */
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    width: 10px; /* Adjust plus sign size */
+  }
+
+  .faq-answer {
+    /* Match side padding with question */
+    padding: 0 var(--space-16) var(--space-16); 
+  }
+}
+
+/* Small Mobile (Portrait) */
+@media (max-width: 480px) {
+  .hero-subtitle {
+    font-size: var(--font-size-base);
+  }
+
+  .faq-question {
+    /* Ensure touch target remains accessible (min 44px height is best practice) */
+    padding: var(--space-16) var(--space-12);
+  }
+  
+  .faq-answer p, 
+  .faq-answer li {
+    font-size: var(--font-size-sm, 0.9rem); /* Fallback to 0.9rem if variable missing */
+  }
+}
+
 
  /* Animation Keyframes */
  @keyframes fadeIn {

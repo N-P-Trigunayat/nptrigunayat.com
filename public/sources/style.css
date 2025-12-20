@@ -2271,330 +2271,243 @@
  }
 
  /* FAQs Main Section */
- .faqs-section {
-     max-width: 1200px;
-     margin: 0 auto;
-     padding: calc() var(--space-32) calc(var(--space-32) * 2);
- }
+.faqs-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* Fluid padding: tight on mobile (16px), breathable on tablet (32px), spacious on desktop (64px) */
+  padding: clamp(var(--space-16), 5vw, var(--space-64)) clamp(var(--space-16), 5vw, var(--space-32));
+  width: 100%;
+}
 
- .faqs-container {
-     display: grid;
-     gap: calc(var(--space-32) * 2);
- }
+.faqs-container {
+  display: grid;
+  /* Fluid gap between categories */
+  gap: clamp(var(--space-32), 6vw, var(--space-64));
+}
 
- .faq-category {
-     animation: fadeIn 0.8s ease forwards;
- }
+.faq-category {
+  animation: fadeIn 0.8s ease forwards;
+}
 
- .category-title {
-     display: flex;
-     align-items: center;
-     gap: var(--space-12);
-     font-size: var(--font-size-2xl);
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-text);
- }
+.category-title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  /* Fluid font size: 20px mobile -> 24px desktop */
+  font-size: clamp(1.25rem, 3vw + 0.5rem, 1.5rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-24); /* Add spacing below title */
+}
 
- .faq-items {
-     display: grid;
-     gap: var(--space-24);
- }
+.faq-items {
+  display: grid;
+  gap: var(--space-16); /* Tighter gap on mobile */
+}
 
- /* FAQ Item Card */
- .faq-item {
-     background: var(--color-surface);
-     border: 1px solid var(--color-card-border);
-     border-radius: var(--radius-base);
-     overflow: hidden;
-     transition: all var(--duration-normal) var(--ease-standard);
-     position: relative;
-     box-shadow: var(--shadow-sm);
- }
+/* FAQ Item Card */
+.faq-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-base);
+  overflow: hidden;
+  transition: all var(--duration-normal) var(--ease-standard);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
 
- .faq-item::before {
-     content: '';
-     position: absolute;
-     top: 0;
-     left: 0;
-     width: 100%;
-     height: 3px;
-     background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
-     background-size: 200% 100%;
-     animation: gradientSlide 3s ease infinite;
-     transform: scaleX(0);
-     transition: transform var(--duration-normal) var(--ease-standard);
- }
+.faq-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover), var(--color-primary-active));
+  background-size: 200% 100%;
+  animation: gradientSlide 3s ease infinite;
+  transform: scaleX(0);
+  transition: transform var(--duration-normal) var(--ease-standard);
+}
 
- .faq-item:hover {
-     border-color: var(--color-primary);
-     box-shadow: var(--shadow-lg);
-     transform: translateY(-2px);
- }
-
- .faq-item:hover::before {
-     transform: scaleX(1);
- }
-
- /* FAQ Question Button */
- .faq-question {
-     width: 100%;
-     padding: var(--space-24);
-     background: none;
-     border: none;
-     text-align: left;
-     cursor: pointer;
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     gap: var(--space-16);
-     transition: all var(--duration-normal) var(--ease-standard);
-     font-family: var(--font-family-base);
-     font-size: var(--font-size-lg);
-     font-weight: var(--font-weight-semibold);
-     color: var(--color-text);
- }
-
- .faq-question:hover {
-     color: var(--color-primary);
- }
-
- .faq-question:active {
-     transform: scale(0.99);
- }
-
- .faq-question:focus-visible {
-     outline: var(--focus-outline);
-     outline-offset: 2px;
- }
-
- /* FAQ Icon */
- .faq-icon {
-     position: relative;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     width: 32px;
-     height: 32px;
-     background: var(--color-secondary);
-     border-radius: var(--radius-lg);
-     color: transparent;
-     /* Hides the original HTML text symbol */
-     transition: background-color 0.3s ease;
-     flex-shrink: 0;
-     /* Prevents squishing on mobile */
- }
-
- /* 2. The Lines: Create the Plus Sign using CSS */
- .faq-icon::before,
- .faq-icon::after {
-     content: '';
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     width: 14px;
-     /* Length of the plus arms */
-     height: 2px;
-     /* Thickness */
-     background-color: var(--color-primary);
-     /* Default Purple */
-     border-radius: 2px;
-     /* Smooth rotation animation */
-     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
- }
-
- /* Horizontal Line (Starts flat) */
- .faq-icon::before {
-     transform: translate(-50%, -50%) rotate(0deg);
- }
-
- /* Vertical Line (Starts upright) */
- .faq-icon::after {
-     transform: translate(-50%, -50%) rotate(90deg);
- }
-
- /* ===== ACTIVE STATE (OPEN) ===== */
-
- /* 3. Box Style: Turns purple, but STAYS SQUARE */
- 
-
- /* Lines turn white */
- .faq-item.active .faq-icon::before,
- .faq-item.active .faq-icon::after {
-     background-color: var(--color-primary);
- }
-
- /* 4. The Animation: Spin into Minus */
-
- /* Horizontal line spins 180 degrees (Full Rotation) */
- .faq-item.active .faq-icon::before {
-     transform: translate(-50%, -50%) rotate(180deg);
- }
-
- /* Vertical line spins 180 degrees AND vanishes (leaving a Minus) */
- .faq-item.active .faq-icon::after {
-     /* 90 start + 180 spin = 270. Scale(0) makes it disappear */
-     transform: translate(-50%, -50%) rotate(270deg) scale(0);
-     opacity: 0;
- }
-
- /* FAQ Answer */
- .faq-answer {
-     /* 1. CLOSED STATE */
-     max-height: 0;
-     opacity: 0;
-     overflow: hidden;
-     padding: 0 var(--space-24);
-     /* Keep horizontal padding, remove vertical */
-     transform: translateY(-20px);
-
-     /* 2. CLOSE TRANSITION (When removing .active) */
-     /* slightly faster closing (0.8s) prevents it from feeling "stuck" */
-     transition:
-         max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1),
-         opacity 0.5s ease,
-         padding 0.8s ease,
-         transform 0.5s ease;
- }
-
- .faq-item.active .faq-answer {
-     /* 3. OPEN STATE */
-     opacity: 1;
-     padding: 0 var(--space-24) var(--space-24);
-     /* Add bottom padding */
-     transform: translateY(0);
-
-     /* 4. OPEN TRANSITION (When adding .active) */
-     /* Slower opening (1.2s) for that dramatic "roll down" effect */
-     transition:
-         max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1),
-         opacity 0.8s ease 0.2s,
-         /* Delay opacity so it doesn't show too early */
-         padding 1.2s cubic-bezier(0.25, 1, 0.5, 1),
-         transform 0.8s ease 0.1s;
- }
-
- .faq-answer p {
-     margin: 0 0 var(--space-16) 0;
-     color: var(--color-text-secondary);
-     line-height: var(--line-height-normal);
-     font-size: var(--font-size-base);
- }
-
- .faq-answer p:last-child {
-     margin-bottom: 0;
- }
-
- .faq-answer strong {
-     color: var(--color-primary);
-     font-weight: var(--font-weight-semibold);
- }
-
- .faq-answer em {
-     color: var(--color-text-secondary);
-     font-style: italic;
- }
-
- /* FAQ Lists */
- .faq-answer ul {
-     list-style: none;
-     padding-left: 0;
-     margin: var(--space-16) 0;
- }
-
- .faq-answer li {
-     padding: var(--space-12) 0 var(--space-12) var(--space-32);
-     position: relative;
-     color: var(--color-text-secondary);
-     line-height: var(--line-height-normal);
-     font-size: var(--font-size-base);
- }
-
- .faq-answer li::before {
-     position: absolute;
-     left: 0;
-     color: var(--color-primary);
-     font-weight: var(--font-weight-bold);
-     font-size: var(--font-size-lg);
- }
-
-/* Tablet & Small Desktop Adjustments */
-@media (max-width: 1024px) {
-  .faqs-section {
-    padding: var(--space-32) var(--space-24); /* Reduced side padding */
+/* Hover effects only for devices that support hover to prevent stuck states on touch */
+@media (hover: hover) {
+  .faq-item:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
   }
-
-  .faqs-container {
-    gap: var(--space-32); /* Reduced gap from (space-32 * 2) */
+  .faq-item:hover::before {
+    transform: scaleX(1);
   }
 }
 
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-  /* Typography Scaling */
-  .hero-subtitle {
-    font-size: var(--font-size-lg); /* Step down from xl */
-    padding: 0 var(--space-16);     /* Prevent text hitting screen edges */
-  }
+/* FAQ Question Button */
+.faq-question {
+  width: 100%;
+  min-height: 44px; /* Minimum touch target size */
+  /* Fluid padding: 16px mobile -> 24px desktop */
+  padding: clamp(var(--space-16), 3vw, var(--space-24));
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Center icon vertically with text */
+  gap: var(--space-16);
+  transition: all var(--duration-normal) var(--ease-standard);
+  font-family: var(--font-family-base);
+  /* Fluid font size: 16px mobile -> 18px desktop */
+  font-size: clamp(1rem, 2vw + 0.5rem, 1.125rem);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  line-height: 1.4; /* Improve readability on multi-line questions */
+}
 
-  .category-title {
-    font-size: var(--font-size-xl); /* Step down from 2xl */
-    flex-direction: column;         /* Stack icon and title if needed */
-    align-items: flex-start;
-  }
+.faq-question:hover {
+  color: var(--color-primary);
+}
 
-  /* Layout & Spacing */
-  .faqs-section {
-    padding: var(--space-24) var(--space-16);
-  }
+.faq-question:active {
+  transform: scale(0.99);
+}
 
-  .faqs-container {
-    gap: var(--space-24);
-  }
+.faq-question:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 2px;
+}
 
+/* FAQ Icon */
+.faq-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--color-secondary);
+  border-radius: var(--radius-lg);
+  color: transparent;
+  transition: background-color 0.3s ease;
+  flex-shrink: 0; /* Critical: prevents squishing on small screens */
+}
+
+/* 2. The Lines: Create the Plus Sign using CSS */
+.faq-icon::before,
+.faq-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 14px;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Horizontal Line (Starts flat) */
+.faq-icon::before {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+/* Vertical Line (Starts upright) */
+.faq-icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* ===== ACTIVE STATE (OPEN) ===== */
+.faq-item.active .faq-icon::before,
+.faq-item.active .faq-icon::after {
+  background-color: var(--color-primary);
+}
+
+/* Horizontal line spins 180 degrees (Full Rotation) */
+.faq-item.active .faq-icon::before {
+  transform: translate(-50%, -50%) rotate(180deg);
+}
+
+/* Vertical line spins 180 degrees AND vanishes (leaving a Minus) */
+.faq-item.active .faq-icon::after {
+  transform: translate(-50%, -50%) rotate(270deg) scale(0);
+  opacity: 0;
+}
+
+/* FAQ Answer */
+.faq-answer {
+  /* 1. CLOSED STATE */
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  /* Maintain horizontal padding sync with question */
+  padding: 0 clamp(var(--space-16), 3vw, var(--space-24));
+  transform: translateY(-20px);
+  /* 2. CLOSE TRANSITION */
+  transition: max-height 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease, padding 0.8s ease, transform 0.5s ease;
+}
+
+.faq-item.active .faq-answer {
+  /* 3. OPEN STATE */
+  opacity: 1;
+  /* Add bottom padding equal to side padding */
+  padding: 0 clamp(var(--space-16), 3vw, var(--space-24)) clamp(var(--space-16), 3vw, var(--space-24));
+  transform: translateY(0);
+  /* 4. OPEN TRANSITION */
+  transition: max-height 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease 0.2s, padding 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease 0.1s;
+}
+
+.faq-answer p {
+  margin: 0 0 var(--space-16) 0;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  /* Fluid font size: 14px mobile -> 16px desktop */
+  font-size: clamp(0.875rem, 2vw + 0.25rem, 1rem);
+}
+
+.faq-answer p:last-child {
+  margin-bottom: 0;
+}
+
+.faq-answer strong {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.faq-answer em {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+/* FAQ Lists */
+.faq-answer ul {
+  list-style: none;
+  padding-left: 0;
+  margin: var(--space-16) 0;
+}
+
+.faq-answer li {
+  padding: var(--space-12) 0 var(--space-12) var(--space-32);
+  position: relative;
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  font-size: clamp(0.875rem, 2vw + 0.25rem, 1rem); /* Match paragraph fluid sizing */
+}
+
+.faq-answer li::before {
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  line-height: 1; /* Fix bullet alignment */
+  top: var(--space-12); /* Align with text */
+}
+
+/* Tablet Up Adjustments */
+@media (min-width: 768px) {
   .faq-items {
-    gap: var(--space-16);
-  }
-
-  /* FAQ Item Cards */
-  .faq-question {
-    padding: var(--space-16) var(--space-16); /* Tighter padding for mobile */
-    gap: var(--space-12);
-    font-size: var(--font-size-base); /* Step down from lg */
-    align-items: flex-start; /* Aligns icon with top of text if it wraps */
-  }
-
-  .faq-icon {
-    /* Slightly smaller icon container for mobile */
-    width: 28px;
-    height: 28px;
-    margin-top: 2px; /* Optical alignment with text */
-  }
-
-  .faq-icon::before,
-  .faq-icon::after {
-    width: 10px; /* Adjust plus sign size */
-  }
-
-  .faq-answer {
-    /* Match side padding with question */
-    padding: 0 var(--space-16) var(--space-16); 
-  }
-}
-
-/* Small Mobile (Portrait) */
-@media (max-width: 480px) {
-  .hero-subtitle {
-    font-size: var(--font-size-base);
-  }
-
-  .faq-question {
-    /* Ensure touch target remains accessible (min 44px height is best practice) */
-    padding: var(--space-16) var(--space-12);
-  }
-  
-  .faq-answer p, 
-  .faq-answer li {
-    font-size: var(--font-size-sm, 0.9rem); /* Fallback to 0.9rem if variable missing */
+    gap: var(--space-24); /* Restore larger gap on tablet+ */
   }
 }
 

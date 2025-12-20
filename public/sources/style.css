@@ -2479,6 +2479,11 @@
   font-style: italic;
 }
 
+.faq-answer a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
 /* FAQ Lists */
 .faq-answer ul {
   list-style: none;

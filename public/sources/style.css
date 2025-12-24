@@ -509,6 +509,22 @@
      transition: 0.3s;
  }
 
+ /* Style the Contact menu item as a button */
+.nav-link.contact-btn a {
+    background: white;
+     color: var(--color-purple-600) !important;
+     padding: var(--space-8) var(--space-16);
+     border-radius: 50px;
+     transition: all 0.3s ease;
+     font-weight: 600;
+}
+
+.nav-link.contact-btn a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+
  /* ===== HERO SECTION ===== */
  .hero {
      max-width: 1400px;

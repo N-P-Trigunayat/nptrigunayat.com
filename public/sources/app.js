@@ -300,6 +300,7 @@ function toggleFAQ(button) {
 // ============================================================================================================
 // ============================================ T&C Page JS ===================================================
 // ============================================================================================================
+
 document.addEventListener("DOMContentLoaded", () => {
   const navLinks = [...document.querySelectorAll(".terms-nav-link")];
   const linkById = new Map(
@@ -344,3 +345,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// ============================================================================================================
+// ===================================== Privacy Policy Page JS ===============================================
+// ============================================================================================================
+
+// Privacy page interactions (unique; does not touch site-wide app.js)
+(function () {
+  const toggles = document.querySelectorAll("[data-pp-toggle]");
+  toggles.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".ppSectionCard");
+      const body = card.querySelector("[data-pp-body]");
+      const icon = btn.querySelector("i");
+      const isHidden = body.hasAttribute("hidden");
+      if (isHidden) {
+        body.removeAttribute("hidden");
+        icon.style.transform = "rotate(0deg)";
+      } else {
+        body.setAttribute("hidden", "");
+        icon.style.transform = "rotate(-180deg)";
+      }
+    });
+  });
+  // Active TOC (exact match via IntersectionObserver)
+  const tocLinks = [...document.querySelectorAll(".ppTocLink")];
+  const linkById = new Map(
+    tocLinks.map((a) => [a.getAttribute("href").slice(1), a])
+  );
+  const secs = [...document.querySelectorAll(".ppSection")].filter((s) =>
+    linkById.has(s.id)
+  );
+  const io = new IntersectionObserver(
+    (entries) => {
+      const top = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!top) return;
+      tocLinks.forEach((a) => a.classList.remove("isActive"));
+      linkById.get(top.target.id)?.classList.add("isActive");
+    },
+    { threshold: [0.18, 0.28, 0.4], rootMargin: "-110px 0px -60% 0px" }
+  );
+  secs.forEach((s) => io.observe(s));
+})();

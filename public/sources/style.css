@@ -3319,3 +3319,638 @@
          font-size: 32px;
      }
  }
+
+ /* =========================================================================================================
+    ======================================== Privacy Policy Page CSS ========================================
+    =========================================================================================================*/
+
+ /* Privacy Policy Page (unique classes/ids; does not reuse terms-* styling) */
+ #ppPage {
+     position: relative;
+     z-index: 1;
+ }
+
+ #ppHero {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 120px var(--space-32) var(--space-32);
+ }
+
+ .ppHeroCard {
+     background: linear-gradient(135deg, rgba(139, 92, 246, .12), rgba(59, 130, 246, .10));
+     border: 1px solid var(--color-card-border);
+     border-radius: 20px;
+     padding: clamp(20px, 3vw, 32px);
+     box-shadow: var(--shadow-sm);
+ }
+
+ .ppKicker {
+     display: inline-flex;
+     align-items: center;
+     gap: 10px;
+     padding: 6px 14px;
+     border-radius: 999px;
+     background: rgba(139, 92, 246, .15);
+     color: var(--color-primary);
+     font-weight: 700;
+     font-size: 12px;
+     letter-spacing: .08em;
+     text-transform: uppercase;
+     margin-bottom: 14px;
+ }
+
+ .ppTitle {
+     margin: 0 0 10px 0;
+     font-family: var(--font-family-display);
+     font-size: clamp(30px, 4vw, 52px);
+     line-height: 1.1;
+ }
+
+ .ppTitle span {
+     background: linear-gradient(90deg, var(--color-primary), var(--color-blue-500));
+     -webkit-background-clip: text;
+     background-clip: text;
+     -webkit-text-fill-color: transparent;
+ }
+
+ .ppMetaRow {
+     display: flex;
+     flex-wrap: wrap;
+     gap: 10px;
+     margin-top: 16px;
+ }
+
+ .ppPill {
+     border: 1px solid var(--color-border);
+     background: rgba(255, 255, 255, .06);
+     padding: 8px 12px;
+     border-radius: 999px;
+     font-size: 13px;
+     color: var(--color-text-secondary);
+ }
+
+ @media (prefers-color-scheme: light) {
+     .ppPill {
+         background: rgba(255, 255, 255, .65);
+     }
+ }
+
+ #ppLayout {
+     max-width: 1200px;
+     margin: 0 auto;
+     padding: 0 var(--space-32) var(--space-64);
+     display: grid;
+     grid-template-columns: 1fr 320px;
+     gap: var(--space-32);
+     align-items: start;
+ }
+
+ @media (max-width: 980px) {
+     #ppLayout {
+         grid-template-columns: 1fr;
+     }
+ }
+
+ .ppContent {
+     min-width: 0;
+ }
+
+ .ppLead {
+     color: var(--color-text-secondary);
+     line-height: 1.9;
+     margin: 12px 0 0 0;
+     font-size: 16px;
+ }
+
+ #ppToc {
+     position: sticky;
+     top: 92px;
+     border: 1px solid var(--color-border);
+     border-radius: 18px;
+     background: var(--color-surface);
+     padding: 18px;
+     box-shadow: var(--shadow-sm);
+ }
+
+ #ppTocHeader {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 12px;
+     margin-bottom: 10px;
+ }
+
+ .ppTocTitle {
+     margin: 0;
+     font-family: var(--font-family-display);
+     font-size: 18px;
+ }
+
+ .ppTocHint {
+     margin: 0;
+     color: var(--color-text-secondary);
+     font-size: 12px;
+ }
+
+ #ppTocLinks {
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+ }
+
+ .ppTocLink {
+     display: flex;
+     align-items: flex-start;
+     gap: 10px;
+     text-decoration: none;
+     color: var(--color-text-secondary);
+     padding: 10px 12px;
+     border-radius: 12px;
+     border: 1px solid transparent;
+     transition: transform .15s ease, background-color .15s ease, border-color .15s ease, color .15s ease;
+ }
+
+ .ppTocLink:hover {
+     color: var(--color-text);
+     background: rgba(139, 92, 246, .07);
+     border-color: rgba(139, 92, 246, .18);
+     transform: translateX(2px);
+ }
+
+ .ppTocLink.isActive {
+     color: var(--color-text);
+     background: rgba(139, 92, 246, .12);
+     border-color: rgba(139, 92, 246, .28);
+ }
+
+ .ppSection {
+     scroll-margin-top: 110px;
+     margin-bottom: var(--space-32);
+ }
+
+ .ppSectionCard {
+     background: var(--color-surface);
+     border: 1px solid var(--color-card-border);
+     border-radius: 18px;
+     overflow: hidden;
+ }
+
+ .ppSectionHead {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 16px;
+     padding: 18px 18px;
+     border-bottom: 1px solid var(--color-card-border);
+ }
+
+ .ppSectionTitle {
+     margin: 0;
+     font-family: var(--font-family-display);
+     font-size: 20px;
+     letter-spacing: -.3px;
+ }
+
+ .ppChevron {
+     width: 38px;
+     height: 38px;
+     border-radius: 12px;
+     border: 1px solid var(--color-border);
+     background: transparent;
+     color: var(--color-text);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     transition: transform .15s ease, background-color .15s ease, border-color .15s ease;
+ }
+
+ .ppChevron:hover {
+     background: rgba(139, 92, 246, .08);
+     border-color: rgba(139, 92, 246, .35);
+ }
+
+ .ppBody {
+     padding: 18px 18px;
+ }
+
+ .ppPara {
+     margin: 0 0 14px 0;
+     color: var(--color-text-secondary);
+     line-height: 1.9;
+ }
+
+ .ppPara:last-child {
+     margin-bottom: 0;
+ }
+
+ .ppSub {
+     margin: 20px 0 10px 0;
+     color: var(--color-text);
+     font-weight: 800;
+     font-size: 14px;
+     letter-spacing: .02em;
+     text-transform: uppercase;
+ }
+
+ .ppGrid {
+     display: grid;
+     grid-template-columns: 1fr;
+     gap: 12px;
+ }
+
+ .ppKV {
+     border: 1px solid var(--color-border);
+     border-radius: 16px;
+     padding: 14px 14px;
+     background: rgba(255, 255, 255, .04);
+ }
+
+ @media (prefers-color-scheme: light) {
+     .ppKV {
+         background: rgba(255, 255, 255, .75);
+     }
+ }
+
+ .ppK {
+     margin: 0 0 6px 0;
+     color: var(--color-text);
+     font-weight: 800;
+     font-size: 13px;
+ }
+
+ .ppV {
+     margin: 0;
+     color: var(--color-text-secondary);
+     line-height: 1.8;
+ }
+
+ .ppList {
+     list-style: none;
+     padding: 0;
+     margin: 0;
+     display: grid;
+     gap: 10px;
+ }
+
+ .ppLi {
+     display: flex;
+     gap: 10px;
+     align-items: flex-start;
+     color: var(--color-text-secondary);
+     line-height: 1.8;
+ }
+
+ .ppDot {
+     width: 10px;
+     height: 10px;
+     border-radius: 50%;
+     background: linear-gradient(180deg, var(--color-primary), var(--color-blue-500));
+     margin-top: 7px;
+     flex: 0 0 10px;
+ }
+
+ .ppCallout {
+     border: 1px dashed rgba(139, 92, 246, .55);
+     background: rgba(139, 92, 246, .06);
+     border-radius: 16px;
+     padding: 14px 14px;
+     margin-top: 14px;
+     color: var(--color-text-secondary);
+ }
+
+ .ppCallout strong {
+     color: var(--color-text);
+ }
+
+ /* ========================================
+   RESPONSIVE STYLES - PRIVACY POLICY
+   ======================================== */
+
+ /* Tablet and below (≤1024px) */
+ @media (max-width: 1024px) {
+     #ppLayout {
+         grid-template-columns: 1fr;
+         gap: var(--space-24);
+     }
+
+     #ppToc {
+         position: relative;
+         top: auto;
+         order: -1;
+     }
+
+     #ppTocLinks {
+         display: flex;
+         flex-direction: row;
+         overflow-x: auto;
+         overflow-y: hidden;
+         gap: 10px;
+         padding-bottom: 8px;
+         scrollbar-width: thin;
+         scrollbar-color: var(--color-primary) transparent;
+     }
+
+     #ppTocLinks::-webkit-scrollbar {
+         height: 4px;
+     }
+
+     #ppTocLinks::-webkit-scrollbar-thumb {
+         background: var(--color-primary);
+         border-radius: 4px;
+     }
+
+     .ppTocLink {
+         white-space: nowrap;
+         font-size: 13px;
+         padding: 8px 14px;
+     }
+
+     #ppHero {
+         padding: 100px var(--space-24) var(--space-24);
+     }
+
+     #ppLayout {
+         padding: 0 var(--space-24) var(--space-48);
+     }
+ }
+
+ /* Mobile (≤768px) */
+ @media (max-width: 768px) {
+
+     /* Hide TOC completely on mobile */
+     #ppToc {
+         display: none !important;
+     }
+
+     #ppHero {
+         padding: 90px var(--space-16) var(--space-24);
+     }
+
+     #ppLayout {
+         padding: 0 var(--space-16) var(--space-32);
+         gap: var(--space-16);
+     }
+
+     .ppHeroCard {
+         padding: clamp(16px, 4vw, 24px);
+         border-radius: 16px;
+     }
+
+     .ppKicker {
+         font-size: 11px;
+         padding: 5px 12px;
+     }
+
+     .ppTitle {
+         font-size: clamp(26px, 7vw, 36px);
+         margin-bottom: 12px;
+     }
+
+     .ppLead {
+         font-size: 15px;
+         line-height: 1.7;
+     }
+
+     .ppMetaRow {
+         flex-direction: column;
+         gap: 8px;
+         margin-top: 14px;
+     }
+
+     .ppPill {
+         font-size: 12px;
+         padding: 6px 10px;
+         width: 100%;
+         text-align: center;
+     }
+
+     .ppSection {
+         scroll-margin-top: 80px;
+         margin-bottom: var(--space-24);
+     }
+
+     .ppSectionCard {
+         border-radius: 14px;
+     }
+
+     .ppSectionHead {
+         padding: 14px 14px;
+         flex-wrap: wrap;
+     }
+
+     .ppSectionTitle {
+         font-size: 17px;
+         flex: 1 1 100%;
+         margin-bottom: 8px;
+     }
+
+     .ppChevron {
+         width: 34px;
+         height: 34px;
+         font-size: 14px;
+     }
+
+     .ppBody {
+         padding: 14px 14px;
+     }
+
+     .ppPara {
+         font-size: 15px;
+         line-height: 1.7;
+         margin-bottom: 12px;
+     }
+
+     .ppSub {
+         font-size: 13px;
+         margin: 16px 0 8px 0;
+     }
+
+     .ppGrid {
+         gap: 10px;
+     }
+
+     .ppKV {
+         padding: 12px 12px;
+         border-radius: 12px;
+     }
+
+     .ppK {
+         font-size: 12px;
+         margin-bottom: 5px;
+     }
+
+     .ppV {
+         font-size: 14px;
+         line-height: 1.7;
+     }
+
+     .ppLi {
+         font-size: 14px;
+         line-height: 1.7;
+         gap: 8px;
+     }
+
+     .ppDot {
+         width: 8px;
+         height: 8px;
+         margin-top: 6px;
+     }
+
+     .ppCallout {
+         padding: 12px 12px;
+         font-size: 14px;
+         margin-top: 12px;
+     }
+ }
+
+ /* Small mobile (≤480px) */
+ @media (max-width: 480px) {
+     #ppHero {
+         padding: 80px var(--space-12) var(--space-16);
+     }
+
+     #ppLayout {
+         padding: 0 var(--space-12) var(--space-24);
+     }
+
+     .ppHeroCard {
+         padding: 14px;
+         border-radius: 12px;
+     }
+
+     .ppKicker {
+         font-size: 10px;
+         padding: 4px 10px;
+         gap: 6px;
+     }
+
+     .ppTitle {
+         font-size: clamp(22px, 8vw, 30px);
+         margin-bottom: 10px;
+     }
+
+     .ppLead {
+         font-size: 14px;
+         line-height: 1.6;
+     }
+
+     .ppPill {
+         font-size: 11px;
+         padding: 5px 8px;
+     }
+
+     .ppSection {
+         margin-bottom: var(--space-16);
+     }
+
+     .ppSectionCard {
+         border-radius: 12px;
+     }
+
+     .ppSectionHead {
+         padding: 12px 12px;
+     }
+
+     .ppSectionTitle {
+         font-size: 16px;
+     }
+
+     .ppChevron {
+         width: 30px;
+         height: 30px;
+         font-size: 13px;
+     }
+
+     .ppBody {
+         padding: 12px 12px;
+     }
+
+     .ppPara {
+         font-size: 14px;
+         margin-bottom: 10px;
+     }
+
+     .ppSub {
+         font-size: 12px;
+         margin: 14px 0 6px 0;
+     }
+
+     .ppKV {
+         padding: 10px 10px;
+         border-radius: 10px;
+     }
+
+     .ppK {
+         font-size: 11px;
+     }
+
+     .ppV {
+         font-size: 13px;
+     }
+
+     .ppLi {
+         font-size: 13px;
+         gap: 6px;
+     }
+
+     .ppDot {
+         width: 7px;
+         height: 7px;
+         margin-top: 5px;
+     }
+ }
+
+ /* Landscape mobile */
+ @media (max-width: 768px) and (max-height: 600px) and (orientation: landscape) {
+     #ppHero {
+         padding: 70px var(--space-16) var(--space-16);
+     }
+
+     .ppTitle {
+         font-size: 28px;
+     }
+
+     .ppLead {
+         font-size: 14px;
+     }
+
+     .ppSection {
+         scroll-margin-top: 70px;
+     }
+ }
+
+ /* Ensure all text wraps properly */
+ .ppPara,
+ .ppV,
+ .ppLi,
+ .ppK,
+ .ppSub,
+ .ppCallout,
+ .ppLead {
+     word-wrap: break-word;
+     overflow-wrap: break-word;
+     hyphens: auto;
+ }
+
+ .ppPara a,
+ .ppV a,
+ .ppLi a {
+     word-break: break-all;
+     display: inline;
+ }
+
+ .ppSectionCard,
+ .ppHeroCard,
+ .ppKV {
+     max-width: 100%;
+     overflow: hidden;
+ }
+
+ @media (max-width: 768px) {
+
+     .ppV a,
+     .ppPara a {
+         font-size: 13px;
+     }
+ }

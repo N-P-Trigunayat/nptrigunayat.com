@@ -296,3 +296,51 @@ function toggleFAQ(button) {
     openFAQ(item);
   }
 }
+
+// ============================================================================================================
+// ============================================ T&C Page JS ===================================================
+// ============================================================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = [...document.querySelectorAll(".terms-nav-link")];
+  const linkById = new Map(
+    navLinks
+      .map((a) => [a.getAttribute("href")?.slice(1), a])
+      .filter(([id]) => id)
+  );
+
+  const sections = [...document.querySelectorAll(".terms-section")].filter(
+    (s) => linkById.has(s.id)
+  );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+      if (!visible) return;
+
+      navLinks.forEach((a) => a.classList.remove("active"));
+      linkById.get(visible.target.id)?.classList.add("active");
+    },
+    {
+      root: null,
+      threshold: [0.15, 0.25, 0.4],
+      rootMargin: "-120px 0px -60% 0px",
+    }
+  );
+
+  sections.forEach((s) => observer.observe(s));
+
+  // Toggle Logic (if needed in future)
+  const toggleBtn = document.getElementById("sidebarToggle");
+  const sidebar = document.getElementById("termsSidebar");
+  const closeBtn = document.getElementById("sidebarClose");
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.style.display = "block";
+      // Note: CSS !important in mobile query will override this unless removed
+    });
+  }
+});

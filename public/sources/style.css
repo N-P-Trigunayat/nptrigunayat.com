@@ -580,7 +580,7 @@
  }
 
  .hero-badge::before {
-     content: 'ðŸš€';
+     content: '🚀';
      font-size: 18px;
  }
 
@@ -812,7 +812,7 @@
  }
 
  .service-features li::before {
-     content: 'âœ“';
+     content: '✓';
      color: var(--color-primary);
      font-weight: bold;
  }
@@ -1016,7 +1016,7 @@
  }
 
  .pricing-features li::before {
-     content: 'âœ“';
+     content: '✓';
      color: var(--color-primary);
      font-weight: bold;
  }
@@ -1657,7 +1657,7 @@
  }
 
  .modal-outcomes ul li::before {
-     content: 'âœ“';
+     content: '✓';
      color: var(--color-primary);
      font-weight: bold;
      flex-shrink: 0;
@@ -2671,7 +2671,7 @@
  }
 
  .modal-section ul li::before {
-     content: 'â†’';
+     content: '→';
      color: var(--color-primary);
      font-weight: bold;
      flex-shrink: 0;
@@ -2723,7 +2723,7 @@
  }
 
  .modal-outcomes ul li::before {
-     content: 'âœ“';
+     content: '✓';
      color: var(--color-primary);
      font-weight: bold;
      flex-shrink: 0;
@@ -3234,7 +3234,7 @@
  }
 
  .terms-list-item::before {
-     content: "â€¢";
+     content: "•";
      position: absolute;
      left: 0;
      color: var(--color-primary);

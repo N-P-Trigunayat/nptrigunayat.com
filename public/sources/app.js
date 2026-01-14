@@ -3,7 +3,7 @@ window.addEventListener("load", () => {
   const preloader = document.getElementById("preloader");
   setTimeout(() => {
     preloader.classList.add("hidden");
-  }, 600);
+  }, 950);
 });
 
 // ===== ANIMATED PARTICLES =====
@@ -86,19 +86,47 @@ setTimeout(revealElements, 100);
 
 // ===== CONTACT FORM SUBMISSION =====
 const contactForm = document.getElementById("contactForm");
-
 if (contactForm) {
   // Initialize EmailJS
   emailjs.init("LK_dyax9fqTqVrw6H");
 
-  contactForm.addEventListener("submit", function (e) {
+  contactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const submitButton = contactForm.querySelector(".submit-button");
     const originalText = submitButton.innerHTML;
-
     submitButton.innerHTML = "✉️ Sending...";
     submitButton.disabled = true;
+
+    // Capture current date and time
+    const now = new Date();
+    const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+    const timeOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    };
+
+    document.getElementById("submission_date").value = now.toLocaleDateString(
+      "en-IN",
+      dateOptions
+    );
+    document.getElementById("submission_time").value = now.toLocaleTimeString(
+      "en-IN",
+      timeOptions
+    );
+    document.getElementById("submission_timestamp").value = now.toISOString();
+
+    // Fetch user IP address
+    try {
+      const ipResponse = await fetch("https://api.ipify.org?format=json");
+      const ipData = await ipResponse.json();
+      document.getElementById("user_ip").value = ipData.ip;
+    } catch (error) {
+      console.error("Failed to fetch IP:", error);
+      document.getElementById("user_ip").value = "Unable to capture";
+    }
 
     // Send email to YOU with form details
     const sendToYou = emailjs.sendForm(

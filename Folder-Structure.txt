@@ -1,43 +1,130 @@
-public/
+nptrigunayat.com/
+├── .gitignore
+├── #backup/
+│   ├── multi-html/
+│   │   └── public/
+│   │       ├── 49d141aa12064c0ab233567dd0abaeac.txt
+│   │       ├── about.html
+│   │       ├── case-studies/
+│   │       │   ├── AromaCraft.html
+│   │       │   ├── DanceVibe.html
+│   │       │   ├── FitZone.html
+│   │       │   ├── GlowSkin.html
+│   │       │   ├── PawHaven.html
+│   │       │   └── Sharmas.html
+│   │       ├── contact.html
+│   │       ├── faqs.html
+│   │       ├── favicon.ico
+│   │       ├── images/
+│   │       │   ├── analytics.png
+│   │       │   ├── android-chrome-192x192.png
+│   │       │   ├── android-chrome-512x512.png
+│   │       │   ├── apple-touch-icon.png
+│   │       │   ├── connecthub.png
+│   │       │   ├── favicon-16x16.png
+│   │       │   ├── favicon-32x32.png
+│   │       │   ├── fitpro.png
+│   │       │   ├── inventory.png
+│   │       │   ├── Logo.png
+│   │       │   ├── shopup.png
+│   │       │   ├── site.webmanifest
+│   │       │   ├── techvision.png
+│   │       │   └── wrkout.png
+│   │       ├── index.html
+│   │       ├── portfolio/
+│   │       │   ├── about.html
+│   │       │   ├── analytics.html
+│   │       │   ├── connecthub.html
+│   │       │   ├── contact.html
+│   │       │   ├── fitpro.html
+│   │       │   ├── gallery.html
+│   │       │   ├── inventory.html
+│   │       │   ├── pricing.html
+│   │       │   ├── script.js
+│   │       │   ├── shopup.html
+│   │       │   ├── styles.css
+│   │       │   ├── techvision.html
+│   │       │   └── wrkout-world.html
+│   │       ├── portfolio.html
+│   │       ├── pricing.html
+│   │       ├── robots.txt
+│   │       ├── services.html
+│   │       ├── site.webmanifest
+│   │       ├── sitemap.xml
+│   │       ├── sources/
+│   │       │   ├── app.js
+│   │       │   └── style.css
+│   │       └── testimonials.html
+│   └── single-html/
+│       ├── app.js
+│       ├── home.html
+│       └── style.css
+├── Folder-Structure.txt
+├── package-lock.json
+├── package.json
 └── public/
-    ├── case-studies/
+    ├── _redirects
+    ├── 404.html
+    ├── 49d141aa12064c0ab233567dd0abaeac.txt
+    ├── about.html
+    ├── Case-Studies/
     │   ├── AromaCraft.html
     │   ├── DanceVibe.html
     │   ├── FitZone.html
     │   ├── GlowSkin.html
     │   ├── PawHaven.html
     │   └── Sharmas.html
-    ├── Images/
+    ├── contact.html
+    ├── faqs.html
+    ├── favicon.ico
+    ├── images/
     │   ├── analytics.png
+    │   ├── android-chrome-192x192.png
+    │   ├── android-chrome-512x512.png
+    │   ├── apple-touch-icon.png
     │   ├── connecthub.png
+    │   ├── favicon-16x16.png
+    │   ├── favicon-32x32.png
+    │   ├── favicon.ico
     │   ├── fitpro.png
     │   ├── inventory.png
     │   ├── Logo.png
     │   ├── shopup.png
-    │   └── techvision.png
-    ├── portfolio-pages/
-    │   ├── inventory-system/
-    │   │   ├── app.js
-    │   │   └── Inventory.html
-    │   ├── TechVision/
-    │   │   ├── app.js
-    │   │   ├── style.css
-    │   │   └── TechVision.html
-    │   ├── Analytics.html
-    │   ├── ConnectHub.html
-    │   ├── FitPro.html
-    │   └── ShopUp.html
-    ├── sources/
-    │   ├── app.js
-    │   └── style.css
-    ├── 49d141aa12064c0ab233567dd0abaeac.txt
-    ├── about.html
-    ├── contact.html
+    │   ├── site.webmanifest
+    │   ├── techvision.png
+    │   └── wrkout.png
     ├── index.html
+    ├── portfolio/
+    │   ├── about.html
+    │   ├── analytics.html
+    │   ├── connecthub.html
+    │   ├── contact.html
+    │   ├── fitpro.html
+    │   ├── gallery.html
+    │   ├── inventory.html
+    │   ├── pricing.html
+    │   ├── script.js
+    │   ├── shopup.html
+    │   ├── styles.css
+    │   ├── techvision.html
+    │   └── wrkout-world.html
     ├── portfolio.html
     ├── pricing.html
+    ├── privacy.html
     ├── robots.txt
     ├── services.html
     ├── site.webmanifest
     ├── sitemap.xml
+    ├── sources/
+    │   ├── app.js
+    │   ├── orginal.css
+    │   ├── origin.css
+    │   ├── reference-2.css
+    │   ├── reference-3.css
+    │   ├── refernece-1.css
+    │   ├── style.css
+    │   ├── t10.css
+    │   ├── t8.css
+    │   └── t9.css
+    ├── terms.html
     └── testimonials.html

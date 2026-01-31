@@ -3318,6 +3318,14 @@
      .terms-title {
          font-size: 32px;
      }
+
+     #termsSidebar {
+         display: none;
+     }
+
+     #termsSidebar.sidebar-open {
+         display: block;
+     }
  }
 
  /* =========================================================================================================

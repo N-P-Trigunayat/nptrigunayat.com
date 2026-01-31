@@ -110,11 +110,11 @@ if (contactForm) {
 
     document.getElementById("submission_date").value = now.toLocaleDateString(
       "en-IN",
-      dateOptions
+      dateOptions,
     );
     document.getElementById("submission_time").value = now.toLocaleTimeString(
       "en-IN",
-      timeOptions
+      timeOptions,
     );
     document.getElementById("submission_timestamp").value = now.toISOString();
 
@@ -132,14 +132,14 @@ if (contactForm) {
     const sendToYou = emailjs.sendForm(
       "service_28t4x8p",
       "template_ns0ydki",
-      this
+      this,
     );
 
     // Send auto-reply to USER
     const sendToUser = emailjs.sendForm(
       "service_28t4x8p",
       "template_b9bu9c7",
-      this
+      this,
     );
 
     // Wait for both emails to send
@@ -148,7 +148,7 @@ if (contactForm) {
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
         alert(
-          "✅ Thank you for reaching out! I will get back to you as soon as possible. Check your email for confirmation."
+          "✅ Thank you for reaching out! I will get back to you as soon as possible. Check your email for confirmation.",
         );
         contactForm.reset();
       })
@@ -156,7 +156,7 @@ if (contactForm) {
         submitButton.innerHTML = originalText;
         submitButton.disabled = false;
         alert(
-          "❌ Something went wrong. Please try again or email me directly at hello@nptrigunayat.com"
+          "❌ Something went wrong. Please try again or email me directly at hello@nptrigunayat.com",
         );
         console.error("EmailJS error:", error);
       });
@@ -305,7 +305,7 @@ function openFAQ(item) {
         answer.style.maxHeight = "none";
       }
     },
-    { once: true }
+    { once: true },
   );
 }
 
@@ -334,11 +334,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const linkById = new Map(
     navLinks
       .map((a) => [a.getAttribute("href")?.slice(1), a])
-      .filter(([id]) => id)
+      .filter(([id]) => id),
   );
 
   const sections = [...document.querySelectorAll(".terms-section")].filter(
-    (s) => linkById.has(s.id)
+    (s) => linkById.has(s.id),
   );
 
   const observer = new IntersectionObserver(
@@ -347,29 +347,38 @@ document.addEventListener("DOMContentLoaded", () => {
         .filter((e) => e.isIntersecting)
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
 
+      // Fix 1: Check if any section is visible
       if (!visible) return;
 
       navLinks.forEach((a) => a.classList.remove("active"));
-      linkById.get(visible.target.id)?.classList.add("active");
+      const activeLink = linkById.get(visible.target.id);
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
     },
     {
       root: null,
       threshold: [0.15, 0.25, 0.4],
       rootMargin: "-120px 0px -60% 0px",
-    }
+    },
   );
 
   sections.forEach((s) => observer.observe(s));
 
-  // Toggle Logic (if needed in future)
+  // Fix 2 & 3: Improved sidebar toggle using classes
   const toggleBtn = document.getElementById("sidebarToggle");
   const sidebar = document.getElementById("termsSidebar");
   const closeBtn = document.getElementById("sidebarClose");
 
-  if (toggleBtn) {
+  if (toggleBtn && sidebar) {
     toggleBtn.addEventListener("click", () => {
-      sidebar.style.display = "block";
-      // Note: CSS !important in mobile query will override this unless removed
+      sidebar.classList.add("sidebar-open");
+    });
+  }
+
+  if (closeBtn && sidebar) {
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.remove("sidebar-open");
     });
   }
 });
@@ -399,10 +408,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // Active TOC (exact match via IntersectionObserver)
   const tocLinks = [...document.querySelectorAll(".ppTocLink")];
   const linkById = new Map(
-    tocLinks.map((a) => [a.getAttribute("href").slice(1), a])
+    tocLinks.map((a) => [a.getAttribute("href").slice(1), a]),
   );
   const secs = [...document.querySelectorAll(".ppSection")].filter((s) =>
-    linkById.has(s.id)
+    linkById.has(s.id),
   );
   const io = new IntersectionObserver(
     (entries) => {
@@ -413,7 +422,7 @@ document.addEventListener("DOMContentLoaded", () => {
       tocLinks.forEach((a) => a.classList.remove("isActive"));
       linkById.get(top.target.id)?.classList.add("isActive");
     },
-    { threshold: [0.18, 0.28, 0.4], rootMargin: "-110px 0px -60% 0px" }
+    { threshold: [0.18, 0.28, 0.4], rootMargin: "-110px 0px -60% 0px" },
   );
   secs.forEach((s) => io.observe(s));
 })();

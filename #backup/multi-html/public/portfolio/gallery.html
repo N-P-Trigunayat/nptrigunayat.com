@@ -4,6 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
   <title>Gallery | wrkout world</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -39,12 +43,7 @@
           <a href="about.html" class="hover:text-primary transition-colors">About</a>
           <a href="pricing.html" class="hover:text-primary transition-colors">Pricing</a>
           <a href="gallery.html" class="text-primary">Gallery</a>
-          <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
-          <button id="theme-toggle"
-            class="w-10 h-10 rounded-full bg-gray-200 dark:bg-dark-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-            <i class="fas fa-moon"></i>
-          </button>
-          <a href="pricing.html"
+          <a href="contact.html"
             class="bg-primary text-white px-6 py-2 rounded-full hover:bg-orange-600 transition-all shadow-lg shadow-orange-500/30">
             Join Now
           </a>
@@ -56,15 +55,17 @@
         </button>
       </div>
     </div>
-    <div id="mobile-menu"
-      class="hidden fixed inset-0 bg-light-100 dark:bg-dark-900 z-40 flex-col items-center justify-center space-y-8 text-2xl font-black uppercase">
+    <!-- Mobile Menu -->
+    <div id="menu"
+      class="hidden md:hidden flex-col items-center bg-light-100 dark:bg-dark-900 border-t border-gray-200 dark:border-dark-700 py-8 space-y-6 font-bold text-lg h-screen">
       <a href="index.html" class="hover:text-primary">Home</a>
       <a href="about.html" class="hover:text-primary">About</a>
       <a href="pricing.html" class="hover:text-primary">Pricing</a>
-      <a href="gallery.html" class="text-primary">Gallery</a>
+      <a href="gallery.html" class="hover:text-primary">Gallery</a>
       <a href="contact.html" class="hover:text-primary">Contact</a>
-      <a href="pricing.html" class="text-base bg-primary text-white px-8 py-3 rounded-full shadow-xl">Join Now</a>
+      <a href="pricing.html" class="text-primary">Join Now</a>
     </div>
+  </nav>
   </nav>
 
   <!-- Content -->

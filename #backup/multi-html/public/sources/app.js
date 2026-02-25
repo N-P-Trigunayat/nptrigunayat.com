@@ -3,7 +3,7 @@ window.addEventListener("load", () => {
   const preloader = document.getElementById("preloader");
   setTimeout(() => {
     preloader.classList.add("hidden");
-  }, 2000);
+  }, 950);
 });
 
 // ===== ANIMATED PARTICLES =====
@@ -86,19 +86,47 @@ setTimeout(revealElements, 100);
 
 // ===== CONTACT FORM SUBMISSION =====
 const contactForm = document.getElementById("contactForm");
-
 if (contactForm) {
   // Initialize EmailJS
   emailjs.init("LK_dyax9fqTqVrw6H");
 
-  contactForm.addEventListener("submit", function (e) {
+  contactForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const submitButton = contactForm.querySelector(".submit-button");
     const originalText = submitButton.innerHTML;
-
     submitButton.innerHTML = "✉️ Sending...";
     submitButton.disabled = true;
+
+    // Capture current date and time
+    const now = new Date();
+    const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+    const timeOptions = {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    };
+
+    document.getElementById("submission_date").value = now.toLocaleDateString(
+      "en-IN",
+      dateOptions
+    );
+    document.getElementById("submission_time").value = now.toLocaleTimeString(
+      "en-IN",
+      timeOptions
+    );
+    document.getElementById("submission_timestamp").value = now.toISOString();
+
+    // Fetch user IP address
+    try {
+      const ipResponse = await fetch("https://api.ipify.org?format=json");
+      const ipData = await ipResponse.json();
+      document.getElementById("user_ip").value = ipData.ip;
+    } catch (error) {
+      console.error("Failed to fetch IP:", error);
+      document.getElementById("user_ip").value = "Unable to capture";
+    }
 
     // Send email to YOU with form details
     const sendToYou = emailjs.sendForm(
@@ -296,3 +324,139 @@ function toggleFAQ(button) {
     openFAQ(item);
   }
 }
+
+// ============================================================================================================
+// ============================================ T&C Page JS ===================================================
+// ============================================================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const navLinks = [...document.querySelectorAll(".terms-nav-link")];
+  const linkById = new Map(
+    navLinks
+      .map((a) => [a.getAttribute("href")?.slice(1), a])
+      .filter(([id]) => id)
+  );
+
+  const sections = [...document.querySelectorAll(".terms-section")].filter(
+    (s) => linkById.has(s.id)
+  );
+
+  // Track currently active section
+  let currentActive = null;
+
+  // Function to set active section
+  const setActive = (sectionId) => {
+    if (sectionId !== currentActive) {
+      currentActive = sectionId;
+      navLinks.forEach((a) => a.classList.remove("active"));
+      const activeLink = linkById.get(sectionId);
+      if (activeLink) {
+        activeLink.classList.add("active");
+      }
+    }
+  };
+
+  // Set first section active on page load
+  if (sections.length > 0) {
+    setActive(sections[0].id);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      // Process entries - find the topmost intersecting section
+      const intersecting = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => {
+          // Sort by position on page (topmost first)
+          return a.target.offsetTop - b.target.offsetTop;
+        });
+
+      // Get the first (topmost) intersecting section
+      const target = intersecting[0];
+      
+      if (target) {
+        setActive(target.target.id);
+      }
+    },
+    {
+      root: null,
+      threshold: 0,
+      rootMargin: "-100px 0px -50% 0px",
+    }
+  );
+
+  sections.forEach((s) => observer.observe(s));
+
+  // Optional: Handle scroll to top edge case
+  let lastScrollTop = 0;
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // If scrolled to top (within 50px), activate first section
+    if (scrollTop < 50 && sections.length > 0) {
+      setActive(sections[0].id);
+    }
+    
+    lastScrollTop = scrollTop;
+  }, { passive: true });
+
+  // Sidebar toggle with class-based approach
+  const toggleBtn = document.getElementById("sidebarToggle");
+  const sidebar = document.getElementById("termsSidebar");
+  const closeBtn = document.getElementById("sidebarClose");
+
+  if (toggleBtn && sidebar) {
+    toggleBtn.addEventListener("click", () => {
+      sidebar.classList.add("sidebar-open");
+    });
+  }
+
+  if (closeBtn && sidebar) {
+    closeBtn.addEventListener("click", () => {
+      sidebar.classList.remove("sidebar-open");
+    });
+  }
+});
+
+// ============================================================================================================
+// ===================================== Privacy Policy Page JS ===============================================
+// ============================================================================================================
+
+// Privacy page interactions (unique; does not touch site-wide app.js)
+(function () {
+  const toggles = document.querySelectorAll("[data-pp-toggle]");
+  toggles.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".ppSectionCard");
+      const body = card.querySelector("[data-pp-body]");
+      const icon = btn.querySelector("i");
+      const isHidden = body.hasAttribute("hidden");
+      if (isHidden) {
+        body.removeAttribute("hidden");
+        icon.style.transform = "rotate(0deg)";
+      } else {
+        body.setAttribute("hidden", "");
+        icon.style.transform = "rotate(-180deg)";
+      }
+    });
+  });
+  // Active TOC (exact match via IntersectionObserver)
+  const tocLinks = [...document.querySelectorAll(".ppTocLink")];
+  const linkById = new Map(
+    tocLinks.map((a) => [a.getAttribute("href").slice(1), a])
+  );
+  const secs = [...document.querySelectorAll(".ppSection")].filter((s) =>
+    linkById.has(s.id)
+  );
+  const io = new IntersectionObserver(
+    (entries) => {
+      const top = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!top) return;
+      tocLinks.forEach((a) => a.classList.remove("isActive"));
+      linkById.get(top.target.id)?.classList.add("isActive");
+    },
+    { threshold: [0.18, 0.28, 0.4], rootMargin: "-110px 0px -60% 0px" }
+  );
+  secs.forEach((s) => io.observe(s));
+})();

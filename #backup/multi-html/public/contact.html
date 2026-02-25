@@ -8,8 +8,8 @@
     <meta name="description"
         content="Contact NP TRIGUNAYAT SYSTEMS to start your project, ask questions, or discuss custom web solutions.">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./sources/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/sources/style.css">
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
@@ -24,7 +24,7 @@
     <!-- ===== PRELOADER ===== -->
     <div class="preloader" id="preloader">
         <div class="loader">
-            <img src="./images/Logo.png" alt="Logo" class="loader-logo">
+            <img src="/images/Logo.png" alt="Logo" class="loader-logo">
         </div>
         <p class="loader-text">NP TRIGUNAYAT</p>
     </div>
@@ -35,21 +35,24 @@
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="../index.html" class="nav-brand">
+            <a href="/index.html" class="nav-brand">
                 <div class="nav-brand-logo">
-                    <img src="./images/Logo.png" alt="NP TRIGUNAYAT Logo">
+                    <img src="/images/Logo.png" alt="NP TRIGUNAYAT Logo">
                 </div>
                 <div>NP <span>TRIGUNAYAT</span></div>
             </a>
             <ul class="nav-links" id="navLinks">
-                <li class="nav-link"><a href="./index.html">Home</a></li>
-                <li class="nav-link"><a href="./services.html">Services</a></li>
-                <li class="nav-link"><a href="./portfolio.html">Portfolio</a></li>
-                <li class="nav-link"><a href="./pricing.html">Pricing</a></li>
-                <li class="nav-link"><a href="./about.html">About</a></li>
-                <li class="nav-link"><a href="./testimonials.html">Testimonials</a></li>
-                <li class="nav-link"><a href="./contact.html" class="active">Contact</a></li>
+                <li class="nav-link"><a href="/index.html">Home</a></li>
+                <li class="nav-link"><a href="/services.html">Services</a></li>
+                <li class="nav-link"><a href="/portfolio.html">Portfolio</a></li>
+                <li class="nav-link"><a href="/pricing.html">Pricing</a></li>
+                <li class="nav-link"><a href="/testimonials.html">Testimonials</a></li>
+                <li class="nav-link"><a href="/about.html">About</a></li>
+                <li class="nav-link"><a href="/faqs.html">FAQs</a></li>
+                <!-- Highlighted Contact Button -->
+                <li class="nav-link"><a href="/contact.html" class="active">Contact</a></li>
             </ul>
+
             <button class="nav-toggle" id="navToggle">
                 <span></span>
                 <span></span>
@@ -72,7 +75,7 @@
 
                 <div class="contact-methods">
                     <!-- Email -->
-                    <a href="mailto:hello@nptrigunayat.co" class="contact-method">
+                    <a href="mailto:hello@nptrigunayat.com" class="contact-method">
                         <div class="contact-icon">
                             <i class="fas fa-envelope"></i>
                         </div>
@@ -83,8 +86,8 @@
                     </a>
 
                     <!-- WhatsApp -->
-                    <a href="https:///wa.me/+919506919515?text=Hello! I visited your website and I’m interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
-                        target="_blank" class="contact-method">
+                    <a href="https://wa.me/+919506919515?text=Hello! I visited your website and I’m interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
+                        target="_blank" rel="noopener" class="contact-method">
                         <div class="contact-icon">
                             <i class="fab fa-whatsapp"></i>
                         </div>
@@ -106,28 +109,28 @@
                     </a>
 
                     <!-- Instagram -->
-                    <a href="https://instagram.com/nainabh_vibes" target="_blank" class="contact-method">
+                    <a href="https://instagram.com/nptrigunayat" target="_blank" rel="noopener" class="contact-method">
                         <div class="contact-icon">
                             <i class="fab fa-instagram"></i>
                         </div>
                         <div class="contact-details">
                             <h4>Instagram</h4>
-                            <p>@nainabh_vibes</p>
+                            <p>@nptrigunayat</p>
                         </div>
                     </a>
                 </div>
 
                 <!-- Social Media Buttons -->
                 <div class="quick-connect">
-                    <a href="https://github.com/yourusername" target="_blank" class="social-button" title="GitHub">
-                        <i class="fab fa-github"></i>
+                    <a href="https://t.me/nptrigunayat" target="_blank" rel="noopener" class="social-button" title="GitHub">
+                        <i class="fab fa-telegram"></i>
                     </a>
-                    <a href="https://linkedin.com/in/yourusername" target="_blank" class="social-button"
+                    <a href="https://www.linkedin.com/in/nptrigunayat" target="_blank" rel="noopener" class="social-button"
                         title="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://twitter.com/yourusername" target="_blank" class="social-button" title="Twitter">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://x.com/nptrigunayat" target="_blank" rel="noopener" class="social-button" title="Twitter">
+                        <i class="fa-brands fa-x-twitter"></i>
                     </a>
                 </div>
             </div>
@@ -153,13 +156,12 @@
                         <label for="selectedPlan" class="form-label">Select Plan</label>
                         <select id="selectedPlan" name="selected_plan" class="form-input">
                             <option value="" disabled selected>Choose your plan</option>
-                            <option value="Starter">Starter - ₹15,000</option>
-                            <option value="Professional">Professional - ₹45,000</option>
-                            <option value="Enterprise">Enterprise - ₹60,000</option>
-                            <option value="Enterprise Plus">Enterprise Plus - ₹75,000+</option>
-                            <option value="Maintenance">Maintenance - ₹5,000/month</option>
-                            <option value="Redesign">Redesign - ₹25,000</option>
-                            <option value="Custom">Custom Project</option>
+                            <option value="Starter">Starter</option>
+                            <option value="Business">Business</option>
+                            <option value="Professional">Professional</option>
+                            <option value="Custom">Custom</option>
+                            <option value="Redesign">Redesign</option>
+                            <option value="Maintenance">Maintenance</option>
                         </select>
                     </div>
 
@@ -173,6 +175,18 @@
                         <label for="message" class="form-label">Project Details</label>
                         <textarea id="message" name="message" class="form-textarea" required></textarea>
                     </div>
+
+                    <p class="pricing-description">By submitting this form, you agree to the
+                        <a href="/terms.html" style="color: var(--color-primary); font-weight:600;"> Terms & Conditions
+                        </a> and
+                        <a href="/privacy.html" style="color: var(--color-primary); font-weight:600;"> Privacy Policy
+                        </a>.
+                    </p>
+                    
+                    <input type="hidden" name="submission_date" id="submission_date">
+                    <input type="hidden" name="submission_time" id="submission_time">
+                    <input type="hidden" name="submission_timestamp" id="submission_timestamp">
+                    <input type="hidden" name="user_ip" id="user_ip">
 
                     <button type="submit" class="submit-button">
                         <span>Send Message</span>
@@ -191,17 +205,17 @@
                 <p>Creative developer crafting exceptional digital experiences. Transforming ideas into powerful web
                     solutions that drive business growth.</p>
                 <div class="social-links">
-                    <a href="https://www.youtube.com/@nainabhvibes" target="_blank" aria-label="YouTube">
+                    <a href="https://www.youtube.com/@nainabhvibes" target="_blank" rel="noopener" aria-label="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
-                    <a href="https:///wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
-                        target="_blank" aria-label="WhatsApp">
+                    <a href="https://wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
+                        target="_blank" rel="noopener" aria-label="WhatsApp">
                         <i class="fab fa-whatsapp"></i>
                     </a>
-                    <a href="https://t.me/yourusername" target="_blank" aria-label="Telegram">
+                    <a href="https://t.me/nptrigunayat" target="_blank" rel="noopener" aria-label="Telegram">
                         <i class="fab fa-telegram"></i>
                     </a>
-                    <a href="https://instagram.com/nainabh_vibes" target="_blank" aria-label="Instagram">
+                    <a href="https://instagram.com/nptrigunayat" target="_blank" rel="noopener" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
                 </div>
@@ -210,23 +224,26 @@
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
-                    <li><a href="../index.html">Home</a></li>
-                    <li><a href="../services.html">Services</a></li>
-                    <li><a href="../portfolio.html">Portfolio</a></li>
-                    <li><a href="../testimonials.html">Testimonials</a></li>
-                    <li><a href="../contact.html">Contact</a></li>
+                    <li><a href="/index.html">Home</a></li>
+                    <li><a href="/services.html">Services</a></li>
+                    <li><a href="/portfolio.html">Portfolio</a></li>
+                    <li><a href="/testimonials.html">Testimonials</a></li>
+                    <li><a href="/contact.html">Contact</a></li>
+                    <li><a href="/faqs.html">FAQs</a></li>
+                    <li><a href="/privacy.html">Privacy Policy</a></li>
+                    <li><a href="/terms.html">Terms & Conditions</a></li>
                 </ul>
             </div>
 
             <div class="footer-section">
                 <h4>Services</h4>
                 <ul class="footer-links">
-                    <li><a href="../services.html">Full-Stack Development</a></li>
-                    <li><a href="../services.html">Management Systems</a></li>
-                    <li><a href="../services.html">Performance Optimization</a></li>
-                    <li><a href="../services.html">Business Solutions</a></li>
-                    <li><a href="../services.html">Mobile-First Development</a></li>
-                    <li><a href="../services.html">Security & Maintenance</a></li>
+                    <li><a href="/services.html">Full-Stack Development</a></li>
+                    <li><a href="/services.html">Management Systems</a></li>
+                    <li><a href="/services.html">Performance Optimization</a></li>
+                    <li><a href="/services.html">Business Solutions</a></li>
+                    <li><a href="/services.html">Mobile-First Development</a></li>
+                    <li><a href="/services.html">Security & Maintenance</a></li>
                 </ul>
             </div>
 
@@ -234,9 +251,10 @@
                 <h4>Contact</h4>
                 <ul class="footer-links">
                     <li><a href="mailto:hello@nptrigunayat.com">Email</a></li>
-                    <li><a href="https://wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS." target="_blank">WhatsApp</a></li>
+                    <li><a href="https://wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
+                            target="_blank" rel="noopener">WhatsApp</a></li>
                     <li><a href="tel:+919506919515">Phone</a></li>
-                    <li><a href="https://instagram.com/nainabh_vibes" target="_blank">Instagram</a></li>
+                    <li><a href="https://instagram.com/nptrigunayat" target="_blank" rel="noopener">Instagram</a></li>
                 </ul>
             </div>
         </div>

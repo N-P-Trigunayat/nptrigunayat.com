@@ -2,11 +2,96 @@
 <html lang="en" class="scroll-smooth">
 
 <head>
+    <!-- ===== PERFORMANCE & CRITICAL META ===== -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>wrkout world | Get Stronger</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com;">
+    
+    <!-- ===== LOCAL BUSINESS SEO (LUCKNOW GYM) ===== -->
+    <title>WRKOUT WORLD Lucknow Gym | Ashiyana Strength Training | Sector-J Rail Nagar</title>
+    <meta name="description" content="Premium strength training gym in Ashiyana, Lucknow. WRKOUT WORLD at 1st Floor, A6 Sector-J, Rail Nagar. Expert coaching, unlimited classes, nutrition guidance. Call +91 98765 43210.">
+    
+    <!-- Schema Keywords - Hyper Local -->
+    <meta name="keywords" content="gym Lucknow, WRKOUT WORLD, Ashiyana gym, Rail Nagar gym, Sector-J gym, strength training Lucknow, best gym Lucknow, fitness Lucknow, personal trainer Lucknow, HIIT Lucknow, CrossFit Lucknow, weightlifting Lucknow">
+    <meta name="author" content="WRKOUT WORLD">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    
+    <!-- ===== OPEN GRAPH (FACEBOOK/INSTAGRAM) ===== -->
+    <meta property="og:type" content="business.business">
+    <meta property="og:title" content="WRKOUT WORLD | Best Gym in Ashiyana Lucknow">
+    <meta property="og:description" content="Strength gym at 1st Floor, A6 Sector-J, Rail Nagar, Ashiyana, Lucknow 226012. Get stronger today.">
+    <meta property="og:url" content="https://wrkoutworld.in">
+    <meta property="og:site_name" content="WRKOUT WORLD">
+    <meta property="og:image" content="https://wrkoutworld.in/images/og-gym-lucknow.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="WRKOUT WORLD gym interior Lucknow">
+    <meta property="og:locale" content="en_IN">
+    <meta property="fb:app_id" content="YOUR_FB_APP_ID">
+    
+    <!-- ===== TWITTER CARD ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@wrkoutworld">
+    <meta name="twitter:creator" content="@wrkoutworld">
+    <meta name="twitter:title" content="WRKOUT WORLD | Ashiyana Lucknow Gym">
+    <meta name="twitter:description" content="Strength training at Sector-J Rail Nagar. Lucknow's strongest gym.">
+    <meta name="twitter:image" content="https://wrkoutworld.in/images/twitter-gym-lucknow.jpg">
+    <meta name="twitter:image:alt" content="Lucknow gym WRKOUT WORLD">
+    
+    <!-- ===== LOCAL BUSINESS STRUCTURED DATA ===== -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Gym",
+        "name": "WRKOUT WORLD",
+        "description": "Premium strength training gym in Ashiyana, Lucknow",
+        "url": "https://wrkoutworld.in",
+        "telephone": "+91-98765-43210",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1st Floor, A6 Sector-J, Rail Nagar",
+            "addressLocality": "Ashiyana",
+            "addressRegion": "Uttar Pradesh",
+            "postalCode": "226012",
+            "addressCountry": "IN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 26.8175,
+            "longitude": 80.9462
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "05:00",
+            "closes": "23:00"
+        },
+        "priceRange": "₹",
+        "sameAs": ["https://instagram.com/wrkouttworld", "https://facebook.com/wrkouttworld"]
+    }
+    </script>
+    
+    <!-- ===== GOOGLE BUSINESS VERIFICATION ===== -->
+    <meta name="google-site-verification" content="YOUR_GOOGLE_VERIFICATION_CODE">
+    
+    <!-- ===== FAVICONS & PWA ===== -->
+    <link rel="canonical" href="https://wrkoutworld.in/">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#ff6a00">
+    <meta name="msapplication-TileColor" content="#ff6a00">
+    
+    <!-- ===== PERFORMANCE PRELOADS ===== -->
+    <link rel="preload" href="/styles.css" as="style" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" as="style" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- ===== TAILWIND + CUSTOMIZATION ===== -->
+    <script src="https://cdn.tailwindcss.com" fetchpriority="high"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -22,20 +107,30 @@
             }
         }
     </script>
-    <!-- Wrong theme apply prevention -->
+    
+    <!-- ===== CRITICAL THEME (BEFORE PAINT) ===== -->
     <script>
-        // Immediately set the theme before the page renders to prevent flashing
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        (function() {
+            const html = document.documentElement;
+            const isDark = localStorage.getItem('theme') === 'dark' || 
+                          (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            if (isDark) html.classList.add('dark');
+        })();
     </script>
-
-    <!-- Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ===== FONTS ===== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- ===== ICONS ===== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- ===== CUSTOM STYLES ===== -->
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- ===== SITEMAP & VERIFICATION ===== -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 </head>
+
 
 <body class="bg-light-100 dark:bg-dark-900 text-gray-800 dark:text-gray-200 transition-colors duration-300">
 
@@ -55,15 +150,7 @@
                     <a href="about.html" class="hover:text-primary transition-colors">About</a>
                     <a href="pricing.html" class="hover:text-primary transition-colors">Pricing</a>
                     <a href="gallery.html" class="hover:text-primary transition-colors">Gallery</a>
-                    <a href="contact.html" class="hover:text-primary transition-colors">Contact</a>
-
-                    <!-- Theme Toggle -->
-                    <button id="theme-toggle"
-                        class="w-10 h-10 rounded-full bg-gray-200 dark:bg-dark-700 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-                        <i class="fas fa-moon"></i>
-                    </button>
-
-                    <a href="pricing.html"
+                    <a href="contact.html"
                         class="bg-primary text-white px-6 py-2 rounded-full font-bold hover:bg-orange-600 transition-all hover:shadow-lg hover:shadow-orange-500/30">
                         Join Now
                     </a>
@@ -101,46 +188,58 @@
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
-            <h1 class="text-6xl md:text-8xl font-black uppercase tracking-tighter mb-6 fade-up">
+            <!-- RESPONSIVE HERO TEXT -->
+            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter mb-6 fade-up">
                 Get <span
                     class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-400">Stronger.</span><br>
                 Feel Unstoppable.
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto font-medium fade-up"
+
+            <p class="text-base sm:text-lg md:text-2xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto font-medium fade-up"
                 style="transition-delay: 100ms;">
-                Small classes. Expert coaches. No‑nonsense programming designed to push your limits.
+                Small classes. Expert coaches. No-nonsense programming designed to push your limits.
             </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center fade-up" style="transition-delay: 200ms;">
+
+            <!-- RESPONSIVE BUTTONS -->
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center fade-up w-full"
+                style="transition-delay: 200ms;">
                 <a href="#"
-                    class="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-orange-600 transition-all hover:scale-105 shadow-xl shadow-orange-500/20">
+                    class="bg-primary text-white px-8 py-4 rounded-full font-bold text-lg w-full max-w-[280px] md:w-auto hover:bg-orange-600 transition-all hover:scale-105 shadow-xl shadow-orange-500/20">
                     Book Free Trial
                 </a>
                 <a href="pricing.html"
-                    class="border-2 border-gray-300 dark:border-gray-600 px-8 py-4 rounded-full font-bold text-lg hover:border-primary hover:text-primary transition-all">
+                    class="border-2 border-gray-300 dark:border-gray-600 px-8 py-4 rounded-full font-bold text-lg w-full max-w-[280px] md:w-auto hover:border-primary hover:text-primary transition-all">
                     See Pricing
                 </a>
             </div>
         </div>
     </section>
 
+
     <!-- Animated Stats -->
     <section class="py-12 border-y border-gray-200 dark:border-dark-700 bg-white dark:bg-dark-800">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
-                <h3 class="text-4xl font-black text-primary mb-2"><span class="stat-number" data-target="1500">0</span>+
+                <h3 class="text-4xl font-black text-primary mb-2">
+                    <span class="stat-number" data-target="1500">0</span>
                 </h3>
                 <p class="text-sm font-bold uppercase tracking-widest text-gray-500">Members</p>
             </div>
+
             <div>
-                <h3 class="text-4xl font-black text-primary mb-2"><span class="stat-number" data-target="25">0</span>+
+                <h3 class="text-4xl font-black text-primary mb-2">
+                    <span class="stat-number" data-target="25">0</span>
                 </h3>
                 <p class="text-sm font-bold uppercase tracking-widest text-gray-500">Trainers</p>
             </div>
+
             <div>
-                <h3 class="text-4xl font-black text-primary mb-2"><span class="stat-number" data-target="50">0</span>+
+                <h3 class="text-4xl font-black text-primary mb-2">
+                    <span class="stat-number" data-target="50">0</span>
                 </h3>
                 <p class="text-sm font-bold uppercase tracking-widest text-gray-500">Classes/Week</p>
             </div>
+
             <div>
                 <h3 class="text-4xl font-black text-primary mb-2">4.9</h3>
                 <p class="text-sm font-bold uppercase tracking-widest text-gray-500">Avg Rating</p>

@@ -17,159 +17,6 @@
     <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0B8080">
-
-
-    <style>
-        /* --- MODAL PANEL LAYOUT --- */
-        .modal-panel {
-            display: none;
-            padding: var(--space-48) var(--space-32);
-        }
-
-        .modal-panel.active {
-            display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: var(--space-48);
-        }
-
-        @media (max-width: 768px) {
-            .modal-panel.active {
-                grid-template-columns: 1fr;
-            }
-
-            .modal-panel {
-                padding: var(--space-32) var(--space-24);
-            }
-        }
-
-        /* --- MAIN CONTENT --- */
-        .modal-main {
-            min-width: 0;
-        }
-
-        .modal-category {
-            display: inline-block;
-            background: linear-gradient(135deg, #8b5cf6, #3b82f6);
-            color: white;
-            padding: 7px 16px;
-            border-radius: 50px;
-            font-size: var(--font-size-sm);
-            font-weight: 600;
-            margin-bottom: var(--space-16);
-        }
-
-        .modal-title {
-            font-size: var(--font-size-2xl);
-            color: var(--color-text);
-            margin-bottom: var(--space-24);
-            font-weight: 700;
-            line-height: 1.2;
-        }
-
-        .modal-section {
-            margin-bottom: var(--space-32);
-        }
-
-        .modal-section h3 {
-            font-size: var(--font-size-lg);
-            color: var(--color-text);
-            margin-bottom: var(--space-16);
-            font-weight: 600;
-        }
-
-        .modal-section p {
-            color: var(--color-text-secondary);
-            line-height: 1.7;
-            margin-bottom: var(--space-16);
-        }
-
-        .modal-section ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-section ul li {
-            padding: var(--space-8) 0;
-            color: var(--color-text-secondary);
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-8);
-        }
-
-        .modal-section ul li::before {
-            content: '→';
-            color: var(--color-primary);
-            font-weight: bold;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        /* --- SIDEBAR PANEL --- */
-        .modal-sidebar {
-            position: sticky;
-            top: var(--space-24);
-            height: fit-content;
-        }
-
-        @media (max-width: 768px) {
-            .modal-sidebar {
-                position: static;
-            }
-        }
-
-        .modal-outcomes,
-        .modal-tech {
-            background: var(--color-background);
-            padding: var(--space-24);
-            border-radius: var(--radius-lg);
-            border: 2px solid var(--color-card-border);
-            margin-bottom: var(--space-24);
-        }
-
-        .modal-outcomes h4,
-        .modal-tech h4 {
-            font-size: var(--font-size-base);
-            color: var(--color-text);
-            margin-bottom: var(--space-16);
-            font-weight: 600;
-        }
-
-        .modal-outcomes ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .modal-outcomes ul li {
-            padding: var(--space-8) 0;
-            color: var(--color-text-secondary);
-            font-size: var(--font-size-sm);
-            display: flex;
-            align-items: flex-start;
-            gap: var(--space-8);
-        }
-
-        .modal-outcomes ul li::before {
-            content: '✓';
-            color: var(--color-primary);
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        .modal-tech-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: var(--space-8);
-        }
-
-        .tech-tag {
-            background: var(--color-primary);
-            color: white;
-            padding: 3px 12px;
-            border-radius: 20px;
-            font-size: var(--font-size-sm);
-            font-weight: 500;
-        }
-    </style>
 </head>
 
 <body>
@@ -291,22 +138,16 @@
                 <p>Creative developer crafting exceptional digital experiences. Transforming ideas into powerful web
                     solutions that drive business growth.</p>
                 <div class="social-links">
-                    <a href="https://www.youtube.com/@nainabhvibes" target="_blank" aria-label="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS."
-                        target="_blank" aria-label="WhatsApp">
-                        <i class="fab fa-whatsapp"></i>
-                    </a>
-                    <a href="https://t.me/yourusername" target="_blank" aria-label="Telegram">
-                        <i class="fab fa-telegram"></i>
-                    </a>
-                    <a href="https://instagram.com/nainabh_vibes" target="_blank" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
+                    <a href="https://www.youtube.com/@nainabhvibes" target="_blank" rel="noopener" aria-label="YouTube"><i
+                            class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/919506919515?text=Hello!%20I%20visited%20your%20website%20and%20I%27m%20interested%20in%20discussing%20a%20project%20with%20NP%20TRIGUNAYAT%20SYSTEMS."
+                        target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://t.me/nptrigunayat" target="_blank" rel="noopener" aria-label="Telegram"><i
+                            class="fab fa-telegram"></i></a>
+                    <a href="https://instagram.com/nptrigunayat" target="_blank" rel="noopener" aria-label="Instagram"><i
+                            class="fab fa-instagram"></i></a>
                 </div>
             </div>
-
             <div class="footer-section">
                 <h4>Quick Links</h4>
                 <ul class="footer-links">
@@ -315,9 +156,11 @@
                     <li><a href="../portfolio.html">Portfolio</a></li>
                     <li><a href="../testimonials.html">Testimonials</a></li>
                     <li><a href="../contact.html">Contact</a></li>
+                    <li><a href="../faqs.html">FAQs</a></li>
+                    <li><a href="../privacy.html">Privacy Policy</a></li>
+                    <li><a href="../terms.html">Terms & Conditions</a></li>
                 </ul>
             </div>
-
             <div class="footer-section">
                 <h4>Services</h4>
                 <ul class="footer-links">
@@ -329,20 +172,19 @@
                     <li><a href="../services.html">Security & Maintenance</a></li>
                 </ul>
             </div>
-
             <div class="footer-section">
                 <h4>Contact</h4>
                 <ul class="footer-links">
                     <li><a href="mailto:hello@nptrigunayat.com">Email</a></li>
-                    <li><a href="https://wa.me/+919506919515?text=Hello! I visited your website and I'm interested in discussing a project with NP TRIGUNAYAT SYSTEMS." target="_blank">WhatsApp</a></li>
+                    <li><a href="https://wa.me/919506919515?text=Hello!%20I%20visited%20your%20website%20and%20I%27m%20interested%20in%20discussing%20a%20project%20with%20NP%20TRIGUNAYAT%20SYSTEMS."
+                            target="_blank" rel="noopener">WhatsApp</a></li>
                     <li><a href="tel:+919506919515">Phone</a></li>
-                    <li><a href="https://instagram.com/nainabh_vibes" target="_blank">Instagram</a></li>
+                    <li><a href="https://instagram.com/nptrigunayat" target="_blank" rel="noopener">Instagram</a></li>
                 </ul>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <p>&copy; 2025 NP TRIGUNAYAT SYSTEMS. All rights reserved. Built with ❤️ in India.</p>
+            <p>&copy; 2026 NP TRIGUNAYAT Systems. All rights reserved. Built with ❤️ in India.</p>
         </div>
     </footer>
 
